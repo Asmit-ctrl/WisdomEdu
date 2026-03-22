@@ -1,0 +1,390 @@
+{
+  "subject": "math",
+  "gradeLevel": "10",
+  "curriculum": "Class 10 General Math MVP Seed",
+  "chapters": [
+    {
+      "chapterNumber": 2,
+      "code": "G10-POLYNOMIALS",
+      "name": "Polynomials",
+      "description": "Zeros of polynomials and coefficient relations.",
+      "skillId": "polynomials_basic",
+      "skillName": "Polynomials Basics",
+      "standard": "MATH-POLYNOMIALS",
+      "lessonSummary": "Move between factor form, zeros, and coefficients.",
+      "practiceFocus": "Sum and product of zeros and factor form",
+      "checkpointGoal": "Use zero relationships on quadratic polynomials accurately.",
+      "questions": [
+        {
+          "topic": "Sum of zeros",
+          "prompt": "For the polynomial x^2 - 7x + 10, what is the sum of the zeros?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "7",
+          "explanation": "For ax^2 + bx + c, sum of zeros = -b/a.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Sum of zeros",
+          "prompt": "For the polynomial x^2 - 11x + 24, what is the sum of the zeros?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "11",
+          "explanation": "For ax^2 + bx + c, sum of zeros = -b/a.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Sum of zeros",
+          "prompt": "For the polynomial 2x^2 - 9x + 4, what is the sum of the zeros?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "9/2",
+          "explanation": "For ax^2 + bx + c, sum of zeros = -b/a.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Sum of zeros",
+          "prompt": "For the polynomial 3x^2 - 12x + 9, what is the sum of the zeros?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "4",
+          "explanation": "For ax^2 + bx + c, sum of zeros = -b/a.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Sum of zeros",
+          "prompt": "For the polynomial x^2 + 5x + 6, what is the sum of the zeros?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "-5",
+          "explanation": "For ax^2 + bx + c, sum of zeros = -b/a.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Sum of zeros",
+          "prompt": "For the polynomial x^2 - x - 12, what is the sum of the zeros?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "1",
+          "explanation": "For ax^2 + bx + c, sum of zeros = -b/a.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Product of zeros",
+          "prompt": "For the polynomial x^2 - 7x + 10, what is the product of the zeros?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "10",
+          "explanation": "For ax^2 + bx + c, product of zeros = c/a.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Product of zeros",
+          "prompt": "For the polynomial x^2 - 11x + 24, what is the product of the zeros?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "24",
+          "explanation": "For ax^2 + bx + c, product of zeros = c/a.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Product of zeros",
+          "prompt": "For the polynomial 2x^2 - 9x + 4, what is the product of the zeros?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "2",
+          "explanation": "For ax^2 + bx + c, product of zeros = c/a.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Product of zeros",
+          "prompt": "For the polynomial 3x^2 - 12x + 9, what is the product of the zeros?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "3",
+          "explanation": "For ax^2 + bx + c, product of zeros = c/a.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Product of zeros",
+          "prompt": "For the polynomial x^2 + 5x + 6, what is the product of the zeros?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "6",
+          "explanation": "For ax^2 + bx + c, product of zeros = c/a.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Product of zeros",
+          "prompt": "For the polynomial x^2 - x - 12, what is the product of the zeros?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "-12",
+          "explanation": "For ax^2 + bx + c, product of zeros = c/a.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Forming polynomial",
+          "prompt": "A quadratic polynomial has zeros 4 and -1. Which polynomial matches this?",
+          "questionType": "mcq",
+          "options": [
+            "x^2 - 3x - 4",
+            "x^2 + 3x + -4",
+            "x^2 - 5x + -4",
+            "x^2 + -5x - -4"
+          ],
+          "correctAnswer": "x^2 - 3x - 4",
+          "explanation": "A monic quadratic with zeros alpha and beta is x^2 - (alpha + beta)x + alphabeta.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 80,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Forming polynomial",
+          "prompt": "A quadratic polynomial has zeros 2 and 5. Which polynomial matches this?",
+          "questionType": "mcq",
+          "options": [
+            "x^2 - 7x + 10",
+            "x^2 + 7x + 10",
+            "x^2 - -3x + 10",
+            "x^2 + 3x - 10"
+          ],
+          "correctAnswer": "x^2 - 7x + 10",
+          "explanation": "A monic quadratic with zeros alpha and beta is x^2 - (alpha + beta)x + alphabeta.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 80,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Forming polynomial",
+          "prompt": "A quadratic polynomial has zeros -3 and -4. Which polynomial matches this?",
+          "questionType": "mcq",
+          "options": [
+            "x^2 + 7x + 12",
+            "x^2 + -7x + 12",
+            "x^2 - 1x + 12",
+            "x^2 + -1x - 12"
+          ],
+          "correctAnswer": "x^2 + 7x + 12",
+          "explanation": "A monic quadratic with zeros alpha and beta is x^2 - (alpha + beta)x + alphabeta.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 80,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Forming polynomial",
+          "prompt": "A quadratic polynomial has zeros 1 and -6. Which polynomial matches this?",
+          "questionType": "mcq",
+          "options": [
+            "x^2 + 5x - 6",
+            "x^2 + -5x + -6",
+            "x^2 - 7x + -6",
+            "x^2 + -7x - -6"
+          ],
+          "correctAnswer": "x^2 + 5x - 6",
+          "explanation": "A monic quadratic with zeros alpha and beta is x^2 - (alpha + beta)x + alphabeta.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 80,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Forming polynomial",
+          "prompt": "A quadratic polynomial has zeros 3 and 3. Which polynomial matches this?",
+          "questionType": "mcq",
+          "options": [
+            "x^2 - 6x + 9",
+            "x^2 + 6x + 9",
+            "x^2 - 0x + 9",
+            "x^2 + 0x - 9"
+          ],
+          "correctAnswer": "x^2 - 6x + 9",
+          "explanation": "A monic quadratic with zeros alpha and beta is x^2 - (alpha + beta)x + alphabeta.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 80,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Forming polynomial",
+          "prompt": "A quadratic polynomial has zeros 7 and -2. Which polynomial matches this?",
+          "questionType": "mcq",
+          "options": [
+            "x^2 - 5x - 14",
+            "x^2 + 5x + -14",
+            "x^2 - 9x + -14",
+            "x^2 + -9x - -14"
+          ],
+          "correctAnswer": "x^2 - 5x - 14",
+          "explanation": "A monic quadratic with zeros alpha and beta is x^2 - (alpha + beta)x + alphabeta.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 80,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Coefficient relation",
+          "prompt": "For ax^2 + bx + c, the sum of zeros is ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "-b/a",
+          "explanation": "This is the standard relation between coefficients and zeros.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Coefficient relation",
+          "prompt": "For ax^2 + bx + c, the product of zeros is ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "c/a",
+          "explanation": "This is the standard relation between coefficients and zeros.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Zeros of polynomial",
+          "prompt": "If 2 and 3 are zeros of a monic quadratic polynomial, then the polynomial is x^2 - 5x + 6.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "The polynomial is (x - 2)(x - 3).",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Zeros of polynomial",
+          "prompt": "The sum of zeros of x^2 + 4x + 3 is 4.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "False",
+          "explanation": "The sum is -4.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Factor form",
+          "prompt": "If the zeros are alpha and beta, a monic quadratic can be written as (x - alpha)(x - ____).",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "beta",
+          "explanation": "The factor form uses both zeros.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Polynomial value",
+          "prompt": "If x = 2 is a zero of a polynomial p(x), then p(2) = 0.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "That is the definition of a zero.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Finding remaining zero",
+          "prompt": "If one zero of x^2 - 5x + 6 is 2, what is the other zero?",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "3",
+          "explanation": "The factors are (x - 2)(x - 3).",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Using relations",
+          "prompt": "A quadratic polynomial has sum of zeros 8 and product of zeros 15. Write the polynomial.",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "x^2 - 8x + 15",
+          "explanation": "The polynomial is x^2 - (sum)x + product.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 85,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Polynomial check",
+          "prompt": "A student claims that x^2 - 9x + 20 has zeros 4 and 5. Is the claim correct? Answer True or False.",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "True",
+          "explanation": "4 + 5 = 9 and 4 x 5 = 20.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 65,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Coefficient reasoning",
+          "prompt": "For 2x^2 - 9x + 4, what is the product of zeros in simplest form?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "2",
+          "explanation": "Product = c/a = 4/2 = 2.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Forming polynomial",
+          "prompt": "Write a monic quadratic polynomial whose zeros are -2 and 6.",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "x^2 - 4x - 12",
+          "explanation": "The polynomial is (x + 2)(x - 6).",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 80,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Zero relation",
+          "prompt": "A polynomial has zeros 1/2 and 3. What is the sum of zeros?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "7/2",
+          "explanation": "Add the zeros directly or use coefficient relations after forming the polynomial.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 90,
+          "hintWeight": 1
+        }
+      ]
+    }
+  ]
+}

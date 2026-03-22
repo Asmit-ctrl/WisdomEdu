@@ -1,0 +1,390 @@
+{
+  "subject": "math",
+  "gradeLevel": "10",
+  "curriculum": "Class 10 General Math MVP Seed",
+  "chapters": [
+    {
+      "chapterNumber": 7,
+      "code": "G10-COORDINATE-GEOMETRY",
+      "name": "Coordinate Geometry",
+      "description": "Distance and midpoint reasoning in the coordinate plane.",
+      "skillId": "coordinate_geometry_basic",
+      "skillName": "Coordinate Geometry Basics",
+      "standard": "MATH-COORDINATE-GEOMETRY",
+      "lessonSummary": "Use formulas to reason about points and segments on a plane.",
+      "practiceFocus": "Distance formula and midpoint interpretation",
+      "checkpointGoal": "Compute and interpret coordinate geometry results accurately.",
+      "questions": [
+        {
+          "topic": "Distance formula",
+          "prompt": "Find the distance between (0, 0) and (3, 4).",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "5",
+          "explanation": "Use sqrt[(x2 - x1)^2 + (y2 - y1)^2].",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Distance formula",
+          "prompt": "Find the distance between (2, 1) and (5, 5).",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "5",
+          "explanation": "Use sqrt[(x2 - x1)^2 + (y2 - y1)^2].",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Distance formula",
+          "prompt": "Find the distance between (-1, 2) and (2, 6).",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "5",
+          "explanation": "Use sqrt[(x2 - x1)^2 + (y2 - y1)^2].",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Distance formula",
+          "prompt": "Find the distance between (1, 3) and (1, 9).",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "6",
+          "explanation": "Use sqrt[(x2 - x1)^2 + (y2 - y1)^2].",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Distance formula",
+          "prompt": "Find the distance between (-2, -3) and (4, -3).",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "6",
+          "explanation": "Use sqrt[(x2 - x1)^2 + (y2 - y1)^2].",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Distance formula",
+          "prompt": "Find the distance between (2, -1) and (5, 3).",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "5",
+          "explanation": "Use sqrt[(x2 - x1)^2 + (y2 - y1)^2].",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Midpoint formula",
+          "prompt": "Find the midpoint of (2, 4) and (6, 8).",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "(4,6)",
+          "explanation": "The midpoint is ((x1 + x2)/2, (y1 + y2)/2).",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 70,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Midpoint formula",
+          "prompt": "Find the midpoint of (-2, 3) and (4, 7).",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "(1,5)",
+          "explanation": "The midpoint is ((x1 + x2)/2, (y1 + y2)/2).",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 70,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Midpoint formula",
+          "prompt": "Find the midpoint of (1, 1) and (5, 9).",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "(3,5)",
+          "explanation": "The midpoint is ((x1 + x2)/2, (y1 + y2)/2).",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 70,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Midpoint formula",
+          "prompt": "Find the midpoint of (-3, -1) and (3, 5).",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "(0,2)",
+          "explanation": "The midpoint is ((x1 + x2)/2, (y1 + y2)/2).",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 70,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Midpoint formula",
+          "prompt": "Find the midpoint of (2, -4) and (6, 2).",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "(4,-1)",
+          "explanation": "The midpoint is ((x1 + x2)/2, (y1 + y2)/2).",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 70,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Midpoint formula",
+          "prompt": "Find the midpoint of (-5, 7) and (1, -1).",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "(-2,3)",
+          "explanation": "The midpoint is ((x1 + x2)/2, (y1 + y2)/2).",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 70,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Area of triangle",
+          "prompt": "What is the area of the triangle with vertices (0, 0), (4, 0), and (0, 3)?",
+          "questionType": "mcq",
+          "options": [
+            "6",
+            "8",
+            "10",
+            "4"
+          ],
+          "correctAnswer": "6",
+          "explanation": "Use the coordinate area formula or base-height.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 95,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Area of triangle",
+          "prompt": "What is the area of the triangle with vertices (1, 1), (5, 1), and (1, 4)?",
+          "questionType": "mcq",
+          "options": [
+            "6",
+            "8",
+            "10",
+            "4"
+          ],
+          "correctAnswer": "6",
+          "explanation": "Use the coordinate area formula or base-height.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 95,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Area of triangle",
+          "prompt": "What is the area of the triangle with vertices (-2, 0), (2, 0), and (0, 5)?",
+          "questionType": "mcq",
+          "options": [
+            "10",
+            "12",
+            "14",
+            "8"
+          ],
+          "correctAnswer": "10",
+          "explanation": "Use the coordinate area formula or base-height.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 95,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Area of triangle",
+          "prompt": "What is the area of the triangle with vertices (0, 0), (6, 0), and (0, 2)?",
+          "questionType": "mcq",
+          "options": [
+            "6",
+            "8",
+            "10",
+            "4"
+          ],
+          "correctAnswer": "6",
+          "explanation": "Use the coordinate area formula or base-height.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 95,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Area of triangle",
+          "prompt": "What is the area of the triangle with vertices (2, 3), (6, 3), and (2, 8)?",
+          "questionType": "mcq",
+          "options": [
+            "10",
+            "12",
+            "14",
+            "8"
+          ],
+          "correctAnswer": "10",
+          "explanation": "Use the coordinate area formula or base-height.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 95,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Area of triangle",
+          "prompt": "What is the area of the triangle with vertices (-1, -1), (3, -1), and (-1, 2)?",
+          "questionType": "mcq",
+          "options": [
+            "6",
+            "8",
+            "10",
+            "4"
+          ],
+          "correctAnswer": "6",
+          "explanation": "Use the coordinate area formula or base-height.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 95,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Distance formula",
+          "prompt": "The distance between (0, 0) and (3, 4) is 5.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "This is a 3-4-5 triangle.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Collinearity",
+          "prompt": "Three points lying on the same straight line are called collinear.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "That is the definition of collinearity.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Section concept",
+          "prompt": "The midpoint divides a line segment in the ratio ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "1:1",
+          "explanation": "A midpoint makes two equal parts.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Coordinate plane",
+          "prompt": "The x-coordinate of a point is called the ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "abscissa",
+          "explanation": "The y-coordinate is the ordinate.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Distance property",
+          "prompt": "The distance between any two distinct points can be negative.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "False",
+          "explanation": "Distance is always non-negative.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Area property",
+          "prompt": "If three points are collinear, the area of the triangle formed by them is ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "0",
+          "explanation": "Collinear points do not form a triangle.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Distance formula",
+          "prompt": "A point moves from (1, 2) to (7, 2). What distance does it cover?",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "6",
+          "explanation": "The movement is horizontal, so distance is the difference in x-coordinates.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Midpoint",
+          "prompt": "One end of a diameter is (-4, 2) and the other is (6, 2). What is the center?",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "(1,2)",
+          "explanation": "The center is the midpoint.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Coordinate application",
+          "prompt": "A triangular park has vertices (0,0), (8,0), and (0,6). What is its area?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "24",
+          "explanation": "It is a right triangle with base 8 and height 6.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 150,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Collinearity",
+          "prompt": "Points A(1,1), B(2,2), and C(3,3) are checked by a student. Are they collinear? Answer True or False.",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "True",
+          "explanation": "All three points lie on y = x.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 150,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Midpoint interpretation",
+          "prompt": "Find the midpoint joining A(-1,5) and B(7,1).",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "(3,3)",
+          "explanation": "Average the coordinates.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Distance application",
+          "prompt": "A robot moves from (-2,-1) to (1,3). What is the straight-line distance?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "5",
+          "explanation": "Use the distance formula.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 150,
+          "hintWeight": 1
+        }
+      ]
+    }
+  ]
+}

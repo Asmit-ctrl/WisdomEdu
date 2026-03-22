@@ -1,0 +1,390 @@
+{
+  "subject": "math",
+  "gradeLevel": "10",
+  "curriculum": "Class 10 General Math MVP Seed",
+  "chapters": [
+    {
+      "chapterNumber": 12,
+      "code": "G10-AREAS-CIRCLES",
+      "name": "Areas Related to Circles",
+      "description": "Area and perimeter relations in circles and sectors.",
+      "skillId": "areas_circles_basic",
+      "skillName": "Areas Related to Circles Basics",
+      "standard": "MATH-AREAS-CIRCLES",
+      "lessonSummary": "Use fraction-of-circle reasoning for sectors and arcs.",
+      "practiceFocus": "Sector area and arc length",
+      "checkpointGoal": "Compute sector and circle measures accurately.",
+      "questions": [
+        {
+          "topic": "Arc length",
+          "prompt": "Using pi = 22/7, find the length of the arc of a circle with radius 21 cm and central angle 60 degrees.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "22",
+          "explanation": "Arc length = (theta/360) x 2pir.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 100,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Arc length",
+          "prompt": "Using pi = 22/7, find the length of the arc of a circle with radius 14 cm and central angle 90 degrees.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "22",
+          "explanation": "Arc length = (theta/360) x 2pir.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 100,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Arc length",
+          "prompt": "Using pi = 22/7, find the length of the arc of a circle with radius 7 cm and central angle 180 degrees.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "22",
+          "explanation": "Arc length = (theta/360) x 2pir.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 100,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Arc length",
+          "prompt": "Using pi = 22/7, find the length of the arc of a circle with radius 28 cm and central angle 45 degrees.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "22",
+          "explanation": "Arc length = (theta/360) x 2pir.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 100,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Arc length",
+          "prompt": "Using pi = 22/7, find the length of the arc of a circle with radius 35 cm and central angle 36 degrees.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "22",
+          "explanation": "Arc length = (theta/360) x 2pir.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 100,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Arc length",
+          "prompt": "Using pi = 22/7, find the length of the arc of a circle with radius 10.5 cm and central angle 120 degrees.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "22",
+          "explanation": "Arc length = (theta/360) x 2pir.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 100,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Sector area",
+          "prompt": "Using pi = 22/7, find the area of a sector of radius 14 cm and angle 90 degrees.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "154",
+          "explanation": "Area of sector = (theta/360) x pir^2.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 105,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Sector area",
+          "prompt": "Using pi = 22/7, find the area of a sector of radius 7 cm and angle 180 degrees.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "77",
+          "explanation": "Area of sector = (theta/360) x pir^2.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 105,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Sector area",
+          "prompt": "Using pi = 22/7, find the area of a sector of radius 21 cm and angle 60 degrees.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "231",
+          "explanation": "Area of sector = (theta/360) x pir^2.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 105,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Sector area",
+          "prompt": "Using pi = 22/7, find the area of a sector of radius 28 cm and angle 45 degrees.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "308",
+          "explanation": "Area of sector = (theta/360) x pir^2.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 105,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Sector area",
+          "prompt": "Using pi = 22/7, find the area of a sector of radius 10.5 cm and angle 120 degrees.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "115.5",
+          "explanation": "Area of sector = (theta/360) x pir^2.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 105,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Sector area",
+          "prompt": "Using pi = 22/7, find the area of a sector of radius 35 cm and angle 36 degrees.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "385",
+          "explanation": "Area of sector = (theta/360) x pir^2.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 105,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Semicircle",
+          "prompt": "What fraction of the full circle area is the area of a semicircle?",
+          "questionType": "mcq",
+          "options": [
+            "1/2",
+            "1/3",
+            "1/4",
+            "2/3"
+          ],
+          "correctAnswer": "1/2",
+          "explanation": "A semicircle is half of a full circle.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 40,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Quadrant",
+          "prompt": "What fraction of the full circle area is the area of a quadrant?",
+          "questionType": "mcq",
+          "options": [
+            "1/2",
+            "1/3",
+            "1/4",
+            "3/4"
+          ],
+          "correctAnswer": "1/4",
+          "explanation": "A quadrant is one-fourth of a circle.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 40,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Arc measure",
+          "prompt": "An arc subtending 90 degrees is what fraction of the full circumference?",
+          "questionType": "mcq",
+          "options": [
+            "1/2",
+            "1/4",
+            "1/3",
+            "3/4"
+          ],
+          "correctAnswer": "1/4",
+          "explanation": "90/360 = 1/4.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Sector comparison",
+          "prompt": "If the central angle doubles, sector area becomes:",
+          "questionType": "mcq",
+          "options": [
+            "half",
+            "double",
+            "same",
+            "four times"
+          ],
+          "correctAnswer": "double",
+          "explanation": "Sector area is directly proportional to the angle.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Circle measure",
+          "prompt": "Which quantity measures the boundary length of a circle?",
+          "questionType": "mcq",
+          "options": [
+            "Area",
+            "Perimeter",
+            "Circumference",
+            "Diameter"
+          ],
+          "correctAnswer": "Circumference",
+          "explanation": "Circumference is the perimeter of a circle.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 40,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Radius-diameter",
+          "prompt": "The diameter of a circle of radius 9 cm is:",
+          "questionType": "mcq",
+          "options": [
+            "4.5 cm",
+            "9 cm",
+            "18 cm",
+            "27 cm"
+          ],
+          "correctAnswer": "18 cm",
+          "explanation": "Diameter is twice the radius.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 35,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Arc length",
+          "prompt": "Arc length is directly proportional to the central ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "angle",
+          "explanation": "A larger central angle gives a larger arc.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Sector area",
+          "prompt": "The area of a sector is a fraction of the full circle area based on the central ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "angle",
+          "explanation": "The same fraction rule is used.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Circle area",
+          "prompt": "The area of a circle is pi r^2.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "This is the standard formula.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Circumference",
+          "prompt": "The circumference of a circle is 2pi r.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "This is the standard formula.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Semicircle",
+          "prompt": "A semicircle subtends an angle of ____ degrees at the center.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "180",
+          "explanation": "A semicircle is half the circle.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Quadrant",
+          "prompt": "A quadrant subtends 120 degrees at the center.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "False",
+          "explanation": "A quadrant subtends 90 degrees.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Ring path",
+          "prompt": "A circular track has radius 14 m. Using pi = 22/7, what is its circumference?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "88",
+          "explanation": "Circumference = 2pi r.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Garden sector",
+          "prompt": "A sector-shaped flower bed has radius 7 m and angle 90 degrees. What is its area?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "38.5",
+          "explanation": "Use sector area formula with pi = 22/7.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 85,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Arc application",
+          "prompt": "Find the arc length of a semicircle of radius 14 cm using pi = 22/7.",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "44",
+          "explanation": "Half of the circumference is 44 cm.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 80,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Circle area",
+          "prompt": "Using pi = 22/7, find the area of a circle of radius 14 cm.",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "616",
+          "explanation": "Area = pi r^2.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Combination figure",
+          "prompt": "A full circle has radius 7 cm. What is the combined area of two quadrants of this circle?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "77",
+          "explanation": "Two quadrants make half the circle.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 70,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Sector fraction",
+          "prompt": "What fraction of the full circle is a sector of angle 72 degrees?",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "1/5",
+          "explanation": "72/360 = 1/5.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 40,
+          "hintWeight": 1
+        }
+      ]
+    }
+  ]
+}

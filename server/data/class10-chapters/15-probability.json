@@ -1,0 +1,398 @@
+{
+  "subject": "math",
+  "gradeLevel": "10",
+  "curriculum": "Class 10 General Math MVP Seed",
+  "chapters": [
+    {
+      "chapterNumber": 15,
+      "code": "G10-PROBABILITY",
+      "name": "Probability",
+      "description": "Theoretical probability of simple events.",
+      "skillId": "probability_basic",
+      "skillName": "Probability Basics",
+      "standard": "MATH-PROBABILITY",
+      "lessonSummary": "Relate favorable outcomes, total outcomes, and simple event reasoning.",
+      "practiceFocus": "Dice, coins, cards, and sample space",
+      "checkpointGoal": "Compute probability and explain the sample space clearly.",
+      "questions": [
+        {
+          "topic": "Simple probability",
+          "prompt": "Find the probability of getting head from a fair coin.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "1/2",
+          "explanation": "Probability = favorable outcomes / total outcomes.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Simple probability",
+          "prompt": "Find the probability of getting an even number from a fair die.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "1/2",
+          "explanation": "Probability = favorable outcomes / total outcomes.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Simple probability",
+          "prompt": "Find the probability of getting a number greater than 4 from a fair die.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "1/3",
+          "explanation": "Probability = favorable outcomes / total outcomes.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Simple probability",
+          "prompt": "Find the probability of getting red ball from a pack with 4 red and 6 blue balls, one drawn at random.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "2/5",
+          "explanation": "Probability = favorable outcomes / total outcomes.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Simple probability",
+          "prompt": "Find the probability of getting green ball from a pack with 3 green and 9 yellow balls, one drawn at random.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "1/4",
+          "explanation": "Probability = favorable outcomes / total outcomes.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Simple probability",
+          "prompt": "Find the probability of getting a prime number from a fair die.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "1/2",
+          "explanation": "Probability = favorable outcomes / total outcomes.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Complementary probability",
+          "prompt": "If P(E) = 0.35, then P(not E) is:",
+          "questionType": "mcq",
+          "options": [
+            "0.35",
+            "0.65",
+            "1.35",
+            "0"
+          ],
+          "correctAnswer": "0.65",
+          "explanation": "P(not E) = 1 - P(E).",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Certain event",
+          "prompt": "The probability of a certain event is:",
+          "questionType": "mcq",
+          "options": [
+            "0",
+            "1/2",
+            "1",
+            "2"
+          ],
+          "correctAnswer": "1",
+          "explanation": "A certain event always happens.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 40,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Impossible event",
+          "prompt": "The probability of an impossible event is:",
+          "questionType": "mcq",
+          "options": [
+            "0",
+            "1",
+            "1/2",
+            "-1"
+          ],
+          "correctAnswer": "0",
+          "explanation": "An impossible event never happens.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 40,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Die event",
+          "prompt": "What is the probability of getting a number less than 3 on a fair die?",
+          "questionType": "mcq",
+          "options": [
+            "1/6",
+            "1/3",
+            "1/2",
+            "2/3"
+          ],
+          "correctAnswer": "1/3",
+          "explanation": "Numbers less than 3 are 1 and 2.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Coin toss",
+          "prompt": "What is the probability of getting tail on a fair coin?",
+          "questionType": "mcq",
+          "options": [
+            "0",
+            "1/4",
+            "1/2",
+            "1"
+          ],
+          "correctAnswer": "1/2",
+          "explanation": "Both outcomes are equally likely.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 35,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Card type",
+          "prompt": "If one card is drawn from 4 kings among 52 cards, the probability of a king is:",
+          "questionType": "mcq",
+          "options": [
+            "1/13",
+            "1/4",
+            "4/13",
+            "1/52"
+          ],
+          "correctAnswer": "1/13",
+          "explanation": "There are 4 favorable outcomes out of 52.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Probability scale",
+          "prompt": "The probability of any event lies between ____ and 1.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "0",
+          "explanation": "Probabilities range from 0 to 1.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Complement",
+          "prompt": "P(E) + P(not E) = ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "1",
+          "explanation": "Complementary probabilities add to 1.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Impossible event",
+          "prompt": "An impossible event has probability 0.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "That is the definition.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Certain event",
+          "prompt": "A certain event has probability 1.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "That is the definition.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Equally likely",
+          "prompt": "For classical probability, outcomes are assumed to be ____ likely.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "equally",
+          "explanation": "This is the basis of simple probability.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Probability",
+          "prompt": "A probability can be greater than 1.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "False",
+          "explanation": "Probabilities cannot exceed 1.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Complement",
+          "prompt": "If the probability of rain tomorrow is 0.2, what is the probability that it does not rain?",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "0.8",
+          "explanation": "Use the complement rule.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Die probability",
+          "prompt": "A die is thrown once. What is the probability of getting a multiple of 3?",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "1/3",
+          "explanation": "Multiples of 3 are 3 and 6.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Bag of balls",
+          "prompt": "A bag contains 5 red, 3 blue, and 2 green balls. One ball is drawn at random. What is the probability of drawing a blue ball?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "3/10",
+          "explanation": "There are 3 blue balls out of 10 total.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Two-coin experiment",
+          "prompt": "Two coins are tossed. What is the probability of getting exactly one head?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "1/2",
+          "explanation": "Outcomes are HT and TH out of HH, HT, TH, TT.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 70,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Card probability",
+          "prompt": "A card is drawn from a standard deck. What is the probability of drawing a heart?",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "1/4",
+          "explanation": "There are 13 hearts out of 52 cards.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Student claim",
+          "prompt": "A student says the probability of getting an odd number on a fair die is 1/2. Is the student correct? Answer True or False.",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "True",
+          "explanation": "Odd outcomes are 1, 3, and 5.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 40,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Simple probability",
+          "prompt": "A fair die is rolled. What is the probability of getting a number less than 5?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "2/3",
+          "explanation": "Favorable outcomes are 1, 2, 3, 4.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Simple probability",
+          "prompt": "One card is drawn from 52 cards. What is the probability of drawing a queen?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "1/13",
+          "explanation": "There are 4 queens in 52 cards.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Event type",
+          "prompt": "Which of the following is a certain event when a fair die is thrown?",
+          "questionType": "mcq",
+          "options": [
+            "getting a number less than 7",
+            "getting a 7",
+            "getting an even number",
+            "getting a prime number"
+          ],
+          "correctAnswer": "getting a number less than 7",
+          "explanation": "All die outcomes are less than 7.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Probability notation",
+          "prompt": "Probability of event E is written as P(____).",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "E",
+          "explanation": "This is the standard notation.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Probability check",
+          "prompt": "If the probability of an event is 0.75, the event is impossible.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "False",
+          "explanation": "A value of 0.75 indicates a likely event.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Coin toss",
+          "prompt": "Three coins are tossed. What is the probability of getting all tails?",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "1/8",
+          "explanation": "Only one outcome TTT out of 8 equally likely outcomes.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 90,
+          "hintWeight": 1
+        }
+      ]
+    }
+  ]
+}

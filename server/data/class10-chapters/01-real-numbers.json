@@ -1,0 +1,390 @@
+{
+  "subject": "math",
+  "gradeLevel": "10",
+  "curriculum": "Class 10 General Math MVP Seed",
+  "chapters": [
+    {
+      "chapterNumber": 1,
+      "code": "G10-REAL-NUMBERS",
+      "name": "Real Numbers",
+      "description": "Euclid division lemma, HCF/LCM, irrational numbers, decimal expansion.",
+      "skillId": "real_numbers_basic",
+      "skillName": "Real Numbers Basics",
+      "standard": "MATH-REAL-NUMBERS",
+      "lessonSummary": "Connect prime factorization, Euclid's lemma, and decimal tests.",
+      "practiceFocus": "HCF, LCM, irrationality, and decimal forms",
+      "checkpointGoal": "Classify and transform real-number forms correctly.",
+      "questions": [
+        {
+          "topic": "Euclid division lemma",
+          "prompt": "Using Euclid's division lemma, write 245 in the form 24q + r. What is r?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "5",
+          "explanation": "245 = 24 x 10 + 5.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Euclid division lemma",
+          "prompt": "Using Euclid's division lemma, write 367 in the form 15q + r. What is r?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "7",
+          "explanation": "367 = 15 x 24 + 7.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Euclid division lemma",
+          "prompt": "Using Euclid's division lemma, write 518 in the form 21q + r. What is r?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "14",
+          "explanation": "518 = 21 x 24 + 14.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Euclid division lemma",
+          "prompt": "Using Euclid's division lemma, write 629 in the form 18q + r. What is r?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "17",
+          "explanation": "629 = 18 x 34 + 17.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Euclid division lemma",
+          "prompt": "Using Euclid's division lemma, write 742 in the form 16q + r. What is r?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "6",
+          "explanation": "742 = 16 x 46 + 6.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Euclid division lemma",
+          "prompt": "Using Euclid's division lemma, write 853 in the form 19q + r. What is r?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "17",
+          "explanation": "853 = 19 x 44 + 17.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Prime factorization",
+          "prompt": "What is the HCF of 96 and 144?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "48",
+          "explanation": "Using prime factorization or Euclid's algorithm, the HCF is 48.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Prime factorization",
+          "prompt": "What is the HCF of 84 and 126?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "42",
+          "explanation": "Using prime factorization or Euclid's algorithm, the HCF is 42.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Prime factorization",
+          "prompt": "What is the HCF of 72 and 90?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "18",
+          "explanation": "Using prime factorization or Euclid's algorithm, the HCF is 18.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Prime factorization",
+          "prompt": "What is the HCF of 108 and 180?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "36",
+          "explanation": "Using prime factorization or Euclid's algorithm, the HCF is 36.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Prime factorization",
+          "prompt": "What is the HCF of 132 and 154?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "22",
+          "explanation": "Using prime factorization or Euclid's algorithm, the HCF is 22.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Prime factorization",
+          "prompt": "What is the HCF of 168 and 252?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "84",
+          "explanation": "Using prime factorization or Euclid's algorithm, the HCF is 84.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Decimal expansion",
+          "prompt": "Which statement about 3/8 is correct?",
+          "questionType": "mcq",
+          "options": [
+            "Its decimal expansion terminates",
+            "Its decimal expansion is non-terminating recurring",
+            "It is irrational",
+            "It has no decimal form"
+          ],
+          "correctAnswer": "Its decimal expansion terminates",
+          "explanation": "3/8 simplifies to a denominator with only 2s and 5s.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 80,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Decimal expansion",
+          "prompt": "Which statement about 7/12 is correct?",
+          "questionType": "mcq",
+          "options": [
+            "Its decimal expansion terminates",
+            "Its decimal expansion is non-terminating recurring",
+            "It is irrational",
+            "It has no decimal form"
+          ],
+          "correctAnswer": "Its decimal expansion is non-terminating recurring",
+          "explanation": "7/12 does not simplify to a denominator of the form 2^m5^n, so it is recurring.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 80,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Decimal expansion",
+          "prompt": "Which statement about 9/20 is correct?",
+          "questionType": "mcq",
+          "options": [
+            "Its decimal expansion terminates",
+            "Its decimal expansion is non-terminating recurring",
+            "It is irrational",
+            "It has no decimal form"
+          ],
+          "correctAnswer": "Its decimal expansion terminates",
+          "explanation": "9/20 simplifies to a denominator with only 2s and 5s.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 80,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Decimal expansion",
+          "prompt": "Which statement about 11/18 is correct?",
+          "questionType": "mcq",
+          "options": [
+            "Its decimal expansion terminates",
+            "Its decimal expansion is non-terminating recurring",
+            "It is irrational",
+            "It has no decimal form"
+          ],
+          "correctAnswer": "Its decimal expansion is non-terminating recurring",
+          "explanation": "11/18 does not simplify to a denominator of the form 2^m5^n, so it is recurring.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 80,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Decimal expansion",
+          "prompt": "Which statement about 21/125 is correct?",
+          "questionType": "mcq",
+          "options": [
+            "Its decimal expansion terminates",
+            "Its decimal expansion is non-terminating recurring",
+            "It is irrational",
+            "It has no decimal form"
+          ],
+          "correctAnswer": "Its decimal expansion terminates",
+          "explanation": "21/125 simplifies to a denominator with only 2s and 5s.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 80,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Decimal expansion",
+          "prompt": "Which statement about 19/45 is correct?",
+          "questionType": "mcq",
+          "options": [
+            "Its decimal expansion terminates",
+            "Its decimal expansion is non-terminating recurring",
+            "It is irrational",
+            "It has no decimal form"
+          ],
+          "correctAnswer": "Its decimal expansion is non-terminating recurring",
+          "explanation": "19/45 does not simplify to a denominator of the form 2^m5^n, so it is recurring.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 80,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Irrational numbers",
+          "prompt": "The decimal expansion of an irrational number is non-terminating and ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "non-recurring",
+          "explanation": "Irrational numbers have non-terminating, non-recurring decimal expansions.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "HCF and LCM",
+          "prompt": "For two positive integers a and b, a x b = HCF(a,b) x ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "LCM(a,b)",
+          "explanation": "Product of two numbers equals product of their HCF and LCM.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Prime factorization",
+          "prompt": "If the denominator of a rational number in lowest form has only 2s and 5s as prime factors, its decimal expansion terminates.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "That is the termination test for rational numbers.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Irrational numbers",
+          "prompt": "sqrt(49) is irrational.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "False",
+          "explanation": "sqrt(49) = 7, which is rational.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Euclid division lemma",
+          "prompt": "In Euclid's division lemma, the remainder r always satisfies 0 <= r < ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "divisor",
+          "explanation": "The remainder is always smaller than the divisor.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Real numbers",
+          "prompt": "Every irrational number is a real number.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "The real numbers include both rational and irrational numbers.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "HCF and LCM",
+          "prompt": "Two numbers have HCF 6 and LCM 180. If one number is 30, what is the other number?",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "36",
+          "explanation": "Using a x b = HCF x LCM, the other number is (6 x 180)/30 = 36.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 90,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Decimal expansion",
+          "prompt": "Explain in one line why 13/24 does not have a terminating decimal expansion.",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "The denominator in lowest form has a prime factor other than 2 or 5.",
+          "explanation": "24 = 2^3 x 3, so the factor 3 prevents termination.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 100,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Real number application",
+          "prompt": "A teacher asks whether 17/40, 7/18, and 21/125 have terminating decimals. How many of these have terminating decimals?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "2",
+          "explanation": "17/40 and 21/125 terminate because their denominators in lowest form contain only 2s and 5s.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 110,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Euclid division lemma",
+          "prompt": "A student writes 407 = 12 x 34 + 1. Is the remainder valid? Answer True or False.",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "True",
+          "explanation": "The remainder 1 satisfies 0 <= r < 12.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Irrational numbers",
+          "prompt": "Name one irrational number between 2 and 3.",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "sqrt(5)",
+          "explanation": "sqrt(5) lies between 2 and 3 and is irrational.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 80,
+          "hintWeight": 1
+        },
+        {
+          "topic": "HCF and LCM",
+          "prompt": "Ribbons of length 84 cm and 126 cm are to be cut into equal longest pieces. What is the greatest possible length of each piece?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "42",
+          "explanation": "The greatest possible equal length is the HCF of 84 and 126.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 100,
+          "hintWeight": 1
+        }
+      ]
+    }
+  ]
+}

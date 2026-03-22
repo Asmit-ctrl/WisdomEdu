@@ -1,0 +1,390 @@
+{
+  "subject": "math",
+  "gradeLevel": "10",
+  "curriculum": "Class 10 General Math MVP Seed",
+  "chapters": [
+    {
+      "chapterNumber": 13,
+      "code": "G10-SURFACE-AREAS-VOLUMES",
+      "name": "Surface Areas and Volumes",
+      "description": "Formulas for cylinders, cones, spheres, and hemispheres.",
+      "skillId": "surface_areas_volumes_basic",
+      "skillName": "Surface Areas and Volumes Basics",
+      "standard": "MATH-SURFACE-AREAS-VOLUMES",
+      "lessonSummary": "Choose the right solid formula and keep units consistent.",
+      "practiceFocus": "Volume and surface-area formula selection",
+      "checkpointGoal": "Identify solids and apply the right formula accurately.",
+      "questions": [
+        {
+          "topic": "Cylinder volume",
+          "prompt": "Using pi = 22/7, find the volume of a cylinder of radius 7 cm and height 10 cm.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "1540",
+          "explanation": "Volume = pi r^2 h.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 90,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Cylinder CSA",
+          "prompt": "Using pi = 22/7, find the curved surface area of a cylinder of radius 7 cm and height 10 cm.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "440",
+          "explanation": "CSA = 2pi rh.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 85,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Cone volume",
+          "prompt": "Using pi = 22/7, find the volume of a cone of radius 7 cm and height 12 cm.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "616",
+          "explanation": "Volume = 1/3 pi r^2 h.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 100,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Cone CSA",
+          "prompt": "Using pi = 22/7, find the curved surface area of a cone of radius 7 cm and slant height 25 cm.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "550",
+          "explanation": "CSA = pi rl.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 90,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Sphere surface area",
+          "prompt": "Using pi = 22/7, find the surface area of a sphere of radius 7 cm.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "616",
+          "explanation": "Surface area = 4pi r^2.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 90,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Sphere volume",
+          "prompt": "Using pi = 22/7, find the volume of a sphere of radius 7 cm.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "1437.33",
+          "explanation": "Volume = 4/3 pi r^3.",
+          "difficultyLevel": 4,
+          "expectedTimeSec": 115,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Hemisphere CSA",
+          "prompt": "Using pi = 22/7, find the curved surface area of a hemisphere of radius 7 cm.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "308",
+          "explanation": "CSA = 2pi r^2.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 85,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Hemisphere TSA",
+          "prompt": "Using pi = 22/7, find the total surface area of a hemisphere of radius 7 cm.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "462",
+          "explanation": "TSA = 3pi r^2.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 85,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Cuboid volume",
+          "prompt": "Find the volume of a cuboid of dimensions 8 cm, 5 cm, and 4 cm.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "160",
+          "explanation": "Volume = l x b x h.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Cube TSA",
+          "prompt": "Find the total surface area of a cube of side 6 cm.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "216",
+          "explanation": "TSA = 6a^2.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Cylinder TSA",
+          "prompt": "Using pi = 22/7, find the total surface area of a cylinder of radius 7 cm and height 10 cm.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "748",
+          "explanation": "TSA = 2pi r(r + h).",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 95,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Cone slant relation",
+          "prompt": "A right cone has radius 8 cm and height 15 cm. What is its slant height?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "17",
+          "explanation": "Use l = sqrt(r^2 + h^2).",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Formula choice",
+          "prompt": "Which formula gives the volume of a sphere?",
+          "questionType": "mcq",
+          "options": [
+            "4pi r^2",
+            "2pi rh",
+            "4/3 pi r^3",
+            "pi r^2 h"
+          ],
+          "correctAnswer": "4/3 pi r^3",
+          "explanation": "Choose the correct sphere volume formula.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Formula choice",
+          "prompt": "Which formula gives the curved surface area of a cone?",
+          "questionType": "mcq",
+          "options": [
+            "pi r^2",
+            "pi rl",
+            "2pi rh",
+            "4pi r^2"
+          ],
+          "correctAnswer": "pi rl",
+          "explanation": "CSA of a cone uses radius and slant height.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Units",
+          "prompt": "Volume is measured in:",
+          "questionType": "mcq",
+          "options": [
+            "square units",
+            "cubic units",
+            "linear units",
+            "degrees"
+          ],
+          "correctAnswer": "cubic units",
+          "explanation": "Volume is three-dimensional measure.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 40,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Surface area",
+          "prompt": "Surface area is measured in:",
+          "questionType": "mcq",
+          "options": [
+            "square units",
+            "cubic units",
+            "linear units",
+            "seconds"
+          ],
+          "correctAnswer": "square units",
+          "explanation": "Area is two-dimensional measure.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 40,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Cylinder parts",
+          "prompt": "The base of a cylinder is:",
+          "questionType": "mcq",
+          "options": [
+            "triangle",
+            "circle",
+            "square",
+            "rectangle"
+          ],
+          "correctAnswer": "circle",
+          "explanation": "A cylinder has circular bases.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 35,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Cone part",
+          "prompt": "The distance from the vertex of a cone to a point on the circular edge is the:",
+          "questionType": "mcq",
+          "options": [
+            "radius",
+            "diameter",
+            "slant height",
+            "height"
+          ],
+          "correctAnswer": "slant height",
+          "explanation": "This is the definition of slant height.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 35,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Units",
+          "prompt": "Surface area is always expressed in square units.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "Area uses square units.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Units",
+          "prompt": "Volume is always expressed in cubic units.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "Volume uses cubic units.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Cylinder formula",
+          "prompt": "The volume of a cylinder is pi r^2 x ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "h",
+          "explanation": "Multiply base area by height.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Sphere formula",
+          "prompt": "The surface area of a sphere is ____ pi r^2.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "4",
+          "explanation": "Sphere surface area coefficient is 4.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Hemisphere",
+          "prompt": "A hemisphere is half of a sphere.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "That is the definition.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Cone formula",
+          "prompt": "The volume of a cone is ____ of the volume of a cylinder with the same base and height.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "one-third",
+          "explanation": "Cone volume has coefficient 1/3.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Water tank",
+          "prompt": "A cylindrical tank has radius 7 m and height 5 m. Using pi = 22/7, what is its capacity in cubic metres?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "770",
+          "explanation": "Volume = pi r^2 h.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 95,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Ice cream cone",
+          "prompt": "An ice cream cone has radius 3 cm and height 4 cm. Using pi = 22/7, what is its volume?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "37.71",
+          "explanation": "Volume = 1/3 pi r^2 h.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 105,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Composite solid",
+          "prompt": "A hemispherical bowl of radius 7 cm is full of water. Using pi = 22/7, what volume of water does it hold?",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "718.67",
+          "explanation": "Volume of hemisphere = 2/3 pi r^3.",
+          "difficultyLevel": 4,
+          "expectedTimeSec": 120,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Cube",
+          "prompt": "Find the volume of a cube of side 5 cm.",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "125",
+          "explanation": "Volume = a^3.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 40,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Sphere",
+          "prompt": "A ball has radius 3.5 cm. Using pi = 22/7, what is its surface area?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "154",
+          "explanation": "Use 4pi r^2.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Cylinder comparison",
+          "prompt": "Two cylinders have the same radius. If one has double the height of the other, how does its volume compare? Answer in one word.",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "double",
+          "explanation": "Volume is directly proportional to height for fixed radius.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        }
+      ]
+    }
+  ]
+}

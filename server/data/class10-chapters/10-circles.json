@@ -1,0 +1,398 @@
+{
+  "subject": "math",
+  "gradeLevel": "10",
+  "curriculum": "Class 10 General Math MVP Seed",
+  "chapters": [
+    {
+      "chapterNumber": 10,
+      "code": "G10-CIRCLES",
+      "name": "Circles",
+      "description": "Tangents and related theorems on circles.",
+      "skillId": "circles_basic",
+      "skillName": "Circles Basics",
+      "standard": "MATH-CIRCLES",
+      "lessonSummary": "Use tangent properties and equal tangent lengths from external points.",
+      "practiceFocus": "Radius-tangent perpendicularity and tangent equality",
+      "checkpointGoal": "Apply circle tangent theorems correctly.",
+      "questions": [
+        {
+          "topic": "Tangent length",
+          "prompt": "From an external point P to a circle with center O, OP = 13 cm and radius = 5 cm. Find the tangent length PT.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "12",
+          "explanation": "Use PT^2 = OP^2 - r^2.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 100,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Tangent length",
+          "prompt": "From an external point P to a circle with center O, OP = 10 cm and radius = 6 cm. Find the tangent length PT.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "8",
+          "explanation": "Use PT^2 = OP^2 - r^2.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 100,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Tangent length",
+          "prompt": "From an external point P to a circle with center O, OP = 17 cm and radius = 8 cm. Find the tangent length PT.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "15",
+          "explanation": "Use PT^2 = OP^2 - r^2.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 100,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Tangent length",
+          "prompt": "From an external point P to a circle with center O, OP = 25 cm and radius = 7 cm. Find the tangent length PT.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "24",
+          "explanation": "Use PT^2 = OP^2 - r^2.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 100,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Tangent length",
+          "prompt": "From an external point P to a circle with center O, OP = 15 cm and radius = 9 cm. Find the tangent length PT.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "12",
+          "explanation": "Use PT^2 = OP^2 - r^2.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 100,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Tangent length",
+          "prompt": "From an external point P to a circle with center O, OP = 20 cm and radius = 16 cm. Find the tangent length PT.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "12",
+          "explanation": "Use PT^2 = OP^2 - r^2.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 100,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Properties of tangents",
+          "prompt": "A tangent is perpendicular to the radius at the point of contact.",
+          "questionType": "mcq",
+          "options": [
+            "True",
+            "False",
+            "Cannot say",
+            "Depends on radius"
+          ],
+          "correctAnswer": "True",
+          "explanation": "Use the standard properties of tangents and circles.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 50,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Properties of tangents",
+          "prompt": "Two tangents drawn from an external point are always unequal.",
+          "questionType": "mcq",
+          "options": [
+            "True",
+            "False",
+            "Cannot say",
+            "Depends on radius"
+          ],
+          "correctAnswer": "False",
+          "explanation": "Use the standard properties of tangents and circles.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 50,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Properties of tangents",
+          "prompt": "A circle can have exactly one tangent at a point on the circle.",
+          "questionType": "mcq",
+          "options": [
+            "True",
+            "False",
+            "Cannot say",
+            "Depends on radius"
+          ],
+          "correctAnswer": "True",
+          "explanation": "Use the standard properties of tangents and circles.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 50,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Properties of tangents",
+          "prompt": "A secant touches the circle at exactly one point.",
+          "questionType": "mcq",
+          "options": [
+            "True",
+            "False",
+            "Cannot say",
+            "Depends on radius"
+          ],
+          "correctAnswer": "False",
+          "explanation": "Use the standard properties of tangents and circles.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 50,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Properties of tangents",
+          "prompt": "The line joining the center to the point of contact is perpendicular to the tangent.",
+          "questionType": "mcq",
+          "options": [
+            "True",
+            "False",
+            "Cannot say",
+            "Depends on radius"
+          ],
+          "correctAnswer": "True",
+          "explanation": "Use the standard properties of tangents and circles.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 50,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Properties of tangents",
+          "prompt": "Every chord is a tangent.",
+          "questionType": "mcq",
+          "options": [
+            "True",
+            "False",
+            "Cannot say",
+            "Depends on radius"
+          ],
+          "correctAnswer": "False",
+          "explanation": "Use the standard properties of tangents and circles.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 50,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Tangent property",
+          "prompt": "The tangent at any point of a circle is ____ to the radius through the point of contact.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "perpendicular",
+          "explanation": "This is the fundamental tangent property.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Equal tangents",
+          "prompt": "Tangents drawn from an external point to a circle are ____ in length.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "equal",
+          "explanation": "This is a basic theorem.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Circle theorem",
+          "prompt": "A radius through the point of contact meets the tangent at 90 degrees.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "That is the tangent-radius theorem.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Circle theorem",
+          "prompt": "A tangent can intersect a circle at two points.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "False",
+          "explanation": "A tangent touches at exactly one point.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "External point",
+          "prompt": "If PA and PB are tangents from P, then PA = ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "PB",
+          "explanation": "Tangents from an external point are equal.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Circle geometry",
+          "prompt": "A tangent segment lies outside the circle except at the point of contact.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "It touches the circle only once.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Equal tangents",
+          "prompt": "If PA and PB are tangents from P to a circle and PA = 11 cm, find PB.",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "11",
+          "explanation": "Tangents from an external point are equal.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Right triangle in circle",
+          "prompt": "A tangent from P to a circle of radius 9 cm has OP = 15 cm. Find PT.",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "12",
+          "explanation": "Use PT^2 = OP^2 - r^2.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Tangent reasoning",
+          "prompt": "A student draws two tangents from an external point and gets lengths 7 cm and 9 cm. Is the drawing correct for the same circle? Answer True or False.",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "False",
+          "explanation": "Tangents from the same external point must be equal.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 150,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Circle contact",
+          "prompt": "A radius of 10 cm is drawn to the point of contact of a tangent. What angle does it make with the tangent?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "90",
+          "explanation": "The radius is perpendicular to the tangent.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 150,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Perpendicular relation",
+          "prompt": "If the radius at the point of contact is 6 cm, does that change the angle between radius and tangent? Answer Yes or No.",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "No",
+          "explanation": "The angle remains 90 degrees for every tangent.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Tangent application",
+          "prompt": "From point P, two tangents touch a circle at A and B. If the perimeter of triangle PAB is 26 cm and PA = 5 cm, what is AB?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "16",
+          "explanation": "Since PA = PB = 5, AB = 26 - 10.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 110,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Tangent length",
+          "prompt": "If OP = 26 cm and radius = 10 cm, find the tangent length PT.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "24",
+          "explanation": "Use the Pythagorean relation with tangent and radius.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 95,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Properties of tangents",
+          "prompt": "How many tangents can be drawn at a point on a circle?",
+          "questionType": "mcq",
+          "options": [
+            "0",
+            "1",
+            "2",
+            "Infinitely many"
+          ],
+          "correctAnswer": "1",
+          "explanation": "Exactly one tangent can be drawn at a point on the circle.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 40,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Circle theorem",
+          "prompt": "A tangent touches a circle at exactly ____ point.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "one",
+          "explanation": "That is what distinguishes a tangent from a secant.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Equal tangents",
+          "prompt": "If PA and PB are tangents from P, triangle PAB is always isosceles.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "Two equal sides are formed by PA and PB.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Radius relation",
+          "prompt": "The tangent length is 24 cm and radius is 7 cm. What is OP?",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "25",
+          "explanation": "Use OP^2 = PT^2 + r^2.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 80,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Angle in tangent setup",
+          "prompt": "If OP is joined to the point of contact T, what kind of triangle is OPT when PT is a tangent?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "right-angled",
+          "explanation": "The angle at T is 90 degrees.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        }
+      ]
+    }
+  ]
+}

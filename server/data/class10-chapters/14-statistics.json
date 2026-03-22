@@ -1,0 +1,390 @@
+{
+  "subject": "math",
+  "gradeLevel": "10",
+  "curriculum": "Class 10 General Math MVP Seed",
+  "chapters": [
+    {
+      "chapterNumber": 14,
+      "code": "G10-STATISTICS",
+      "name": "Statistics",
+      "description": "Mean and interpretation of grouped data.",
+      "skillId": "statistics_basic",
+      "skillName": "Statistics Basics",
+      "standard": "MATH-STATISTICS",
+      "lessonSummary": "Read grouped tables carefully and compute representative values.",
+      "practiceFocus": "Class mark, mean, and frequency reasoning",
+      "checkpointGoal": "Calculate and interpret grouped-data measures correctly.",
+      "questions": [
+        {
+          "topic": "Mean",
+          "prompt": "Find the mean of the data: 5, 7, 9, 11.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "8",
+          "explanation": "Add the observations and divide by the number of observations.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Mean",
+          "prompt": "Find the mean of the data: 12, 14, 16, 18.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "15",
+          "explanation": "Add the observations and divide by the number of observations.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Mean",
+          "prompt": "Find the mean of the data: 3, 6, 9, 12, 15.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "9",
+          "explanation": "Add the observations and divide by the number of observations.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Mean",
+          "prompt": "Find the mean of the data: 10, 20, 30.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "20",
+          "explanation": "Add the observations and divide by the number of observations.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Mean",
+          "prompt": "Find the mean of the data: 4, 8, 12, 16, 20.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "12",
+          "explanation": "Add the observations and divide by the number of observations.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Mean",
+          "prompt": "Find the mean of the data: 6, 8, 10, 12.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "9",
+          "explanation": "Add the observations and divide by the number of observations.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Median",
+          "prompt": "Find the median of the ordered data: 2, 4, 6, 8, 10.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "6",
+          "explanation": "Use the middle term or average of the two middle terms.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Median",
+          "prompt": "Find the median of the ordered data: 5, 7, 9, 11, 13.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "9",
+          "explanation": "Use the middle term or average of the two middle terms.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Median",
+          "prompt": "Find the median of the ordered data: 1, 3, 5, 7.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "4",
+          "explanation": "Use the middle term or average of the two middle terms.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Median",
+          "prompt": "Find the median of the ordered data: 10, 12, 14, 16.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "13",
+          "explanation": "Use the middle term or average of the two middle terms.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Median",
+          "prompt": "Find the median of the ordered data: 3, 5, 7, 9, 11, 13.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "8",
+          "explanation": "Use the middle term or average of the two middle terms.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Median",
+          "prompt": "Find the median of the ordered data: 8, 10, 12, 14, 16.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "12",
+          "explanation": "Use the middle term or average of the two middle terms.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Mode",
+          "prompt": "Which observation occurs most frequently in a data set?",
+          "questionType": "mcq",
+          "options": [
+            "Mean",
+            "Median",
+            "Mode",
+            "Range"
+          ],
+          "correctAnswer": "Mode",
+          "explanation": "Mode is the most frequent observation.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 40,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Class mark",
+          "prompt": "The class mark of an interval is the:",
+          "questionType": "mcq",
+          "options": [
+            "difference of class limits",
+            "average of class limits",
+            "higher class limit",
+            "frequency"
+          ],
+          "correctAnswer": "average of class limits",
+          "explanation": "Class mark = (upper + lower)/2.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Graph choice",
+          "prompt": "Which graph is often used to represent cumulative frequency?",
+          "questionType": "mcq",
+          "options": [
+            "Pie chart",
+            "Ogive",
+            "Bar graph",
+            "Histogram"
+          ],
+          "correctAnswer": "Ogive",
+          "explanation": "An ogive represents cumulative frequency.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Histogram",
+          "prompt": "A histogram is mainly used for:",
+          "questionType": "mcq",
+          "options": [
+            "categorical data",
+            "continuous grouped data",
+            "angles",
+            "equations"
+          ],
+          "correctAnswer": "continuous grouped data",
+          "explanation": "Histograms show grouped continuous data.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Range",
+          "prompt": "The range of a data set is:",
+          "questionType": "mcq",
+          "options": [
+            "highest - lowest",
+            "highest + lowest",
+            "mean x median",
+            "mode only"
+          ],
+          "correctAnswer": "highest - lowest",
+          "explanation": "Range measures spread.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 40,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Median concept",
+          "prompt": "For ordered data with an odd number of observations, the median is:",
+          "questionType": "mcq",
+          "options": [
+            "first term",
+            "last term",
+            "middle term",
+            "average of all terms"
+          ],
+          "correctAnswer": "middle term",
+          "explanation": "The median is the central observation.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 40,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Mean",
+          "prompt": "Mean = sum of observations divided by the number of ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "observations",
+          "explanation": "This is the definition of arithmetic mean.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Median",
+          "prompt": "Median is the ____ value when data are arranged in order.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "middle",
+          "explanation": "Median is positional average.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Mode",
+          "prompt": "A data set can have more than one mode.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "Some data sets are bimodal or multimodal.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Range",
+          "prompt": "Range gives an idea of dispersion in a data set.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "It measures spread between extremes.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Class mark",
+          "prompt": "Class mark is also called the class ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "midpoint",
+          "explanation": "It is the average of class limits.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Histogram",
+          "prompt": "Bars in a histogram usually touch each other for continuous data.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "Continuous intervals are adjacent.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Mean",
+          "prompt": "The mean of five numbers is 12. What is their total sum?",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "60",
+          "explanation": "Total = mean x number of observations.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Median",
+          "prompt": "How many observations are there if the median is the average of the 5th and 6th terms?",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "10",
+          "explanation": "That happens when the count is even and equal to 10 here.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 65,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Results data",
+          "prompt": "The marks 6, 7, 7, 8, 9, 9, 9, 10 are listed. What is the mode?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "9",
+          "explanation": "9 occurs most frequently.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Grouped concept",
+          "prompt": "For the interval 20-30, what is the class mark?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "25",
+          "explanation": "Class mark = (20 + 30)/2.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Range",
+          "prompt": "Find the range of 14, 18, 11, 25, 20.",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "14",
+          "explanation": "Range = 25 - 11.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Mean update",
+          "prompt": "A new observation 20 is added to the data 10, 10, 10, 10. What is the new mean?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "12",
+          "explanation": "New sum is 60 and number of observations is 5.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        }
+      ]
+    }
+  ]
+}

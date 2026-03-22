@@ -1,0 +1,398 @@
+{
+  "subject": "math",
+  "gradeLevel": "10",
+  "curriculum": "Class 10 General Math MVP Seed",
+  "chapters": [
+    {
+      "chapterNumber": 9,
+      "code": "G10-TRIG-APPLICATIONS",
+      "name": "Some Applications of Trigonometry",
+      "description": "Heights and distances using trigonometric ratios.",
+      "skillId": "trigonometry_applications_basic",
+      "skillName": "Applications of Trigonometry Basics",
+      "standard": "MATH-TRIG-APPLICATIONS",
+      "lessonSummary": "Translate height-distance stories into right-triangle models.",
+      "practiceFocus": "Angles of elevation and basic height-distance",
+      "checkpointGoal": "Model and solve height-distance problems accurately.",
+      "questions": [
+        {
+          "topic": "Heights and distances",
+          "prompt": "A pole is observed at an angle of elevation of 45 degrees from a point 20 m away. Find its height.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "20",
+          "explanation": "Use tan theta = height/base.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 110,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Heights and distances",
+          "prompt": "A pole is observed at an angle of elevation of 60 degrees from a point 10 m away. Find its height.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "10sqrt(3)",
+          "explanation": "Use tan theta = height/base.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 110,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Heights and distances",
+          "prompt": "A pole is observed at an angle of elevation of 30 degrees from a point 15 m away. Find its height.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "5sqrt(3)",
+          "explanation": "Use tan theta = height/base.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 110,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Heights and distances",
+          "prompt": "A pole is observed at an angle of elevation of 45 degrees from a point 24 m away. Find its height.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "24",
+          "explanation": "Use tan theta = height/base.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 110,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Heights and distances",
+          "prompt": "A pole is observed at an angle of elevation of 60 degrees from a point 12 m away. Find its height.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "12sqrt(3)",
+          "explanation": "Use tan theta = height/base.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 110,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Heights and distances",
+          "prompt": "A pole is observed at an angle of elevation of 30 degrees from a point 18 m away. Find its height.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "6sqrt(3)",
+          "explanation": "Use tan theta = height/base.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 110,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Choosing ratio",
+          "prompt": "Which trigonometric ratio directly connects height and horizontal distance?",
+          "questionType": "mcq",
+          "options": [
+            "sin",
+            "cos",
+            "tan",
+            "cot"
+          ],
+          "correctAnswer": "tan",
+          "explanation": "Pick the ratio based on the sides involved.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Choosing ratio",
+          "prompt": "Which trigonometric ratio directly connects hypotenuse and opposite side?",
+          "questionType": "mcq",
+          "options": [
+            "sin",
+            "cos",
+            "tan",
+            "cot"
+          ],
+          "correctAnswer": "sin",
+          "explanation": "Pick the ratio based on the sides involved.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Choosing ratio",
+          "prompt": "Which trigonometric ratio directly connects adjacent side and hypotenuse?",
+          "questionType": "mcq",
+          "options": [
+            "sin",
+            "cos",
+            "tan",
+            "cot"
+          ],
+          "correctAnswer": "cos",
+          "explanation": "Pick the ratio based on the sides involved.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Choosing ratio",
+          "prompt": "Which trigonometric ratio directly connects opposite side and hypotenuse?",
+          "questionType": "mcq",
+          "options": [
+            "sin",
+            "cos",
+            "tan",
+            "cot"
+          ],
+          "correctAnswer": "sin",
+          "explanation": "Pick the ratio based on the sides involved.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Choosing ratio",
+          "prompt": "Which trigonometric ratio directly connects opposite side and adjacent side?",
+          "questionType": "mcq",
+          "options": [
+            "sin",
+            "cos",
+            "tan",
+            "cot"
+          ],
+          "correctAnswer": "tan",
+          "explanation": "Pick the ratio based on the sides involved.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Choosing ratio",
+          "prompt": "Which trigonometric ratio directly connects hypotenuse and adjacent side?",
+          "questionType": "mcq",
+          "options": [
+            "sin",
+            "cos",
+            "tan",
+            "cot"
+          ],
+          "correctAnswer": "cos",
+          "explanation": "Pick the ratio based on the sides involved.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Angle of elevation",
+          "prompt": "Angle of elevation is measured upward from the horizontal line.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "That is the definition.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Angle of depression",
+          "prompt": "Angle of depression is measured upward from the horizontal line.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "False",
+          "explanation": "It is measured downward from the horizontal.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Line of sight",
+          "prompt": "The straight line from the observer's eye to the object is called the line of ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "sight",
+          "explanation": "This is standard terminology.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Trig application",
+          "prompt": "To find height when base and angle are known, the most direct ratio is often ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "tan",
+          "explanation": "tan theta = opposite/adjacent.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Complementary setup",
+          "prompt": "Angles of elevation and depression problems can often be modeled using right triangles.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "The geometry naturally forms right triangles.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Horizontal level",
+          "prompt": "Angles of elevation and depression are measured from the ____ line.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "horizontal",
+          "explanation": "The horizontal line is the reference.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Building height",
+          "prompt": "A student stands 30 m from a building and measures the angle of elevation to the top as 45 degrees. What is the height of the building?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "30",
+          "explanation": "tan 45 deg = 1, so height = base.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 150,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Tree problem",
+          "prompt": "From a point 20 m away, the angle of elevation of a tree top is 30 degrees. What is the height of the tree?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "20/sqrt(3)",
+          "explanation": "tan 30 deg = height/20.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 150,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Elevation",
+          "prompt": "An observer sees the top of a tower at 60 degrees from 8 m away. What is the height?",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "8sqrt(3)",
+          "explanation": "Use tan 60 deg = h/8.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 100,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Depression",
+          "prompt": "From the top of a lighthouse, the angle of depression to a boat is 45 degrees and the boat is 40 m away horizontally. What is the lighthouse height?",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "40",
+          "explanation": "Angle of depression equals angle of elevation.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 105,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Sight line",
+          "prompt": "A ramp rises 5 m over a horizontal distance of 5sqrt(3) m. What is the angle of elevation?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "30",
+          "explanation": "tan theta = 5/(5sqrt(3)) = 1/sqrt(3).",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 95,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Comparing ratios",
+          "prompt": "If the angle of elevation increases while horizontal distance stays fixed, does height increase? Answer Yes or No.",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "Yes",
+          "explanation": "tan theta increases for acute angles in this context.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 50,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Heights and distances",
+          "prompt": "A fair-weather kite is flying vertically above a point on the ground. From a point 25 m away, the angle of elevation is 45 degrees. Find the height.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "25",
+          "explanation": "Use tan 45 deg.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 90,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Heights and distances",
+          "prompt": "A tower is viewed from a point 10 m away at an angle of elevation of 45 degrees. Find the tower height.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "10",
+          "explanation": "tan 45 deg = 1.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 80,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Choosing ratio",
+          "prompt": "Which ratio is most useful when opposite side and adjacent side are known?",
+          "questionType": "mcq",
+          "options": [
+            "sin",
+            "cos",
+            "tan",
+            "sec"
+          ],
+          "correctAnswer": "tan",
+          "explanation": "tan theta = opposite/adjacent.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 40,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Trig application",
+          "prompt": "In a standard height-and-distance problem, the observer, object, and ground often form a right triangle.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "That is why trigonometry applies.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 40,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Angle concept",
+          "prompt": "The angle between the horizontal and the line of sight to an object above eye level is the angle of ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "elevation",
+          "explanation": "This is the standard term.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Shadow problem",
+          "prompt": "A 1 m stick casts a shadow of sqrt(3) m at the same time a tower casts a shadow of 20sqrt(3) m. What is the tower height?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "20",
+          "explanation": "The sun angle is the same, so height-to-shadow ratio remains constant.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 130,
+          "hintWeight": 1
+        }
+      ]
+    }
+  ]
+}

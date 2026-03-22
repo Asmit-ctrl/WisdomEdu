@@ -1,0 +1,390 @@
+{
+  "subject": "math",
+  "gradeLevel": "10",
+  "curriculum": "Class 10 General Math MVP Seed",
+  "chapters": [
+    {
+      "chapterNumber": 6,
+      "code": "G10-TRIANGLES",
+      "name": "Triangles",
+      "description": "Similarity of triangles and proportionality results.",
+      "skillId": "triangles_basic",
+      "skillName": "Triangles Basics",
+      "standard": "MATH-TRIANGLES",
+      "lessonSummary": "Reason with similarity, proportionality, and area scaling.",
+      "practiceFocus": "AA similarity, BPT, and ratio of areas",
+      "checkpointGoal": "Justify triangle similarity and derive unknown measures.",
+      "questions": [
+        {
+          "topic": "Similarity criteria",
+          "prompt": "If corresponding angles of two triangles are equal, which criterion confirms similarity?",
+          "questionType": "mcq",
+          "options": [
+            "AA",
+            "SAS",
+            "SSS",
+            "RHS"
+          ],
+          "correctAnswer": "AAA",
+          "explanation": "Use the appropriate similarity test for triangles.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 50,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Similarity criteria",
+          "prompt": "If one angle is equal and the including sides are proportional, which criterion confirms similarity?",
+          "questionType": "mcq",
+          "options": [
+            "AA",
+            "SAS",
+            "SSS",
+            "RHS"
+          ],
+          "correctAnswer": "SAS",
+          "explanation": "Use the appropriate similarity test for triangles.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 50,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Similarity criteria",
+          "prompt": "If all three corresponding sides are proportional, which criterion confirms similarity?",
+          "questionType": "mcq",
+          "options": [
+            "AA",
+            "SAS",
+            "SSS",
+            "RHS"
+          ],
+          "correctAnswer": "SSS",
+          "explanation": "Use the appropriate similarity test for triangles.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 50,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Similarity criteria",
+          "prompt": "If two corresponding angles are equal, which criterion confirms similarity?",
+          "questionType": "mcq",
+          "options": [
+            "AA",
+            "SAS",
+            "SSS",
+            "RHS"
+          ],
+          "correctAnswer": "AA",
+          "explanation": "Use the appropriate similarity test for triangles.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 50,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Similarity criteria",
+          "prompt": "If one angle is equal and the ratio of the adjacent corresponding sides is equal, which criterion is used?",
+          "questionType": "mcq",
+          "options": [
+            "AA",
+            "SAS",
+            "SSS",
+            "RHS"
+          ],
+          "correctAnswer": "SAS",
+          "explanation": "Use the appropriate similarity test for triangles.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 50,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Similarity criteria",
+          "prompt": "If 3/6 = 4/8 = 5/10 for two triangles, which similarity criterion applies?",
+          "questionType": "mcq",
+          "options": [
+            "AA",
+            "SAS",
+            "SSS",
+            "RHS"
+          ],
+          "correctAnswer": "SSS",
+          "explanation": "Use the appropriate similarity test for triangles.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 50,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Basic proportionality theorem",
+          "prompt": "In triangle ABC, D lies on AB and E lies on AC with DE || BC. If AD = 4, DB = 6, and AE = 3, find AC.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "4.5",
+          "explanation": "By BPT, AD/AB = AE/AC.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 110,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Basic proportionality theorem",
+          "prompt": "In triangle ABC, D lies on AB and E lies on AC with DE || BC. If AD = 6, DB = 9, and AE = 8, find AC.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "12",
+          "explanation": "By BPT, AD/AB = AE/AC.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 110,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Basic proportionality theorem",
+          "prompt": "In triangle ABC, D lies on AB and E lies on AC with DE || BC. If AD = 5, DB = 7, and AE = 10, find AC.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "14",
+          "explanation": "By BPT, AD/AB = AE/AC.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 110,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Basic proportionality theorem",
+          "prompt": "In triangle ABC, D lies on AB and E lies on AC with DE || BC. If AD = 3, DB = 5, and AE = 9, find AC.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "15",
+          "explanation": "By BPT, AD/AB = AE/AC.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 110,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Basic proportionality theorem",
+          "prompt": "In triangle ABC, D lies on AB and E lies on AC with DE || BC. If AD = 8, DB = 12, and AE = 4, find AC.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "6",
+          "explanation": "By BPT, AD/AB = AE/AC.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 110,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Basic proportionality theorem",
+          "prompt": "In triangle ABC, D lies on AB and E lies on AC with DE || BC. If AD = 9, DB = 15, and AE = 6, find AC.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "10",
+          "explanation": "By BPT, AD/AB = AE/AC.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 110,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Area ratio",
+          "prompt": "Two similar triangles have corresponding side ratio 2:3. What is the ratio of their areas?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "4/9",
+          "explanation": "The ratio of areas is the square of the side ratio.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 70,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Area ratio",
+          "prompt": "Two similar triangles have corresponding side ratio 3:5. What is the ratio of their areas?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "9/25",
+          "explanation": "The ratio of areas is the square of the side ratio.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 70,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Area ratio",
+          "prompt": "Two similar triangles have corresponding side ratio 4:7. What is the ratio of their areas?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "16/49",
+          "explanation": "The ratio of areas is the square of the side ratio.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 70,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Area ratio",
+          "prompt": "Two similar triangles have corresponding side ratio 5:8. What is the ratio of their areas?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "25/64",
+          "explanation": "The ratio of areas is the square of the side ratio.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 70,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Area ratio",
+          "prompt": "Two similar triangles have corresponding side ratio 6:11. What is the ratio of their areas?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "36/121",
+          "explanation": "The ratio of areas is the square of the side ratio.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 70,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Area ratio",
+          "prompt": "Two similar triangles have corresponding side ratio 7:9. What is the ratio of their areas?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "49/81",
+          "explanation": "The ratio of areas is the square of the side ratio.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 70,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Pythagoras theorem",
+          "prompt": "If a triangle is right-angled, the square of the hypotenuse equals the sum of the squares of the other two sides.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "This is the Pythagoras theorem.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Similarity",
+          "prompt": "Similar triangles always have equal corresponding angles.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "That is part of the definition of similarity.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Area ratio",
+          "prompt": "If two similar triangles have side ratio 3:4, their area ratio is ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "9:16",
+          "explanation": "Square the side ratio.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Basic proportionality theorem",
+          "prompt": "If a line is drawn parallel to one side of a triangle, it divides the other two sides in the ____ ratio.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "same",
+          "explanation": "This is the BPT.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Converse of BPT",
+          "prompt": "If a line divides two sides of a triangle in the same ratio, then the line is parallel to the third side.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "This is the converse of BPT.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Pythagorean triplet",
+          "prompt": "3, 4, and ____ form a Pythagorean triplet.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "5",
+          "explanation": "3^2 + 4^2 = 5^2.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Pythagoras theorem",
+          "prompt": "A right triangle has legs 6 cm and 8 cm. What is the hypotenuse?",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "10",
+          "explanation": "Use 6^2 + 8^2 = c^2.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Similarity",
+          "prompt": "Two similar triangles have corresponding sides 4 cm and 10 cm. If the smaller triangle has area 24 cm^2, what is the area of the larger triangle?",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "150",
+          "explanation": "Area scale factor is (10/4)^2.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 120,
+          "hintWeight": 1
+        },
+        {
+          "topic": "BPT application",
+          "prompt": "In triangle ABC, DE || BC. If AD = 4, DB = 6 and AE = 8, what is EC?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "12",
+          "explanation": "By BPT, AD/DB = AE/EC.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 150,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Pythagoras check",
+          "prompt": "A student says that sides 8 cm, 15 cm, and 17 cm can form a right triangle. Is the student correct? Answer True or False.",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "True",
+          "explanation": "8^2 + 15^2 = 17^2.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 150,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Similarity reasoning",
+          "prompt": "If two triangles have angle sets (40, 60, 80) and (40, 80, 60), are they similar? Answer Yes or No.",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "Yes",
+          "explanation": "Their corresponding angles are equal.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 55,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Area ratio",
+          "prompt": "The ratio of areas of two similar triangles is 16:81. What is the ratio of their corresponding sides?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "4:9",
+          "explanation": "Take the square root of the area ratio.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 85,
+          "hintWeight": 1
+        }
+      ]
+    }
+  ]
+}

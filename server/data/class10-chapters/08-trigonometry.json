@@ -1,0 +1,393 @@
+{
+  "subject": "math",
+  "gradeLevel": "10",
+  "curriculum": "Class 10 General Math MVP Seed",
+  "chapters": [
+    {
+      "chapterNumber": 8,
+      "code": "G10-TRIGONOMETRY",
+      "name": "Introduction to Trigonometry",
+      "description": "Trigonometric ratios, standard values, and basic identities.",
+      "skillId": "trigonometry_basic",
+      "skillName": "Trigonometry Basics",
+      "standard": "MATH-TRIGONOMETRY",
+      "lessonSummary": "Move between right triangles, standard angles, and identities.",
+      "practiceFocus": "sin, cos, tan and simple identities",
+      "checkpointGoal": "Use trigonometric ratios correctly in class 10 problems.",
+      "questions": [
+        {
+          "topic": "Standard values",
+          "prompt": "What is the value of sin 30 deg?",
+          "questionType": "mcq",
+          "options": [
+            "1/2",
+            "sqrt(3)",
+            "2",
+            "0"
+          ],
+          "correctAnswer": "1/2",
+          "explanation": "Use the standard trigonometric table.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Standard values",
+          "prompt": "What is the value of cos 60 deg?",
+          "questionType": "mcq",
+          "options": [
+            "1/2",
+            "sqrt(3)",
+            "2",
+            "0"
+          ],
+          "correctAnswer": "1/2",
+          "explanation": "Use the standard trigonometric table.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Standard values",
+          "prompt": "What is the value of tan 45 deg?",
+          "questionType": "mcq",
+          "options": [
+            "1",
+            "sqrt(3)",
+            "2",
+            "0"
+          ],
+          "correctAnswer": "1",
+          "explanation": "Use the standard trigonometric table.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Standard values",
+          "prompt": "What is the value of sin 45 deg?",
+          "questionType": "mcq",
+          "options": [
+            "1/sqrt(2)",
+            "sqrt(3)",
+            "2",
+            "0"
+          ],
+          "correctAnswer": "1/sqrt(2)",
+          "explanation": "Use the standard trigonometric table.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Standard values",
+          "prompt": "What is the value of cos 30 deg?",
+          "questionType": "mcq",
+          "options": [
+            "sqrt(3)/2",
+            "sqrt(3)",
+            "2",
+            "0"
+          ],
+          "correctAnswer": "sqrt(3)/2",
+          "explanation": "Use the standard trigonometric table.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Standard values",
+          "prompt": "What is the value of tan 30 deg?",
+          "questionType": "mcq",
+          "options": [
+            "1/sqrt(3)",
+            "sqrt(3)",
+            "2",
+            "0"
+          ],
+          "correctAnswer": "1/sqrt(3)",
+          "explanation": "Use the standard trigonometric table.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Trigonometric ratios",
+          "prompt": "If sin theta = 3/5, find cos theta.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "4/5",
+          "explanation": "Use a right triangle or the identity sin^2 theta + cos^2 theta = 1.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 85,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Trigonometric ratios",
+          "prompt": "If cos theta = 5/13, find sin theta.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "12/13",
+          "explanation": "Use a right triangle or the identity sin^2 theta + cos^2 theta = 1.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 85,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Trigonometric ratios",
+          "prompt": "If tan theta = 3/4, find sin theta.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "3/5",
+          "explanation": "Use a right triangle or the identity sin^2 theta + cos^2 theta = 1.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 85,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Trigonometric ratios",
+          "prompt": "If tan theta = 3/4, find cos theta.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "4/5",
+          "explanation": "Use a right triangle or the identity sin^2 theta + cos^2 theta = 1.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 85,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Trigonometric ratios",
+          "prompt": "If sin theta = 8/17, find cos theta.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "15/17",
+          "explanation": "Use a right triangle or the identity sin^2 theta + cos^2 theta = 1.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 85,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Trigonometric ratios",
+          "prompt": "If cos theta = 12/13, find tan theta.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "5/12",
+          "explanation": "Use a right triangle or the identity sin^2 theta + cos^2 theta = 1.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 85,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Identity",
+          "prompt": "Complete: sin^2 theta + cos^2 theta = ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "1",
+          "explanation": "This is the fundamental identity.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Identity",
+          "prompt": "Complete: 1 + tan^2 theta = ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "sec^2 theta",
+          "explanation": "This follows from dividing by cos^2 theta.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Complementary angles",
+          "prompt": "sin(90 deg - theta) = cos theta.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "These are complementary angle identities.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Complementary angles",
+          "prompt": "tan(90 deg - theta) = tan theta.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "False",
+          "explanation": "tan(90 deg - theta) = cot theta.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Ratio relation",
+          "prompt": "tan theta = ____ / cos theta.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "sin theta",
+          "explanation": "tan theta = sin theta / cos theta.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Trig definitions",
+          "prompt": "cot theta is the reciprocal of tan theta.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "cot theta = 1/tan theta.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Trig table",
+          "prompt": "If theta = 45 degrees, what is sec theta?",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "sqrt(2)",
+          "explanation": "sec theta = 1/cos theta.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 65,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Identity use",
+          "prompt": "If sin theta = 5/13, find sec theta.",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "13/12",
+          "explanation": "cos theta = 12/13, so sec theta = 13/12.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 90,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Right triangle",
+          "prompt": "In a right triangle, the side opposite theta is 5 and the hypotenuse is 13. What is sin theta?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "5/13",
+          "explanation": "sin theta = opposite/hypotenuse.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 50,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Complementary relation",
+          "prompt": "A student says cos(90 deg - theta) = sin theta. Is the student correct? Answer True or False.",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "True",
+          "explanation": "This is a standard complementary identity.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Trig ratio",
+          "prompt": "If tan theta = 1 and theta is acute, what is theta in degrees?",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "45",
+          "explanation": "tan 45 deg = 1.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 50,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Identity check",
+          "prompt": "If sin theta = 12/13, what is cos theta for acute theta?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "5/13",
+          "explanation": "Use the Pythagorean identity.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 80,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Standard values",
+          "prompt": "What is the value of cos 45 deg?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "1/sqrt(2)",
+          "explanation": "Use the standard trigonometric table.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Standard values",
+          "prompt": "What is the value of tan 60 deg?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "sqrt(3)",
+          "explanation": "Use the standard trigonometric table.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Trigonometric ratios",
+          "prompt": "If sin theta = 4/5, find tan theta.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "4/3",
+          "explanation": "cos theta = 3/5, so tan theta = 4/3.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Ratio relation",
+          "prompt": "The reciprocal of cosec theta is ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "sin theta",
+          "explanation": "Reciprocals pair with each other.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Standard values",
+          "prompt": "cos 0 deg = 1.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "This is a standard value.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Angle relation",
+          "prompt": "If sec theta = 5/4 for acute theta, find cos theta.",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "4/5",
+          "explanation": "cos theta is the reciprocal of sec theta.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        }
+      ]
+    }
+  ]
+}

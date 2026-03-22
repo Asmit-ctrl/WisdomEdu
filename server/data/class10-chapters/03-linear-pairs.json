@@ -1,0 +1,390 @@
+{
+  "subject": "math",
+  "gradeLevel": "10",
+  "curriculum": "Class 10 General Math MVP Seed",
+  "chapters": [
+    {
+      "chapterNumber": 3,
+      "code": "G10-LINEAR-PAIRS",
+      "name": "Pair of Linear Equations in Two Variables",
+      "description": "Graphical and algebraic solutions of a pair of linear equations.",
+      "skillId": "linear_pairs_basic",
+      "skillName": "Pair of Linear Equations Basics",
+      "standard": "MATH-LINEAR-PAIRS",
+      "lessonSummary": "Use substitution, elimination, and solution classification.",
+      "practiceFocus": "Unique solution, no solution, and word problems",
+      "checkpointGoal": "Solve and classify a pair of equations correctly.",
+      "questions": [
+        {
+          "topic": "Elimination",
+          "prompt": "Solve 1x + 1y = 9 and 1x + -1y = 1. What is x?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "5",
+          "explanation": "Solve by elimination or substitution to obtain x = 5.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 90,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Elimination",
+          "prompt": "Solve 2x + 1y = 11 and 1x + -1y = 1. What is x?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "4",
+          "explanation": "Solve by elimination or substitution to obtain x = 4.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 90,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Elimination",
+          "prompt": "Solve 1x + 2y = 12 and 1x + -1y = 0. What is x?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "4",
+          "explanation": "Solve by elimination or substitution to obtain x = 4.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 90,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Elimination",
+          "prompt": "Solve 2x + 3y = 18 and 1x + -1y = 1. What is x?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "3",
+          "explanation": "Solve by elimination or substitution to obtain x = 3.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 90,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Elimination",
+          "prompt": "Solve 5x + 2y = 24 and 1x + -1y = 2. What is x?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "4",
+          "explanation": "Solve by elimination or substitution to obtain x = 4.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 90,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Elimination",
+          "prompt": "Solve 3x + 2y = 19 and 1x + -1y = 1. What is x?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "21/5",
+          "explanation": "Solve by elimination or substitution to obtain x = 21/5.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 90,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Substitution",
+          "prompt": "Solve 1x + 1y = 9 and 1x + -1y = 1. What is y?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "4",
+          "explanation": "Solve the pair and identify y.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 90,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Substitution",
+          "prompt": "Solve 2x + 1y = 11 and 1x + -1y = 1. What is y?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "3",
+          "explanation": "Solve the pair and identify y.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 90,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Substitution",
+          "prompt": "Solve 1x + 2y = 12 and 1x + -1y = 0. What is y?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "4",
+          "explanation": "Solve the pair and identify y.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 90,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Substitution",
+          "prompt": "Solve 2x + 3y = 18 and 1x + -1y = 1. What is y?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "2",
+          "explanation": "Solve the pair and identify y.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 90,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Substitution",
+          "prompt": "Solve 5x + 2y = 24 and 1x + -1y = 2. What is y?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "2",
+          "explanation": "Solve the pair and identify y.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 90,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Substitution",
+          "prompt": "Solve 3x + 2y = 19 and 1x + -1y = 1. What is y?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "16/5",
+          "explanation": "Solve the pair and identify y.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 90,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Consistency",
+          "prompt": "The pair x + y = 4 and x + y = 6 has:",
+          "questionType": "mcq",
+          "options": [
+            "Unique solution",
+            "No solution",
+            "Infinitely many solutions",
+            "Cannot be classified"
+          ],
+          "correctAnswer": "No solution",
+          "explanation": "Compare ratios of coefficients and constants to classify the pair.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 80,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Consistency",
+          "prompt": "The pair x + y = 4 and 2x + 2y = 8 has:",
+          "questionType": "mcq",
+          "options": [
+            "Unique solution",
+            "No solution",
+            "Infinitely many solutions",
+            "Cannot be classified"
+          ],
+          "correctAnswer": "Infinitely many solutions",
+          "explanation": "Compare ratios of coefficients and constants to classify the pair.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 80,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Consistency",
+          "prompt": "The pair 2x + y = 7 and x + y = 5 has:",
+          "questionType": "mcq",
+          "options": [
+            "Unique solution",
+            "No solution",
+            "Infinitely many solutions",
+            "Cannot be classified"
+          ],
+          "correctAnswer": "Unique solution",
+          "explanation": "Compare ratios of coefficients and constants to classify the pair.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 80,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Consistency",
+          "prompt": "The pair 3x - y = 4 and 3x - y = 9 has:",
+          "questionType": "mcq",
+          "options": [
+            "Unique solution",
+            "No solution",
+            "Infinitely many solutions",
+            "Cannot be classified"
+          ],
+          "correctAnswer": "No solution",
+          "explanation": "Compare ratios of coefficients and constants to classify the pair.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 80,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Consistency",
+          "prompt": "The pair x + 2y = 8 and 2x + 4y = 16 has:",
+          "questionType": "mcq",
+          "options": [
+            "Unique solution",
+            "No solution",
+            "Infinitely many solutions",
+            "Cannot be classified"
+          ],
+          "correctAnswer": "Infinitely many solutions",
+          "explanation": "Compare ratios of coefficients and constants to classify the pair.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 80,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Consistency",
+          "prompt": "The pair 2x - 3y = 5 and x + y = 7 has:",
+          "questionType": "mcq",
+          "options": [
+            "Unique solution",
+            "No solution",
+            "Infinitely many solutions",
+            "Cannot be classified"
+          ],
+          "correctAnswer": "Unique solution",
+          "explanation": "Compare ratios of coefficients and constants to classify the pair.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 80,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Pair classification",
+          "prompt": "If a1/a2 = b1/b2 != c1/c2, the pair of equations has ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "no solution",
+          "explanation": "The lines are parallel and distinct.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Pair classification",
+          "prompt": "If a1/a2 != b1/b2, the pair has a ____ solution.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "unique",
+          "explanation": "The two lines intersect in one point.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Graphical interpretation",
+          "prompt": "Two coincident lines represent infinitely many solutions.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "Every point on one line lies on the other.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Graphical interpretation",
+          "prompt": "Parallel distinct lines represent a unique solution.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "False",
+          "explanation": "Parallel distinct lines never intersect.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Equation solving",
+          "prompt": "In the substitution method, one variable is first expressed in terms of the ____ variable.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "other",
+          "explanation": "That value is substituted into the second equation.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Linear systems",
+          "prompt": "A pair of linear equations can have more than one unique solution.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "False",
+          "explanation": "A pair of lines can intersect at only one point.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Word problem",
+          "prompt": "Two pens and one notebook cost 70. One pen and one notebook cost 50. What is the cost of one pen?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "20",
+          "explanation": "Subtract the second equation from the first.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 150,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Word problem",
+          "prompt": "A class buys 3 geometry boxes and 2 notebooks for 96. Two geometry boxes and one notebook cost 58. What is the cost of one notebook?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "18",
+          "explanation": "Let geometry box cost be x and notebook cost be y; solve the pair.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 150,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Word problem",
+          "prompt": "The sum of two numbers is 18 and their difference is 4. Find the larger number.",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "11",
+          "explanation": "Let the numbers be x and y. Solve x + y = 18 and x - y = 4.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 70,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Word problem",
+          "prompt": "The sum of digits of a two-digit number is 9. If the digits are reversed, the number increases by 27. What is the original number?",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "36",
+          "explanation": "Let tens digit be x and units digit be y. Solve x + y = 9 and 9(y - x) = 27.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 140,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Consistency",
+          "prompt": "A student writes 2x + 4y = 12 and x + 2y = 6. Are these equations dependent? Answer True or False.",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "True",
+          "explanation": "One equation is a scalar multiple of the other.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 150,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Solving systems",
+          "prompt": "If y = 2x and x + y = 12, what is y?",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "8",
+          "explanation": "Substitute y = 2x to get 3x = 12.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        }
+      ]
+    }
+  ]
+}

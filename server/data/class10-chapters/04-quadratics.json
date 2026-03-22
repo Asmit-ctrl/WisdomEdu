@@ -1,0 +1,390 @@
+{
+  "subject": "math",
+  "gradeLevel": "10",
+  "curriculum": "Class 10 General Math MVP Seed",
+  "chapters": [
+    {
+      "chapterNumber": 4,
+      "code": "G10-QUADRATICS",
+      "name": "Quadratic Equations",
+      "description": "Factorization and formula-based solving of quadratic equations.",
+      "skillId": "quadratics_basic",
+      "skillName": "Quadratic Equations Basics",
+      "standard": "MATH-QUADRATICS",
+      "lessonSummary": "Pick the right method and interpret roots carefully.",
+      "practiceFocus": "Factorization, discriminant, and root checks",
+      "checkpointGoal": "Solve quadratic equations accurately.",
+      "questions": [
+        {
+          "topic": "Factorization",
+          "prompt": "Solve x^2 - 9x + 20 = 0. What is the smaller root?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "4",
+          "explanation": "Factor the quadratic and identify the smaller root.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Factorization",
+          "prompt": "Solve x^2 - 7x + 10 = 0. What is the smaller root?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "2",
+          "explanation": "Factor the quadratic and identify the smaller root.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Factorization",
+          "prompt": "Solve x^2 - 11x + 24 = 0. What is the smaller root?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "3",
+          "explanation": "Factor the quadratic and identify the smaller root.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Factorization",
+          "prompt": "Solve x^2 - 8x + 12 = 0. What is the smaller root?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "2",
+          "explanation": "Factor the quadratic and identify the smaller root.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Factorization",
+          "prompt": "Solve x^2 - 10x + 21 = 0. What is the smaller root?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "3",
+          "explanation": "Factor the quadratic and identify the smaller root.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Factorization",
+          "prompt": "Solve x^2 - 13x + 40 = 0. What is the smaller root?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "5",
+          "explanation": "Factor the quadratic and identify the smaller root.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Nature of roots",
+          "prompt": "How many distinct real roots does x^2 - 6x + 9 = 0 have?",
+          "questionType": "mcq",
+          "options": [
+            "0",
+            "1",
+            "2",
+            "Cannot be determined"
+          ],
+          "correctAnswer": "1",
+          "explanation": "Use the discriminant b^2 - 4ac.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Nature of roots",
+          "prompt": "How many distinct real roots does x^2 - 5x + 6 = 0 have?",
+          "questionType": "mcq",
+          "options": [
+            "0",
+            "1",
+            "2",
+            "Cannot be determined"
+          ],
+          "correctAnswer": "2",
+          "explanation": "Use the discriminant b^2 - 4ac.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Nature of roots",
+          "prompt": "How many distinct real roots does x^2 + x + 1 = 0 have?",
+          "questionType": "mcq",
+          "options": [
+            "0",
+            "1",
+            "2",
+            "Cannot be determined"
+          ],
+          "correctAnswer": "0",
+          "explanation": "Use the discriminant b^2 - 4ac.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Nature of roots",
+          "prompt": "How many distinct real roots does x^2 - 4x + 4 = 0 have?",
+          "questionType": "mcq",
+          "options": [
+            "0",
+            "1",
+            "2",
+            "Cannot be determined"
+          ],
+          "correctAnswer": "1",
+          "explanation": "Use the discriminant b^2 - 4ac.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Nature of roots",
+          "prompt": "How many distinct real roots does x^2 - x - 12 = 0 have?",
+          "questionType": "mcq",
+          "options": [
+            "0",
+            "1",
+            "2",
+            "Cannot be determined"
+          ],
+          "correctAnswer": "2",
+          "explanation": "Use the discriminant b^2 - 4ac.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Nature of roots",
+          "prompt": "How many distinct real roots does x^2 + 6x + 10 = 0 have?",
+          "questionType": "mcq",
+          "options": [
+            "0",
+            "1",
+            "2",
+            "Cannot be determined"
+          ],
+          "correctAnswer": "0",
+          "explanation": "Use the discriminant b^2 - 4ac.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Root check",
+          "prompt": "If x = -2 is a root of x^2 + kx - 8 = 0, what is k?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "-2",
+          "explanation": "Substitute x = -2 into the equation and solve for k.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 85,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Root check",
+          "prompt": "If x = 3 is a root of x^2 + kx - 8 = 0, what is k?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "-5",
+          "explanation": "Substitute x = 3 into the equation and solve for k.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 85,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Root check",
+          "prompt": "If x = 4 is a root of x^2 + kx - 8 = 0, what is k?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "-2",
+          "explanation": "Substitute x = 4 into the equation and solve for k.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 85,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Root check",
+          "prompt": "If x = -1 is a root of x^2 + kx - 8 = 0, what is k?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "7",
+          "explanation": "Substitute x = -1 into the equation and solve for k.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 85,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Root check",
+          "prompt": "If x = 2 is a root of x^2 + kx - 8 = 0, what is k?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "-1",
+          "explanation": "Substitute x = 2 into the equation and solve for k.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 85,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Root check",
+          "prompt": "If x = -4 is a root of x^2 + kx - 8 = 0, what is k?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "2",
+          "explanation": "Substitute x = -4 into the equation and solve for k.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 85,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Quadratic formula",
+          "prompt": "For ax^2 + bx + c = 0, the discriminant is ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "b^2 - 4ac",
+          "explanation": "The discriminant decides the nature of roots.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Repeated roots",
+          "prompt": "If the discriminant is 0, a quadratic equation has ____ equal real roots.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "two",
+          "explanation": "The repeated root occurs twice.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Nature of roots",
+          "prompt": "If the discriminant is negative, the quadratic has no real roots.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "Negative discriminant gives non-real roots.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Factorization",
+          "prompt": "x^2 - 5x + 6 factors as (x - 2)(x - 3).",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "The factors multiply to 6 and add to -5.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Equation from roots",
+          "prompt": "If the roots are alpha and beta, a monic quadratic is x^2 - (alpha + beta)x + ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "alphabeta",
+          "explanation": "The constant term is the product of roots.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Quadratic equations",
+          "prompt": "Every quadratic equation has exactly two distinct real roots.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "False",
+          "explanation": "Some have repeated or non-real roots.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Equation from roots",
+          "prompt": "Form a quadratic equation whose roots are 4 and 5.",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "x^2 - 9x + 20 = 0",
+          "explanation": "The equation is (x - 4)(x - 5) = 0.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 90,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Word problem",
+          "prompt": "The product of two consecutive positive integers is 56. What is the larger integer?",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "8",
+          "explanation": "Let the integers be x and x + 1, then x(x + 1) = 56.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 120,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Area problem",
+          "prompt": "A rectangular garden has area 48 m^2. Its length is 2 m more than its width. What is the width?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "6",
+          "explanation": "Let width be x. Then x(x + 2) = 48, giving x = 6.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 130,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Repeated root",
+          "prompt": "A student says x^2 - 10x + 25 = 0 has one distinct real root. Is the student correct? Answer True or False.",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "True",
+          "explanation": "The discriminant is 0, so the repeated root is 5.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 150,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Root sum product",
+          "prompt": "A quadratic equation has roots 2 and -3. Write the equation.",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "x^2 + x - 6 = 0",
+          "explanation": "The equation is (x - 2)(x + 3) = 0.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 90,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Root identification",
+          "prompt": "Which is the smaller root of x^2 - 12x + 35 = 0?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "5",
+          "explanation": "The factors are (x - 5)(x - 7).",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 80,
+          "hintWeight": 1
+        }
+      ]
+    }
+  ]
+}

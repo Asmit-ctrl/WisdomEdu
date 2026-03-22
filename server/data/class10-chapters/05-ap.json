@@ -1,0 +1,390 @@
+{
+  "subject": "math",
+  "gradeLevel": "10",
+  "curriculum": "Class 10 General Math MVP Seed",
+  "chapters": [
+    {
+      "chapterNumber": 5,
+      "code": "G10-AP",
+      "name": "Arithmetic Progressions",
+      "description": "Nth term and sum of arithmetic progressions.",
+      "skillId": "ap_basic",
+      "skillName": "Arithmetic Progressions Basics",
+      "standard": "MATH-AP",
+      "lessonSummary": "Use common difference, nth term, and sum formulas fluently.",
+      "practiceFocus": "Nth term, sum, and reverse-term problems",
+      "checkpointGoal": "Recognize and solve arithmetic progression patterns.",
+      "questions": [
+        {
+          "topic": "Common difference",
+          "prompt": "What is the common difference of the AP 7, 11, ... ?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "4",
+          "explanation": "Subtract the first term from the second term.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 40,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Common difference",
+          "prompt": "What is the common difference of the AP 3, 8, ... ?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "5",
+          "explanation": "Subtract the first term from the second term.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 40,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Common difference",
+          "prompt": "What is the common difference of the AP 12, 9, ... ?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "-3",
+          "explanation": "Subtract the first term from the second term.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 40,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Common difference",
+          "prompt": "What is the common difference of the AP 5, 15, ... ?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "10",
+          "explanation": "Subtract the first term from the second term.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 40,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Common difference",
+          "prompt": "What is the common difference of the AP -2, 4, ... ?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "6",
+          "explanation": "Subtract the first term from the second term.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 40,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Common difference",
+          "prompt": "What is the common difference of the AP 20, 13, ... ?",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "-7",
+          "explanation": "Subtract the first term from the second term.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 40,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Nth term",
+          "prompt": "Find the 10th term of the AP with first term 3 and common difference 4.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "39",
+          "explanation": "Use an = a + (n - 1)d.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Nth term",
+          "prompt": "Find the 8th term of the AP with first term 5 and common difference 6.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "47",
+          "explanation": "Use an = a + (n - 1)d.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Nth term",
+          "prompt": "Find the 7th term of the AP with first term 12 and common difference -2.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "0",
+          "explanation": "Use an = a + (n - 1)d.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Nth term",
+          "prompt": "Find the 9th term of the AP with first term 1 and common difference 5.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "41",
+          "explanation": "Use an = a + (n - 1)d.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Nth term",
+          "prompt": "Find the 12th term of the AP with first term 9 and common difference 3.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "42",
+          "explanation": "Use an = a + (n - 1)d.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Nth term",
+          "prompt": "Find the 15th term of the AP with first term 20 and common difference -1.",
+          "questionType": "numeric",
+          "options": [],
+          "correctAnswer": "6",
+          "explanation": "Use an = a + (n - 1)d.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Sum of AP",
+          "prompt": "What is the sum of the first 5 terms of the AP with first term 2 and common difference 3?",
+          "questionType": "mcq",
+          "options": [
+            "40",
+            "50",
+            "34",
+            "44"
+          ],
+          "correctAnswer": "40",
+          "explanation": "Use Sn = n/2 [2a + (n - 1)d].",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Sum of AP",
+          "prompt": "What is the sum of the first 6 terms of the AP with first term 4 and common difference 5?",
+          "questionType": "mcq",
+          "options": [
+            "99",
+            "109",
+            "93",
+            "103"
+          ],
+          "correctAnswer": "99",
+          "explanation": "Use Sn = n/2 [2a + (n - 1)d].",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Sum of AP",
+          "prompt": "What is the sum of the first 4 terms of the AP with first term 10 and common difference -1?",
+          "questionType": "mcq",
+          "options": [
+            "34",
+            "44",
+            "28",
+            "38"
+          ],
+          "correctAnswer": "34",
+          "explanation": "Use Sn = n/2 [2a + (n - 1)d].",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Sum of AP",
+          "prompt": "What is the sum of the first 3 terms of the AP with first term 7 and common difference 7?",
+          "questionType": "mcq",
+          "options": [
+            "42",
+            "52",
+            "36",
+            "46"
+          ],
+          "correctAnswer": "42",
+          "explanation": "Use Sn = n/2 [2a + (n - 1)d].",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Sum of AP",
+          "prompt": "What is the sum of the first 10 terms of the AP with first term 1 and common difference 2?",
+          "questionType": "mcq",
+          "options": [
+            "100",
+            "110",
+            "94",
+            "104"
+          ],
+          "correctAnswer": "100",
+          "explanation": "Use Sn = n/2 [2a + (n - 1)d].",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Sum of AP",
+          "prompt": "What is the sum of the first 5 terms of the AP with first term 12 and common difference 4?",
+          "questionType": "mcq",
+          "options": [
+            "100",
+            "110",
+            "94",
+            "104"
+          ],
+          "correctAnswer": "100",
+          "explanation": "Use Sn = n/2 [2a + (n - 1)d].",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 75,
+          "hintWeight": 1
+        },
+        {
+          "topic": "AP formula",
+          "prompt": "The nth term of an AP is given by an = a + (n - 1) ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "d",
+          "explanation": "Here d is the common difference.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "AP sum",
+          "prompt": "The sum of the first n terms of an AP is denoted by ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "Sn",
+          "explanation": "Sn is the standard notation.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Arithmetic progression",
+          "prompt": "The sequence 5, 9, 13, 17 is an AP.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "The common difference is 4.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Arithmetic progression",
+          "prompt": "The sequence 2, 4, 8, 16 is an AP.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "False",
+          "explanation": "The differences are not constant.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Middle term",
+          "prompt": "If three numbers are in AP, the middle term equals the ____ of the other two.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "average",
+          "explanation": "The middle term is the arithmetic mean.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Common difference",
+          "prompt": "An AP can have a negative common difference.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "The terms then decrease by a fixed amount.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Missing term",
+          "prompt": "In the AP 4, 9, 14, ..., what is the 15th term?",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "74",
+          "explanation": "a = 4, d = 5, so a15 = 4 + 14 x 5.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 70,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Finding n",
+          "prompt": "How many terms of the AP 3, 7, 11, ... are needed to reach 43?",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "11",
+          "explanation": "Solve 3 + (n - 1)4 = 43.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 80,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Word problem",
+          "prompt": "A student saves 20 rupees on day 1 and increases the saving by 5 rupees each day. How much is saved on day 7?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "50",
+          "explanation": "The savings form an AP with a = 20 and d = 5.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 150,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Word problem",
+          "prompt": "Chairs in an auditorium row form an AP: 18, 21, 24, ... How many chairs are in row 10?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "45",
+          "explanation": "Use a10 = 18 + 9 x 3.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 90,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Sum problem",
+          "prompt": "Find the sum of the first 8 terms of the AP 6, 10, 14, ...",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "160",
+          "explanation": "Use Sn = n/2 [2a + (n - 1)d].",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 85,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Consecutive integers",
+          "prompt": "The numbers 12, 17, 22, 27 are in AP. What is their common difference?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "5",
+          "explanation": "Subtract successive terms.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 40,
+          "hintWeight": 1
+        }
+      ]
+    }
+  ]
+}

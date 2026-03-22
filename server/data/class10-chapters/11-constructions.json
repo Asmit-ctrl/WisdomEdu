@@ -1,0 +1,405 @@
+{
+  "subject": "math",
+  "gradeLevel": "10",
+  "curriculum": "Class 10 General Math MVP Seed",
+  "chapters": [
+    {
+      "chapterNumber": 11,
+      "code": "G10-CONSTRUCTIONS",
+      "name": "Constructions",
+      "description": "Geometric construction ideas based on ratios and tangents.",
+      "skillId": "constructions_basic",
+      "skillName": "Constructions Basics",
+      "standard": "MATH-CONSTRUCTIONS",
+      "lessonSummary": "Understand why standard line-division and tangent constructions work.",
+      "practiceFocus": "Segment division and tangent construction logic",
+      "checkpointGoal": "Understand the reasoning behind standard class 10 constructions.",
+      "questions": [
+        {
+          "topic": "Construction steps",
+          "prompt": "To divide a line segment internally in the ratio 3:4, which construction idea is used?",
+          "questionType": "mcq",
+          "options": [
+            "Similar triangles",
+            "Radius is perpendicular to tangent",
+            "Draw a ray from a vertex",
+            "Segment spacing",
+            "Radius"
+          ],
+          "correctAnswer": "Similar triangles",
+          "explanation": "These are standard ideas used in construction problems.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 70,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Construction steps",
+          "prompt": "To construct a tangent from an external point to a circle, which theorem is most directly used?",
+          "questionType": "mcq",
+          "options": [
+            "Similar triangles",
+            "Radius is perpendicular to tangent",
+            "Draw a ray from a vertex",
+            "Segment spacing",
+            "Radius"
+          ],
+          "correctAnswer": "Radius is perpendicular to tangent",
+          "explanation": "These are standard ideas used in construction problems.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 70,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Construction steps",
+          "prompt": "To enlarge a triangle in the ratio 5:3, what is the first broad step?",
+          "questionType": "mcq",
+          "options": [
+            "Similar triangles",
+            "Radius is perpendicular to tangent",
+            "Draw a ray from a vertex",
+            "Segment spacing",
+            "Radius"
+          ],
+          "correctAnswer": "Draw a ray from a vertex",
+          "explanation": "These are standard ideas used in construction problems.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 70,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Construction steps",
+          "prompt": "To reduce a triangle in the ratio 2:3, what concept supports the construction?",
+          "questionType": "mcq",
+          "options": [
+            "Similar triangles",
+            "Radius is perpendicular to tangent",
+            "Draw a ray from a vertex",
+            "Segment spacing",
+            "Radius"
+          ],
+          "correctAnswer": "Similarity",
+          "explanation": "These are standard ideas used in construction problems.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 70,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Construction steps",
+          "prompt": "When marking equal parts on a ray for ratio construction, what must remain equal?",
+          "questionType": "mcq",
+          "options": [
+            "Similar triangles",
+            "Radius is perpendicular to tangent",
+            "Draw a ray from a vertex",
+            "Segment spacing",
+            "Radius"
+          ],
+          "correctAnswer": "Segment spacing",
+          "explanation": "These are standard ideas used in construction problems.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 70,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Construction steps",
+          "prompt": "To locate the center before drawing a tangent circle construction, what must be known?",
+          "questionType": "mcq",
+          "options": [
+            "Similar triangles",
+            "Radius is perpendicular to tangent",
+            "Draw a ray from a vertex",
+            "Segment spacing",
+            "Radius"
+          ],
+          "correctAnswer": "Radius",
+          "explanation": "These are standard ideas used in construction problems.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 70,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Segment division",
+          "prompt": "To divide a segment in the ratio m:n, equal marks are first taken on a ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "ray",
+          "explanation": "A ray from one endpoint is used in the standard construction.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Construction logic",
+          "prompt": "Construction for tangent from an external point relies on a ____ angle with the radius.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "right",
+          "explanation": "The tangent is perpendicular to the radius.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Similarity",
+          "prompt": "To enlarge or reduce a triangle, the constructed triangle must be ____ to the original.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "similar",
+          "explanation": "The new triangle should preserve shape.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Ratio construction",
+          "prompt": "If the scale factor is greater than 1, the figure is a(n) ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "enlargement",
+          "explanation": "A factor greater than 1 enlarges the figure.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Ratio construction",
+          "prompt": "If the scale factor is less than 1, the figure is a(n) ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "reduction",
+          "explanation": "A factor less than 1 reduces the figure.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Tangent construction",
+          "prompt": "The tangent touches the circle at the point of ____.",
+          "questionType": "fill_blank",
+          "options": [],
+          "correctAnswer": "contact",
+          "explanation": "That point lies on the circle.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 60,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Similarity construction",
+          "prompt": "Enlarged and reduced figures in the construction chapter remain similar to the original.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "That is the objective of the construction.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Segment division",
+          "prompt": "Equal parts on the auxiliary ray must be unequally spaced.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "False",
+          "explanation": "They must be equally spaced.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Tangent construction",
+          "prompt": "A tangent from an external point can touch a circle at two different points.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "Two tangents can be drawn from an external point.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Scale factor",
+          "prompt": "A scale factor of 1 leaves the figure unchanged in size.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "The image size remains the same.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Construction tools",
+          "prompt": "Standard constructions are usually done using ruler and compass.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "True",
+          "explanation": "That is the standard geometric toolkit.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Triangle construction",
+          "prompt": "A triangle enlarged in ratio 2:1 has the same area as the original.",
+          "questionType": "true_false",
+          "options": [
+            "True",
+            "False"
+          ],
+          "correctAnswer": "False",
+          "explanation": "Its area becomes four times.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Construction theorem",
+          "prompt": "Which theorem is used when a line parallel to one side of a triangle is drawn to create a similar triangle?",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "Basic Proportionality Theorem",
+          "explanation": "Parallel lines in triangles support similarity-based construction.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 90,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Tangent construction",
+          "prompt": "What is the angle between the tangent and the radius at the point of contact?",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "90",
+          "explanation": "The tangent is perpendicular to the radius.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Scale factor",
+          "prompt": "If a triangle is enlarged in the ratio 3:2, is the new triangle larger or smaller?",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "larger",
+          "explanation": "A ratio greater than 1 gives an enlargement.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Segment division",
+          "prompt": "What ratio is represented if a segment is divided into 5 equal parts on one side and 2 equal parts on the other in the standard setup?",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "5:2",
+          "explanation": "The equal marks represent the required ratio.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Construction language",
+          "prompt": "Name the point where a tangent touches the circle.",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "point of contact",
+          "explanation": "That is the standard term.",
+          "difficultyLevel": 1,
+          "expectedTimeSec": 45,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Similarity",
+          "prompt": "Why do construction methods often draw a parallel line in a triangle?",
+          "questionType": "short_answer",
+          "options": [],
+          "correctAnswer": "to create a similar triangle",
+          "explanation": "Parallel lines preserve angle equality and proportionality.",
+          "difficultyLevel": 2,
+          "expectedTimeSec": 80,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Segment division",
+          "prompt": "A student needs to divide a segment AB in the ratio 2:3 internally. How many equal marks are taken on the auxiliary ray in total?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "5",
+          "explanation": "The marks represent 2 + 3 parts.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 150,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Triangle enlargement",
+          "prompt": "A triangle is enlarged in the ratio 5:3. Is the scale factor greater than 1? Answer True or False.",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "True",
+          "explanation": "5/3 is greater than 1.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 150,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Triangle reduction",
+          "prompt": "A triangle is reduced in the ratio 3:5. Is the new figure smaller than the original? Answer True or False.",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "True",
+          "explanation": "3/5 is less than 1.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 150,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Tangent construction",
+          "prompt": "To draw a tangent from a point P outside a circle, does P lie on the circle? Answer True or False.",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "False",
+          "explanation": "The point is external.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 150,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Similarity",
+          "prompt": "If a triangle is enlarged in ratio 2:1, what is the ratio of corresponding sides of image to original?",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "2:1",
+          "explanation": "The scale factor directly gives the side ratio.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 150,
+          "hintWeight": 1
+        },
+        {
+          "topic": "Construction reasoning",
+          "prompt": "When equal marks are made on the ray during segment division, must the same compass width be used repeatedly? Answer True or False.",
+          "questionType": "case_study",
+          "options": [],
+          "correctAnswer": "True",
+          "explanation": "Equal spacing is essential.",
+          "difficultyLevel": 3,
+          "expectedTimeSec": 150,
+          "hintWeight": 1
+        }
+      ]
+    }
+  ]
+}
