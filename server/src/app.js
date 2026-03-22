@@ -68,9 +68,21 @@ function buildAllowedOrigins() {
 
 const allowedOrigins = buildAllowedOrigins();
 
+function isAllowedOrigin(origin) {
+  if (!origin) {
+    return true;
+  }
+
+  if (allowedOrigins.has(origin)) {
+    return true;
+  }
+
+  return /^https:\/\/wisdom-edu-[a-z0-9-]+\.vercel\.app$/i.test(origin);
+}
+
 const corsOptions = {
   origin(origin, callback) {
-    if (!origin || allowedOrigins.has(origin)) {
+    if (isAllowedOrigin(origin)) {
       callback(null, true);
       return;
     }
