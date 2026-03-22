@@ -7,6 +7,7 @@ export const config = {
   port: process.env.PORT || 5000,
   mongodbUri: process.env.MONGODB_URI || "mongodb://127.0.0.1:27017/elder-bro-lms",
   jwtSecret: process.env.JWT_SECRET || "change-me",
+  corsOrigin: process.env.CORS_ORIGIN || "",
   activityEventRetentionDays: Number(process.env.ACTIVITY_EVENT_RETENTION_DAYS || 365),
   startupBootstrapEnabled:
     process.env.ENABLE_STARTUP_BOOTSTRAP === "true" ||

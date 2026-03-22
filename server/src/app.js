@@ -53,7 +53,38 @@ import {
 export const app = express();
 let bootstrapPromise = null;
 
-app.use(cors());
+function buildAllowedOrigins() {
+  const configuredOrigins = config.corsOrigin
+    .split(",")
+    .map((item) => item.trim())
+    .filter(Boolean);
+
+  return new Set([
+    "http://localhost:5173",
+    "http://127.0.0.1:5173",
+    ...configuredOrigins
+  ]);
+}
+
+const allowedOrigins = buildAllowedOrigins();
+
+const corsOptions = {
+  origin(origin, callback) {
+    if (!origin || allowedOrigins.has(origin)) {
+      callback(null, true);
+      return;
+    }
+
+    callback(createHttpError(403, `CORS blocked for origin ${origin}.`));
+  },
+  credentials: true,
+  methods: ["GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization", "X-Requested-With"],
+  optionsSuccessStatus: 204
+};
+
+app.use(cors(corsOptions));
+app.options(/.*/, cors(corsOptions));
 app.use(express.json());
 
 ["get", "post", "put", "patch", "delete"].forEach((method) => {
