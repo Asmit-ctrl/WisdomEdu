@@ -587,15 +587,22 @@ app.get("/api/ai/status", requireAuth("admin", "teacher"), (_request, response) 
 
 app.post("/api/auth/register-school", async (request, response) => {
   const { schoolName, adminName, email, password, timezone } = request.body;
+  const normalizedEmail = String(email || "").toLowerCase();
 
   if (!schoolName || !adminName || !email || !password) {
     response.status(400).json({ message: "schoolName, adminName, email, and password are required." });
     return;
   }
 
-  const existingUser = await User.findOne({ email: email.toLowerCase() });
+  const existingUser = await User.findOne({ email: normalizedEmail });
   if (existingUser) {
     response.status(409).json({ message: "An account with this email already exists." });
+    return;
+  }
+
+  const existingSchoolAdmin = await School.findOne({ adminEmail: normalizedEmail }).lean();
+  if (existingSchoolAdmin) {
+    response.status(409).json({ message: "A school admin account with this email already exists." });
     return;
   }
 
@@ -603,7 +610,7 @@ app.post("/api/auth/register-school", async (request, response) => {
     name: schoolName,
     slug: `${slugify(schoolName)}-${Date.now().toString().slice(-4)}`,
     adminName,
-    adminEmail: email.toLowerCase(),
+    adminEmail: normalizedEmail,
     timezone: timezone || "Asia/Kolkata"
   });
 
@@ -611,7 +618,7 @@ app.post("/api/auth/register-school", async (request, response) => {
     schoolId: school._id,
     role: "admin",
     fullName: adminName,
-    email: email.toLowerCase(),
+    email: normalizedEmail,
     passwordHash: await hashPassword(password)
   });
 
