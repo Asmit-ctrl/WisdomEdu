@@ -11,7 +11,17 @@ async function cleanupLegacyIndexes(connection) {
 
   legacyIndexCleanupPromise = (async () => {
     const usersCollection = connection.collection("users");
-    const indexes = await usersCollection.indexes();
+    let indexes = [];
+
+    try {
+      indexes = await usersCollection.indexes();
+    } catch (error) {
+      if (error?.codeName === "NamespaceNotFound" || error?.code === 26) {
+        return;
+      }
+      throw error;
+    }
+
     const hasLegacyUsernameIndex = indexes.some((index) => index.name === "username_1");
 
     if (hasLegacyUsernameIndex) {

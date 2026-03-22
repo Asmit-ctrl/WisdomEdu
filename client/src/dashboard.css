@@ -44,6 +44,7 @@ body {
   background-image: radial-gradient(circle at 15% 50%, rgba(99, 102, 241, 0.04) 0%, transparent 50%),
                     radial-gradient(circle at 85% 30%, rgba(16, 185, 129, 0.04) 0%, transparent 50%);
   background-attachment: fixed;
+  overflow-x: hidden;
 }
 
 /* =========================================
@@ -413,12 +414,16 @@ textarea {
   min-height: 100vh;
   display: grid;
   grid-template-columns: 272px minmax(0, 1fr);
+  width: 100%;
+  height: auto;
+  overflow: visible;
 }
 
 .dashboard-main {
   min-width: 0;
   padding: 24px 28px 30px;
-  overflow-y: auto;
+  overflow-y: visible;
+  overflow-x: hidden;
 }
 
 .dashboard-main > * {
@@ -1436,8 +1441,25 @@ textarea {
 }
 
 @media (max-width: 1024px) {
+  html,
+  body,
+  #root {
+    height: auto;
+    min-height: 100%;
+    overflow-x: hidden;
+  }
+
+  body {
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
   .dashboard-layout {
     display: block;
+    min-height: auto;
+    height: auto;
+    width: 100%;
+    overflow: visible;
   }
 
   .portal-sidebar {
@@ -1459,6 +1481,9 @@ textarea {
 
   .dashboard-main {
     padding: 20px 16px 28px;
+    overflow: visible;
+    min-height: auto;
+    height: auto;
   }
 
   .mobile-backdrop {
@@ -1483,6 +1508,8 @@ textarea {
     transform: translateX(-102%);
     transition: transform var(--transition);
     z-index: 40;
+    overflow-y: auto;
+    overscroll-behavior: contain;
   }
 
   .mobile-drawer--open {
@@ -1543,10 +1570,75 @@ textarea {
   .card,
   .chart-card {
     padding: 18px;
+    overflow: hidden;
   }
 }
 
 @media (max-width: 640px) {
+  html,
+  body,
+  #root {
+    overflow-x: hidden;
+  }
+
+  .dashboard-main {
+    padding: 16px 12px 24px;
+  }
+
+  .dashboard-main > * {
+    max-width: 100%;
+  }
+
+  .portal-header,
+  .card__header,
+  .workspace-shell__header {
+    gap: 10px;
+  }
+
+  .portal-header__actions,
+  .workspace-shell__actions {
+    width: 100%;
+    justify-items: stretch;
+  }
+
+  .portal-header__actions > *,
+  .workspace-shell__actions > * {
+    width: 100%;
+  }
+
+  .mobile-topbar {
+    padding: 12px;
+  }
+
+  .mobile-topbar__brand strong,
+  .focus-topbar__brand strong {
+    font-size: 15px;
+  }
+
+  .mobile-topbar__brand p,
+  .focus-topbar__brand p {
+    font-size: 12px;
+  }
+
+  .portal-sidebar__mark {
+    width: 38px;
+    height: 38px;
+    border-radius: 12px;
+  }
+
+  .mobile-drawer {
+    width: min(92vw, 320px);
+    padding: 16px 14px 20px;
+  }
+
+  .card,
+  .chart-card,
+  .focus-panel,
+  .focus-panel--workspace,
+  .focus-question-card {
+    border-radius: 18px;
+  }
+
   .data-table__head,
   .data-table__row,
   .data-table__head--teacher,
@@ -1569,5 +1661,21 @@ textarea {
     border: 1px solid rgba(148, 163, 184, 0.12);
     border-radius: 16px;
     background: rgba(148, 163, 184, 0.04);
+  }
+
+  .focus-topbar {
+    padding: 14px 12px;
+  }
+
+  .focus-main {
+    padding: 16px 12px 28px;
+  }
+
+  .focus-question-card h2 {
+    font-size: 26px;
+  }
+
+  .question-card__prompt {
+    font-size: 16px;
   }
 }
