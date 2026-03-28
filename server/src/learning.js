@@ -968,8 +968,9 @@ export async function assignRecommendedIntervention({ schoolId, teacherId, stude
   });
 }
 
-export async function buildTeacherDashboardData({ schoolId, teacherId }) {
-  const classrooms = await Classroom.find({ schoolId, teacherId }).lean();
+export async function buildTeacherDashboardData({ schoolId, teacherId, classroomId = null }) {
+  const classroomQuery = classroomId ? { schoolId, teacherId, _id: classroomId } : { schoolId, teacherId };
+  const classrooms = await Classroom.find(classroomQuery).lean();
   const classroomIds = classrooms.map((classroom) => classroom._id);
   const students = await User.find({ schoolId, role: "student", classroomId: { $in: classroomIds } }).lean();
   const studentIds = students.map((student) => student._id);
@@ -1080,8 +1081,8 @@ export async function buildAdminSummary({ schoolId }) {
   };
 }
 
-export async function buildTeacherReportData({ schoolId, teacherId }) {
-  const dashboard = await buildTeacherDashboardData({ schoolId, teacherId });
+export async function buildTeacherReportData({ schoolId, teacherId, classroomId = null }) {
+  const dashboard = await buildTeacherDashboardData({ schoolId, teacherId, classroomId });
   const classrooms = dashboard.classrooms.map((item) => item._id);
   const students = await User.find({ schoolId, role: "student", classroomId: { $in: classrooms } }).lean();
   const studentIds = students.map((student) => student._id);
@@ -1093,6 +1094,35 @@ export async function buildTeacherReportData({ schoolId, teacherId }) {
   const averageImprovement = improvement.length
     ? Number(((improvement.reduce((sum, value) => sum + value, 0) / improvement.length) * 100).toFixed(1))
     : 0;
+  const submissionsByDate = Array.from(
+    submissions.reduce((map, submission) => {
+      const key = String(submission.createdAt ?? "").slice(0, 10) || "Recent";
+      const entry = map.get(key) ?? { label: key, count: 0, total: 0 };
+      entry.count += 1;
+      entry.total += Number(submission.scorePercent ?? 0);
+      map.set(key, entry);
+      return map;
+    }, new Map()).values()
+  )
+    .sort((left, right) => left.label.localeCompare(right.label))
+    .slice(-7);
+  const submissionTrend = submissionsByDate.map((item, index) => ({
+    key: `submission-${index}`,
+    label: item.label.slice(5),
+    value: Math.round(item.total / Math.max(item.count, 1)),
+    color: "#2563eb"
+  }));
+  const masteryBands = [
+    { label: "0-39", value: masteries.filter((item) => item.currentMastery * 100 < 40).length },
+    { label: "40-59", value: masteries.filter((item) => item.currentMastery * 100 >= 40 && item.currentMastery * 100 < 60).length },
+    { label: "60-79", value: masteries.filter((item) => item.currentMastery * 100 >= 60 && item.currentMastery * 100 < 80).length },
+    { label: "80+", value: masteries.filter((item) => item.currentMastery * 100 >= 80).length }
+  ];
+  const riskDistribution = [
+    { label: "Low", value: dashboard.flaggedStudents.filter((item) => item.risk === "Low").length, color: "#16a34a" },
+    { label: "Medium", value: dashboard.flaggedStudents.filter((item) => item.risk === "Medium").length, color: "#f59e0b" },
+    { label: "High", value: dashboard.flaggedStudents.filter((item) => item.risk === "High").length, color: "#dc2626" }
+  ];
 
   return {
     metrics: [
@@ -1115,6 +1145,9 @@ export async function buildTeacherReportData({ schoolId, teacherId }) {
         risk: student.risk,
         improvement: avgGrowth
       };
-    })
+    }),
+    submissionTrend,
+    masteryBands,
+    riskDistribution
   };
 }

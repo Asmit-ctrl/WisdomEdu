@@ -58,14 +58,7 @@ function normalizeDashboardData(role, payload) {
 
     return {
       ...payload,
-      summaryCards:
-        payload.summaryCards ??
-        [
-          { label: "Active paths", value: String(pathStatuses.filter((student) => student.status === "working").length) },
-          { label: "Stuck", value: String(pathStatuses.filter((student) => student.status === "stuck").length) },
-          { label: "Ready to unlock", value: String(pathStatuses.filter((student) => student.status === "ready_to_unlock").length) },
-          { label: "Completed", value: String(pathStatuses.filter((student) => student.status === "completed").length) }
-        ],
+      summaryCards: payload.summaryCards ?? [],
       classrooms: payload.classrooms ?? [],
       pathStatuses,
       flaggedStudents: payload.flaggedStudents ?? [],
@@ -80,39 +73,13 @@ function normalizeDashboardData(role, payload) {
   if (role === "student") {
     return {
       ...payload,
-      currentTasks: payload.todayTask
-        ? [
-            {
-              concept: payload.todayTask.concept?.name ?? "Today's task",
-              title: "Today's assigned task",
-              description: payload.todayTask.rationale?.[0] ?? "Adaptive task ready",
-              questions: payload.todayTask.items?.length ?? 0,
-              difficulty: `Difficulty ${payload.todayTask.targetDifficulty ?? 2}`
-            }
-          ]
-        : payload.practiceQueue ?? [],
+      currentTasks: payload.currentTasks ?? [],
       recommendations: payload.recommendations ?? [],
       mastery: payload.mastery ?? [],
       recentResults: payload.recentResults ?? [],
       checkpoints: payload.checkpoints ?? [],
       todayTask: payload.todayTask ?? null,
-      learningPath:
-        payload.learningPath ?? {
-          status: "not_started",
-          currentChapterNumber: null,
-          currentChapterName: "",
-          currentMastery: 0,
-          completedChaptersCount: 0,
-          totalChapters: 15,
-          dailyTargetStatus: "in_progress",
-          dailyMasteryStart: 0,
-          dailyMasteryGoal: 0,
-          dailyTargetDate: "",
-          dailyGoalReachedAt: null,
-          milestoneCompletedToday: false,
-          canContinuePractice: false,
-          chapterLadder: []
-        },
+      learningPath: payload.learningPath ?? null,
       assignmentSummary: payload.assignmentSummary ?? null,
       assignmentHistory: payload.assignmentHistory ?? [],
       latestBatch: payload.latestBatch ?? null,
@@ -174,16 +141,16 @@ function Icon({ name }) {
   );
 }
 
-function MetricCard({ label, value }) {
+function MetricCard({ label, value, className = "" }) {
   return (
-    <article className="metric-card">
+    <article className={`metric-card ${className}`.trim()}>
       <span>{label}</span>
       <strong>{value}</strong>
     </article>
   );
 }
 
-function DonutChart({ title, segments, totalLabel = "Total" }) {
+function DonutChart({ title, segments, totalLabel = "Total", className = "" }) {
   const safeSegments = segments.filter((segment) => segment.value > 0);
   const total = safeSegments.reduce((sum, segment) => sum + segment.value, 0) || 1;
   let cursor = 0;
@@ -197,7 +164,7 @@ function DonutChart({ title, segments, totalLabel = "Total" }) {
     .join(", ");
 
   return (
-    <article className="chart-card">
+    <article className={`chart-card ${className}`.trim()}>
       <div className="chart-card__header">
         <strong>{title}</strong>
         <span>{totalLabel}: {safeSegments.reduce((sum, segment) => sum + segment.value, 0)}</span>
@@ -245,11 +212,11 @@ function BarChart({ title, items, suffix = "", className = "" }) {
   );
 }
 
-function HistogramChart({ title, bins }) {
+function HistogramChart({ title, bins, className = "" }) {
   const max = Math.max(...bins.map((item) => item.value), 1);
 
   return (
-    <article className="chart-card">
+    <article className={`chart-card ${className}`.trim()}>
       <div className="chart-card__header">
         <strong>{title}</strong>
       </div>
@@ -268,18 +235,118 @@ function HistogramChart({ title, bins }) {
   );
 }
 
+function LineChart({ title, points, suffix = "", className = "" }) {
+  const safePoints = points.length ? points : [{ label: "Now", value: 0 }];
+  const hasSinglePoint = safePoints.length === 1;
+  const max = Math.max(...safePoints.map((point) => point.value), 1);
+  const min = Math.min(...safePoints.map((point) => point.value), 0);
+  const range = Math.max(max - min, 1);
+  const coordinates = safePoints.map((point, index) => {
+    const x = safePoints.length === 1 ? 50 : (index / (safePoints.length - 1)) * 100;
+    const y = 100 - (((point.value - min) / range) * 80 + 10);
+    return `${x},${y}`;
+  }).join(" ");
+
+  return (
+    <article className={`chart-card ${hasSinglePoint ? "chart-card--single-point" : ""} ${className}`.trim()}>
+      <div className="chart-card__header">
+        <strong>{title}</strong>
+      </div>
+      <div className="line-chart">
+        {hasSinglePoint ? (
+          <div className="line-chart__single">
+            <div className="line-chart__single-value">{safePoints[0].value}{suffix}</div>
+            <div className="line-chart__single-label">{safePoints[0].label}</div>
+          </div>
+        ) : (
+          <svg className="line-chart__svg" viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+            <polyline className="line-chart__path" points={coordinates} />
+            {safePoints.map((point, index) => {
+              const x = (index / (safePoints.length - 1)) * 100;
+              const y = 100 - (((point.value - min) / range) * 80 + 10);
+              return <circle className="line-chart__dot" cx={x} cy={y} key={point.key ?? `${point.label}-${index}`} r="1.8" />;
+            })}
+          </svg>
+        )}
+        <div className="line-chart__labels">
+          {safePoints.map((point, index) => (
+            <div className="line-chart__label" key={point.key ?? `${point.label}-${index}`}>
+              <span>{point.label}</span>
+              <strong>{point.value}{suffix}</strong>
+            </div>
+          ))}
+        </div>
+      </div>
+    </article>
+  );
+}
+
+function MilestoneChart({ title, items, className = "" }) {
+  const max = Math.max(...items.map((item) => item.goal ?? item.value ?? 0), 1);
+
+  return (
+    <article className={`chart-card ${className}`.trim()}>
+      <div className="chart-card__header">
+        <strong>{title}</strong>
+      </div>
+      <div className="milestone-chart">
+        {items.map((item, index) => {
+          const goal = Math.max(Number(item.goal ?? item.value ?? 0), 0);
+          const start = Math.max(Number(item.start ?? 0), 0);
+          const current = Math.max(Number(item.current ?? item.value ?? 0), 0);
+          return (
+            <div className="milestone-chart__row" key={item.key ?? `${item.label}-${index}`}>
+              <div className="milestone-chart__meta">
+                <span>{item.label}</span>
+                <strong>{current}%</strong>
+              </div>
+              <div className="milestone-chart__track">
+                <div className="milestone-chart__goal" style={{ width: `${(goal / max) * 100}%` }} />
+                <div className="milestone-chart__start" style={{ width: `${(start / max) * 100}%` }} />
+                <div className="milestone-chart__current" style={{ width: `${(current / max) * 100}%` }} />
+              </div>
+            </div>
+          );
+        })}
+      </div>
+    </article>
+  );
+}
+
 function Card({ title, subtitle, children, action, className = "" }) {
   return (
       <section className={`card ${className}`.trim()}>
         <div className="card__header">
           <div>
             <h2>{title}</h2>
-          {subtitle ? <p>{subtitle}</p> : null}
         </div>
         {action}
       </div>
       {children}
     </section>
+  );
+}
+
+function StoryHero({ tone = "student", eyebrow, title, subtitle, action, className = "", children }) {
+  return (
+    <section className={`story-hero story-hero--${tone} ${className}`.trim()}>
+      <div className="story-hero__content">
+        {eyebrow ? <span className="story-hero__eyebrow">{eyebrow}</span> : null}
+        <h1>{title}</h1>
+        {children ? <div className="story-hero__extras">{children}</div> : null}
+      </div>
+      {action ? <div className="story-hero__action">{action}</div> : null}
+    </section>
+  );
+}
+
+function AccentMetric({ tone = "blue", label, value, meta, className = "" }) {
+  return (
+    <article className={`accent-metric accent-metric--${tone} ${className}`.trim()}>
+      <span className="accent-metric__label">{label}</span>
+      <strong className="accent-metric__value">{value}</strong>
+      {meta ? <small className="accent-metric__meta">{meta}</small> : null}
+    </article>
   );
 }
 
@@ -485,6 +552,7 @@ function PortalSidebar({ role }) {
   const navigate = useNavigate();
   const [drawerOpen, setDrawerOpen] = useState(false);
   const roleNavItems = useMemo(() => navigationConfig[role] ?? [], [role]);
+  const usesCompactShell = role === "student" || role === "admin";
 
   useEffect(() => {
     setDrawerOpen(false);
@@ -509,8 +577,6 @@ function PortalSidebar({ role }) {
     document.body.style.overflow = "";
     return undefined;
   }, [drawerOpen]);
-
-  const portalTitle = useMemo(() => `${role[0].toUpperCase() + role.slice(1)} Portal`, [role]);
 
   function handleLogout(targetRole = role) {
     logout();
@@ -542,49 +608,68 @@ function PortalSidebar({ role }) {
           <div className="portal-sidebar__mark">EB</div>
           <div>
             <strong>Elder Bro LMS</strong>
-            <p>{portalTitle}</p>
           </div>
         </div>
         <ThemeToggle />
       </div>
       {drawerOpen ? <button className="mobile-backdrop" onClick={() => setDrawerOpen(false)} type="button" aria-label="Close navigation overlay" /> : null}
-      <aside className="portal-sidebar">
-        <div className="portal-sidebar__logo">
-          <div className="portal-sidebar__mark">EB</div>
-          <div>
-            <strong>Elder Bro LMS</strong>
-            <p>{portalTitle}</p>
+      {usesCompactShell ? (
+        <header className={`portal-topnav portal-topnav--${role}`}>
+          <div className="portal-topnav__brand">
+            <div className="portal-sidebar__mark">EB</div>
+            <div>
+              <strong>Elder Bro LMS</strong>
+            </div>
           </div>
-        </div>
-        <nav className="portal-sidebar__nav">{renderNavLinks()}</nav>
-        <div className="portal-sidebar__footer">
-          <ThemeToggle />
-          <div className="portal-user">
-            <strong>{currentUser?.user?.fullName}</strong>
-            <span>{currentUser?.user?.email}</span>
+          <nav className="portal-topnav__nav">{renderNavLinks("nav-pill")}</nav>
+          <div className="portal-topnav__actions">
+            <ThemeToggle />
+            <div className="portal-topnav__profile">
+              <span className="portal-topnav__avatar">{(currentUser?.user?.fullName ?? "U").charAt(0).toUpperCase()}</span>
+              <div>
+                <strong>{currentUser?.user?.fullName}</strong>
+              </div>
+            </div>
+            <button className="button button--secondary" onClick={() => handleLogout(role)} type="button">Logout</button>
           </div>
-          <div className="portal-switcher">
-            {portalRoles
-              .filter((portalRole) => portalRole !== role)
-              .map((portalRole) => (
-                <button
-                  key={portalRole}
-                  className="portal-switcher__link"
-                  onClick={() => handleLogout(portalRole)}
-                  type="button"
-                >
-                  Open {portalRole[0].toUpperCase() + portalRole.slice(1)} Portal
-                </button>
-              ))}
+        </header>
+      ) : (
+        <aside className="portal-sidebar">
+          <div className="portal-sidebar__logo">
+            <div className="portal-sidebar__mark">EB</div>
+            <div>
+              <strong>Elder Bro LMS</strong>
+            </div>
           </div>
-          <button className="button button--secondary button--full" onClick={() => handleLogout(role)} type="button">Logout</button>
-        </div>
-      </aside>
+          <nav className="portal-sidebar__nav">{renderNavLinks()}</nav>
+          <div className="portal-sidebar__footer">
+            <ThemeToggle />
+            <div className="portal-user">
+              <strong>{currentUser?.user?.fullName}</strong>
+              <span>{currentUser?.user?.email}</span>
+            </div>
+            <div className="portal-switcher">
+              {portalRoles
+                .filter((portalRole) => portalRole !== role)
+                .map((portalRole) => (
+                  <button
+                    key={portalRole}
+                    className="portal-switcher__link"
+                    onClick={() => handleLogout(portalRole)}
+                    type="button"
+                  >
+                    Open {portalRole[0].toUpperCase() + portalRole.slice(1)} Portal
+                  </button>
+                ))}
+            </div>
+            <button className="button button--secondary button--full" onClick={() => handleLogout(role)} type="button">Logout</button>
+          </div>
+        </aside>
+      )}
       <aside className={drawerOpen ? "mobile-drawer mobile-drawer--open" : "mobile-drawer"} aria-hidden={!drawerOpen}>
         <div className="mobile-drawer__header">
           <div>
             <strong>Elder Bro LMS</strong>
-            <p>{portalTitle}</p>
           </div>
           <div className="mobile-drawer__header-actions">
             <ThemeToggle />
@@ -599,15 +684,17 @@ function PortalSidebar({ role }) {
             <strong>{currentUser?.user?.fullName}</strong>
             <span>{currentUser?.user?.email}</span>
           </div>
-          <div className="portal-switcher">
-            {portalRoles
-              .filter((portalRole) => portalRole !== role)
-              .map((portalRole) => (
-                <button key={portalRole} className="portal-switcher__link" onClick={() => handleLogout(portalRole)} type="button">
-                  Open {portalRole[0].toUpperCase() + portalRole.slice(1)} Portal
-                </button>
-              ))}
-          </div>
+          {!usesCompactShell ? (
+            <div className="portal-switcher">
+              {portalRoles
+                .filter((portalRole) => portalRole !== role)
+                .map((portalRole) => (
+                  <button key={portalRole} className="portal-switcher__link" onClick={() => handleLogout(portalRole)} type="button">
+                    Open {portalRole[0].toUpperCase() + portalRole.slice(1)} Portal
+                  </button>
+                ))}
+            </div>
+          ) : null}
           <button className="button button--secondary button--full" onClick={() => handleLogout(role)} type="button">Logout</button>
         </div>
       </aside>
@@ -620,7 +707,6 @@ function PortalHeader({ title, subtitle, actions }) {
     <header className="portal-header">
       <div>
         <h1>{title}</h1>
-        {subtitle ? <p>{subtitle}</p> : null}
       </div>
       {actions ? <div className="portal-header__actions">{actions}</div> : null}
     </header>
@@ -631,13 +717,12 @@ function FocusLayout({ role, children }) {
   const navigate = useNavigate();
 
   return (
-    <div className="focus-layout">
-      <header className="focus-topbar">
+    <div className={`focus-layout focus-layout--${role}`}>
+      <header className={`focus-topbar focus-topbar--${role}`}>
         <div className="focus-topbar__brand">
           <div className="portal-sidebar__mark">EB</div>
           <div>
             <strong>Elder Bro LMS</strong>
-            <p>{role[0].toUpperCase() + role.slice(1)} workspace</p>
           </div>
         </div>
         <div className="focus-actions">
@@ -654,9 +739,9 @@ function FocusLayout({ role, children }) {
 
 function DashboardLayout({ role, children }) {
   return (
-    <div className="dashboard-layout">
+    <div className={`dashboard-layout dashboard-layout--${role}`}>
       <PortalSidebar role={role} />
-      <main className="dashboard-main">{children}</main>
+      <main className={`dashboard-main dashboard-main--${role}`}>{children}</main>
     </div>
   );
 }
@@ -817,34 +902,18 @@ function StudentGradeComingSoon({ gradeLevel }) {
 }
 
 function TeacherDashboard({ data }) {
-  const availableClasses = (data.classrooms ?? []).map((item) => ({
-    id: item.id,
-    label: `${item.name} (${item.gradeLevel})`
-  }));
-  const [selectedClass, setSelectedClass] = useState(availableClasses[0]?.id || "");
+  const { availableClasses, selectedClass, setSelectedClass, classroomError } = useTeacherClassrooms(data);
   const [actionMessage, setActionMessage] = useState("");
-  const [refreshKey, setRefreshKey] = useState(0);
-  const { data: pathPayload, loading: pathLoading, error: pathError } = useApiData(
-    () => (selectedClass ? fetchJson(`/api/teacher/path-status?classroomId=${encodeURIComponent(selectedClass)}`) : Promise.resolve({ students: [], metrics: [], chapterDistribution: [] })),
-    [selectedClass, refreshKey]
-  );
-
-  useEffect(() => {
-    if (!selectedClass && availableClasses[0]?.id) {
-      setSelectedClass(availableClasses[0].id);
-    }
-  }, [availableClasses, selectedClass]);
-
-  const pathStudents = pathPayload?.students ?? (data.pathStatuses ?? []).filter((student) => !selectedClass || String(student.classroomId) === String(selectedClass));
-  const summaryCards =
-    pathPayload?.metrics ??
-    [
-      { label: "Active paths", value: String(pathStudents.filter((student) => student.status === "working").length) },
-      { label: "Stuck", value: String(pathStudents.filter((student) => student.status === "stuck").length) },
-      { label: "Ready to unlock", value: String(pathStudents.filter((student) => student.status === "ready_to_unlock").length) },
-      { label: "Completed", value: String(pathStudents.filter((student) => student.status === "completed").length) }
-    ];
-  const chapterDistribution = pathPayload?.chapterDistribution ?? [];
+  const dashboardState = useTeacherDashboardData(selectedClass);
+  const dashboardPayload = dashboardState.data ?? {};
+  const pathStudents = dashboardPayload.pathStatuses ?? [];
+  const summaryCards = dashboardPayload.summaryCards ?? [];
+  const chapterDistribution = dashboardPayload.chapterDistribution ?? [];
+  const riskDistribution = dashboardPayload.riskDistribution ?? [];
+  const milestoneDistribution = dashboardPayload.milestoneDistribution ?? [];
+  const masteryHistogram = dashboardPayload.masteryHistogram ?? [];
+  const chapterMasteryAverages = dashboardPayload.chapterMasteryAverages ?? [];
+  const milestoneRanges = dashboardPayload.milestoneRanges ?? [];
   const selectedClassroomLabel = availableClasses.find((item) => item.id === selectedClass)?.label ?? "Selected class";
 
   async function handleAssign(studentIds, successMessage) {
@@ -855,7 +924,7 @@ function TeacherDashboard({ data }) {
         studentIds
       });
       setActionMessage(successMessage);
-      setRefreshKey((current) => current + 1);
+      dashboardState.refresh();
     } catch (submitError) {
       setActionMessage(submitError.message);
     }
@@ -885,12 +954,13 @@ function TeacherDashboard({ data }) {
       <div className="metric-row">
         {summaryCards.map((item) => <MetricCard key={item.label} label={item.label} value={item.value} />)}
       </div>
-      {pathError ? <p className="form-error">{pathError}</p> : null}
+      {classroomError ? <p className="form-error">{classroomError}</p> : null}
+      {dashboardState.error ? <p className="form-error">{dashboardState.error}</p> : null}
       {actionMessage ? <p className={/assigned|successfully|resumed/i.test(actionMessage) ? "form-success" : "form-error"}>{actionMessage}</p> : null}
       <div className="dashboard-grid">
         <Card title="Chapter path status" subtitle={`${selectedClassroomLabel} current learner state`}>
-          {pathLoading ? <p className="support-copy">Loading chapter path status...</p> : null}
-          {!pathLoading && pathStudents.length === 0 ? (
+          {dashboardState.loading ? <p className="support-copy">Loading chapter path status...</p> : null}
+          {!dashboardState.loading && pathStudents.length === 0 ? (
             <p className="support-copy">No students are integrated into this class flow yet. Create students, then assign the class path.</p>
           ) : null}
           <div className="data-table">
@@ -902,10 +972,7 @@ function TeacherDashboard({ data }) {
               const assignDisabled = student.status === "completed";
               return (
               <div className="data-table__row data-table__row--teacher" key={student.studentId}>
-                <span>
-                  <strong>{student.name}</strong>
-                  <small className="support-copy">{student.summary}</small>
-                </span>
+                <span><strong>{student.name}</strong></span>
                 <span>
                   <div>Chapter {student.currentChapterNumber ?? "-"} - {student.currentChapterName}</div>
                   <div className="inline-tags top-space--tight">
@@ -913,14 +980,8 @@ function TeacherDashboard({ data }) {
                     <span className="tag">{student.currentCycleIndex} cycles</span>
                   </div>
                 </span>
-                <span>
-                  <strong>{student.currentMastery}%</strong>
-                  <small className="support-copy">{student.dailyTargetStatus.replace("_", " ")}</small>
-                </span>
-                <span>
-                  <PathStatusBadge status={student.status} />
-                  <small className="support-copy">{student.latestAssignmentStatus.replace("_", " ")}</small>
-                </span>
+                <span><strong>{student.currentMastery}%</strong></span>
+                <span><PathStatusBadge status={student.status} /></span>
                 <span>
                   <button
                     className="button button--primary"
@@ -930,11 +991,6 @@ function TeacherDashboard({ data }) {
                   >
                     {assignLabel}
                   </button>
-                  <small className="support-copy">
-                    {student.dailyTargetStatus === "reached" && student.latestAssignmentStatus === "completed"
-                      ? "Today&apos;s milestone completed"
-                      : `${student.currentTaskItemsCount} items in latest batch`}
-                  </small>
                 </span>
               </div>
             );
@@ -947,7 +1003,6 @@ function TeacherDashboard({ data }) {
               <article className="heatmap-item" key={chapter.chapterNumber}>
                 <div>
                   <strong>Chapter {chapter.chapterNumber}</strong>
-                  <p>Students currently locked to this chapter.</p>
                 </div>
                 <div className="heatmap-item__meta">
                   <span className="heatmap-band">Active</span>
@@ -960,24 +1015,24 @@ function TeacherDashboard({ data }) {
       </div>
       <div className="top-space">
         <div className="split-grid">
-          <DonutChart
-            title="Path status"
-            segments={[
-              { label: "Working", value: pathStudents.filter((student) => student.status === "working").length, color: "#2563eb" },
-              { label: "Stuck", value: pathStudents.filter((student) => student.status === "stuck").length, color: "#dc2626" },
-              { label: "Completed", value: pathStudents.filter((student) => student.status === "completed").length, color: "#16a34a" }
-            ]}
-            totalLabel="Students"
-          />
-          <HistogramChart
-            title="Current mastery histogram"
-            bins={[
-              { label: "0-39", value: pathStudents.filter((student) => student.currentMastery < 40).length },
-              { label: "40-59", value: pathStudents.filter((student) => student.currentMastery >= 40 && student.currentMastery < 60).length },
-              { label: "60-79", value: pathStudents.filter((student) => student.currentMastery >= 60 && student.currentMastery < 80).length },
-              { label: "80+", value: pathStudents.filter((student) => student.currentMastery >= 80).length }
-            ]}
-          />
+          <DonutChart title="Path status" segments={[
+            { label: "Working", value: pathStudents.filter((student) => student.status === "working").length, color: "#2563eb" },
+            { label: "Stuck", value: pathStudents.filter((student) => student.status === "stuck").length, color: "#dc2626" },
+            { label: "Completed", value: pathStudents.filter((student) => student.status === "completed").length, color: "#16a34a" }
+          ]} totalLabel="Students" />
+          <DonutChart title="Risk mix" segments={riskDistribution} totalLabel="Learners" />
+        </div>
+      </div>
+      <div className="top-space">
+        <div className="split-grid">
+          <HistogramChart title="Current mastery histogram" bins={masteryHistogram} />
+          <DonutChart title="Daily milestone status" segments={milestoneDistribution} totalLabel="Learners" />
+        </div>
+      </div>
+      <div className="top-space">
+        <div className="split-grid">
+          <BarChart title="Average mastery by active chapter" items={chapterMasteryAverages.length ? chapterMasteryAverages : [{ label: "No live data", value: 0, color: "#94a3b8" }]} suffix="%" />
+          <MilestoneChart title="Student milestone range" items={milestoneRanges.length ? milestoneRanges : [{ label: "No live data", start: 0, current: 0, goal: 0 }]} />
         </div>
       </div>
     </>
@@ -1125,16 +1180,33 @@ function TeacherPracticeReviewPage({ data }) {
 }
 
 function TeacherReports({ data }) {
-  const { data: report, loading, error } = useApiData(() => fetchJson("/api/teacher/reports"), []);
-  const { data: insightPayload, loading: insightLoading } = useApiData(() => fetchJson("/api/teacher/insights/students"), []);
+  const { availableClasses, selectedClass, setSelectedClass, classroomError } = useTeacherClassrooms(data);
+  const reportState = useTeacherReportsData(selectedClass);
+  const { data: insightPayload, loading: insightLoading, error: insightError } = useApiData(
+    () => (selectedClass ? fetchJson(`/api/teacher/insights/students?classroomId=${encodeURIComponent(selectedClass)}`) : Promise.resolve({ students: [] })),
+    [selectedClass]
+  );
   const { data: aiStatus } = useApiData(() => fetchJson("/api/ai/status"), []);
+  const report = reportState.data;
 
   return (
     <>
-      <PortalHeader title="Reports" subtitle="Quick readouts of intervention impact and activity." />
-      {loading ? <p className="state-banner">Loading reports...</p> : null}
+      <PortalHeader
+        title="Reports"
+        subtitle="Quick readouts of intervention impact and activity."
+        actions={
+          <select className="select" value={selectedClass} onChange={(event) => setSelectedClass(event.target.value)}>
+            {availableClasses.map((item) => (
+              <option key={item.id} value={item.id}>{item.label}</option>
+            ))}
+          </select>
+        }
+      />
+      {reportState.loading ? <p className="state-banner">Loading reports...</p> : null}
       {insightLoading ? <p className="support-copy">Refreshing AI-backed student insights...</p> : null}
-      {error ? <p className="form-error">{error}</p> : null}
+      {classroomError ? <p className="form-error">{classroomError}</p> : null}
+      {reportState.error ? <p className="form-error">{reportState.error}</p> : null}
+      {insightError ? <p className="form-error">{insightError}</p> : null}
       {aiStatus ? (
         <div className="top-space">
           <Card title="AI enhancement status" subtitle="This controls OpenAI-powered rewrites, hints, and narrative insights.">
@@ -1149,14 +1221,14 @@ function TeacherReports({ data }) {
       <div className="split-grid">
         <Card title="Intervention summary">
           <div className="metric-row metric-row--two">
-            {(report?.metrics ?? data.summaryCards.slice(0, 2)).map((item) => (
+            {(report?.metrics ?? []).map((item) => (
               <MetricCard key={item.label} label={item.label} value={item.value} />
             ))}
           </div>
         </Card>
         <Card title="Concept focus areas">
           <ul className="simple-list">
-            {(report?.interventionBreakdown ?? data.classConcepts).map((concept) => (
+            {(report?.interventionBreakdown ?? []).map((concept) => (
               <li key={concept.concept ?? concept.name}>
                 {(concept.concept ?? concept.name)}: {concept.flagged ?? concept.studentsFlagged} students flagged
               </li>
@@ -1184,6 +1256,15 @@ function TeacherReports({ data }) {
             suffix="%"
           />
         </div>
+      </div>
+      <div className="top-space">
+        <div className="split-grid">
+          <LineChart title="Recent submission trend" points={report?.submissionTrend ?? []} suffix="%" />
+          <DonutChart title="Risk distribution" segments={report?.riskDistribution ?? []} totalLabel="Students" />
+        </div>
+      </div>
+      <div className="top-space">
+        <HistogramChart title="Mastery spread" bins={report?.masteryBands ?? [{ label: "No data", value: 0 }]} />
       </div>
       <div className="top-space">
         <Card title="Student insight feed" subtitle="Narratives stay grounded in mastery, pace, and completion telemetry.">
@@ -1241,66 +1322,99 @@ function AdminDashboard({ data }) {
   const attentionStudents = (data.students ?? [])
     .filter((student) => student.status === "stuck" || ["medium", "high"].includes(student.riskLevel))
     .slice(0, 8);
+  const pulseHighlights = (data.pulse ?? []).slice(0, 4);
 
   return (
     <>
-      <PortalHeader title="Admin Dashboard" subtitle="See school-wide rollout health, chapter progress, and which learners need escalation." />
-      <div className="metric-row">
-        {(data.summaryCards ?? []).map((item) => <MetricCard key={item.label} label={item.label} value={item.value} />)}
+      <StoryHero
+        tone="admin"
+        eyebrow="School command center"
+        title="Live rollout, risk, and mastery at a glance"
+        subtitle="Track how the Class 10 engine is spreading across classrooms and where school-level intervention is needed."
+      >
+        <div className="inline-tags">
+          <span className="tag">{teachers.length} teachers</span>
+          <span className="tag">{classrooms.length} classrooms</span>
+          <span className="tag">{students.length} students</span>
+        </div>
+      </StoryHero>
+      <div className="accent-metrics top-space">
+        {(data.summaryCards ?? []).map((item, index) => (
+          <AccentMetric
+            className="accent-metric--admin"
+            key={item.label}
+            label={item.label}
+            value={item.value}
+            tone={["green", "blue", "orange", "purple"][index % 4]}
+          />
+        ))}
       </div>
-      <div className="split-grid">
-        <Card title="School health" subtitle="Live operational signals from the assignment path engine.">
-          <div className="tile-list">
-            {(data.pulse ?? []).map((item) => (
-              <article className="info-tile" key={item.title}>
+      <div className="play-grid play-grid--admin top-space">
+        <section className="play-panel play-panel--feature play-panel--admin">
+          <div className="play-panel__head">
+            <div>
+              <h2>School pulse</h2>
+              <p>Signals worth noticing right now.</p>
+            </div>
+          </div>
+          <div className="pulse-grid">
+            {pulseHighlights.map((item) => (
+              <article className="pulse-card" key={item.title}>
                 <strong>{item.title}</strong>
                 <p>{item.detail}</p>
               </article>
             ))}
-            <article className="info-tile">
+            <article className="pulse-card pulse-card--strong">
               <strong>Current footprint</strong>
-              <p>{teachers.length} teachers, {classrooms.length} classrooms, and {students.length} students are currently inside this school workspace.</p>
+              <p>{teachers.length} teachers, {classrooms.length} classrooms, and {students.length} students are active inside this school workspace.</p>
             </article>
           </div>
-        </Card>
-        <BarChart title="Chapter progression" items={chapterItems.length ? chapterItems : [{ label: "No live data", value: 0, color: "#94a3b8" }]} />
-      </div>
-      <div className="top-space">
-        <div className="split-grid">
-          <DonutChart title="Risk distribution" segments={riskSegments} totalLabel="Students" />
-          <DonutChart title="Daily milestone status" segments={milestoneSegments} totalLabel="Students" />
-        </div>
-      </div>
-      <div className="top-space">
-        <Card title="Learners needing admin attention" subtitle="Students who are stuck or behind their dated mastery target.">
+        </section>
+        <section className="play-panel play-panel--admin">
+          <div className="play-panel__head">
+            <div>
+              <h2>Learners to watch</h2>
+              <p>Students who need school-level attention soon.</p>
+            </div>
+          </div>
           {!attentionStudents.length ? <p className="support-copy">No students currently need school-level escalation.</p> : null}
-          <div className="data-table">
-            <div className="data-table__head data-table__head--admin"><span>Student</span><span>Classroom</span><span>Chapter</span><span>Risk</span><span>Milestone</span></div>
+          <div className="watch-grid">
             {attentionStudents.map((student) => (
-              <div className="data-table__row data-table__row--admin" key={student.studentId}>
-                <span>{student.name}</span>
-                <span>{student.classroomName || "Unassigned"}</span>
-                <span>Chapter {student.currentChapterNumber ?? "-"} / {student.currentChapterName || "Not started"}</span>
-                <span><StatusBadge risk={student.riskLabel ?? "Low"} /></span>
-                <span>
+              <article className="watch-card" key={student.studentId}>
+                <div className="watch-card__head">
+                  <strong>{student.name}</strong>
+                  <StatusBadge risk={student.riskLabel ?? "Low"} />
+                </div>
+                <p>{student.classroomName || "Unassigned"} · Chapter {student.currentChapterNumber ?? "-"} · {student.currentChapterName || "Not started"}</p>
+                <div className="inline-tags">
                   {(student.dailyMasteryGoal ?? 0) > (student.dailyMasteryStart ?? 0)
-                    ? `${student.dailyMasteryStart}% -> ${student.dailyMasteryGoal}%${student.dailyTargetDate ? ` / ${student.dailyTargetDate}` : ""}`
-                    : student.riskReason}
-                </span>
-              </div>
+                    ? <span className="tag">{`${student.dailyMasteryStart}% -> ${student.dailyMasteryGoal}%`}</span>
+                    : null}
+                  {student.dailyTargetDate ? <span className="tag">{student.dailyTargetDate}</span> : null}
+                </div>
+              </article>
             ))}
           </div>
-        </Card>
+        </section>
+      </div>
+      <div className="play-grid play-grid--admin-charts top-space">
+        <BarChart title="Chapter progression" items={chapterItems.length ? chapterItems : [{ label: "No live data", value: 0, color: "#94a3b8" }]} className="admin-chart-card" />
+        <DonutChart title="Risk distribution" segments={riskSegments} totalLabel="Students" />
+        <DonutChart title="Daily milestone status" segments={milestoneSegments} totalLabel="Students" />
       </div>
       {data.insightSummary ? (
-        <div className="top-space">
-          <Card title="System insight summary" subtitle="Narrative rollup grounded in live telemetry across the school.">
-            <p className="support-copy">{data.insightSummary}</p>
-            <div className="inline-tags top-space">
-              {(data.insightHighlights ?? []).map((item) => <span className="tag" key={item}>{item}</span>)}
+        <section className="play-panel play-panel--admin top-space">
+          <div className="play-panel__head">
+            <div>
+              <h2>System insight summary</h2>
+              <p>Narrative rollup grounded in live telemetry across the school.</p>
             </div>
-          </Card>
-        </div>
+          </div>
+          <p className="support-copy">{data.insightSummary}</p>
+          <div className="inline-tags top-space">
+            {(data.insightHighlights ?? []).map((item) => <span className="tag" key={item}>{item}</span>)}
+          </div>
+        </section>
       ) : null}
     </>
   );
@@ -1344,58 +1458,78 @@ function AdminSchools({ data }) {
 
   return (
     <>
-      <PortalHeader title="School Ops" subtitle="Manage teacher access and confirm that classrooms, grades, and learners are aligned to the live Class 10 path system." />
-      <div className="metric-row">
-        <MetricCard label="Teachers" value={String(teachers.length)} />
-        <MetricCard label="Classrooms" value={String(classrooms.length)} />
-        <MetricCard label="Class 10 live" value={String(liveStudents)} />
-        <MetricCard label="Coming soon grades" value={String(comingSoonStudents)} />
+      <StoryHero
+        tone="admin"
+        eyebrow="School ops"
+        title="Teachers, classrooms, and launch readiness in one place"
+        subtitle="Manage the live Class 10 rollout while keeping future grades visible as coming soon."
+      >
+        <div className="inline-tags">
+          <span className="tag">{schoolRecord?.name ?? "School workspace"}</span>
+          <span className="tag">Class 10 live: {liveStudents}</span>
+          <span className="tag">Coming soon: {comingSoonStudents}</span>
+        </div>
+      </StoryHero>
+      <div className="accent-metrics top-space">
+        <AccentMetric className="accent-metric--admin" tone="green" label="Teachers" value={String(teachers.length)} />
+        <AccentMetric className="accent-metric--admin" tone="blue" label="Classrooms" value={String(classrooms.length)} />
+        <AccentMetric className="accent-metric--admin" tone="purple" label="Class 10 live" value={String(liveStudents)} />
+        <AccentMetric className="accent-metric--admin" tone="orange" label="Coming soon grades" value={String(comingSoonStudents)} />
       </div>
       {teacherError ? <p className="form-error">{teacherError}</p> : null}
       {classroomError ? <p className="form-error">{classroomError}</p> : null}
       {studentError ? <p className="form-error">{studentError}</p> : null}
-      <div className="top-space">
-        <div className="split-grid">
-          <Card title="School readiness" subtitle="What is live now, what still needs assignment, and what is outside the current launch scope.">
-            <div className="tile-list">
-              <article className="info-tile">
-                <strong>{schoolRecord?.name ?? "School workspace"}</strong>
-                <p>{schoolRecord?.nextStep ?? "Monitor classrooms and teachers against the live chapter progression engine."}</p>
-              </article>
-              <article className="info-tile">
-                <strong>Grade support</strong>
-                <p>Class 10 is live now. Other grades remain visible to admin, but the mastery path should show as coming soon for those learners.</p>
-                <div className="inline-tags top-space--tight">
-                  <span className="tag">Live: {liveStudents}</span>
-                  <span className="tag">Coming soon: {comingSoonStudents}</span>
+      <div className="play-grid play-grid--admin top-space">
+        <section className="play-panel play-panel--admin">
+          <div className="play-panel__head">
+            <div>
+              <h2>School readiness</h2>
+              <p>What is live now and what still needs setup.</p>
+            </div>
+          </div>
+          <div className="pulse-grid">
+            <article className="pulse-card">
+              <strong>{schoolRecord?.name ?? "School workspace"}</strong>
+              <p>{schoolRecord?.nextStep ?? "Monitor classrooms and teachers against the live chapter progression engine."}</p>
+            </article>
+            <article className="pulse-card">
+              <strong>Grade support</strong>
+              <p>Class 10 is live. Other grades stay visible to admin, but the learner path remains in coming-soon mode.</p>
+            </article>
+            <article className="pulse-card">
+              <strong>Teacher coverage</strong>
+              <p>{teacherCoverage.filter((teacher) => teacher.classrooms === 0).length} teachers still need at least one classroom assigned.</p>
+            </article>
+          </div>
+        </section>
+        <section className="play-panel play-panel--admin">
+          <div className="play-panel__head">
+            <div>
+              <h2>Classroom rollout</h2>
+              <p>Class status and milestone health.</p>
+            </div>
+          </div>
+          {!classroomRollup.length ? <p className="support-copy">No classrooms have live path data yet.</p> : null}
+          <div className="watch-grid">
+            {classroomRollup.map((classroom) => (
+              <article className="watch-card" key={`${classroom.classroomId ?? classroom.classroomName}`}>
+                <div className="watch-card__head">
+                  <strong>{classroom.classroomName}</strong>
+                  <span className="tag">{getGradeSupportMeta(classroom.gradeLevel).label}</span>
+                </div>
+                <p>{teacherNameById.get(String(classrooms.find((item) => String(item._id) === String(classroom.classroomId))?.teacherId ?? "")) ?? "Unassigned teacher"}</p>
+                <div className="inline-tags">
+                  <span className="tag">{classroom.students} students</span>
+                  <span className="tag">{classroom.behind} behind</span>
+                  <span className="tag">{classroom.averageMastery}% avg mastery</span>
                 </div>
               </article>
-              <article className="info-tile">
-                <strong>Teacher coverage</strong>
-                <p>{teacherCoverage.filter((teacher) => teacher.classrooms === 0).length} teachers still need at least one classroom assigned.</p>
-              </article>
-            </div>
-          </Card>
-          <Card title="Classroom rollout" subtitle="Live class-level rollout and milestone health.">
-            {!classroomRollup.length ? <p className="support-copy">No classrooms have live path data yet.</p> : null}
-            <div className="data-table">
-              <div className="data-table__head data-table__head--admin"><span>Classroom</span><span>Teacher</span><span>Support</span><span>Students</span><span>Behind</span><span>Avg mastery</span></div>
-              {classroomRollup.map((classroom) => (
-                <div className="data-table__row data-table__row--admin" key={`${classroom.classroomId ?? classroom.classroomName}`}>
-                  <span>{classroom.classroomName}</span>
-                  <span>{teacherNameById.get(String(classrooms.find((item) => String(item._id) === String(classroom.classroomId))?.teacherId ?? "")) ?? "Unassigned"}</span>
-                  <span><span className="tag">{getGradeSupportMeta(classroom.gradeLevel).label}</span></span>
-                  <span>{classroom.students}</span>
-                  <span>{classroom.behind}</span>
-                  <span>{classroom.averageMastery}%</span>
-                </div>
-              ))}
-            </div>
-          </Card>
-        </div>
+            ))}
+          </div>
+        </section>
       </div>
       <div className="top-space">
-        <Card title="Teacher coverage" subtitle="See how teachers map to classrooms and students inside the same rollout.">
+        <Card title="Teacher coverage" subtitle="Teacher load across classrooms and students.">
           {!teacherCoverage.length ? <p className="support-copy">No teachers added yet.</p> : null}
           <div className="data-table">
             <div className="data-table__head data-table__head--admin"><span>Teacher</span><span>Email</span><span>Classrooms</span><span>Students</span><span>Behind target</span></div>
@@ -1417,49 +1551,58 @@ function AdminSchools({ data }) {
       <div className="top-space">
         <AdminClassroomManager />
       </div>
-      <div className="top-space">
-        <div className="split-grid">
-          <Card title="Learner watchlist" subtitle="School-level view of learners who are active, behind target, or outside the current launch scope.">
-            {!learnerWatch.length ? <p className="support-copy">No learners are available yet.</p> : null}
-            <div className="data-table">
-              <div className="data-table__head data-table__head--admin"><span>Student</span><span>Classroom</span><span>Grade</span><span>Path</span><span>Risk</span><span>Milestone</span></div>
-              {learnerWatch.map((student) => (
-                <div className="data-table__row data-table__row--admin" key={student.studentId}>
-                  <span>{student.name}</span>
-                  <span>{student.classroomName || "Unassigned"}</span>
-                  <span>
-                    {student.gradeLevel || "-"}
-                    <small className="support-copy">{getGradeSupportMeta(student.gradeLevel).label}</small>
-                  </span>
-                  <span>
-                    Chapter {student.currentChapterNumber ?? "-"}
-                    <small className="support-copy">{student.currentChapterName || "Not started"}</small>
-                  </span>
-                  <span><StatusBadge risk={student.riskLabel ?? "Low"} /></span>
-                  <span>
-                    {(student.dailyMasteryGoal ?? 0) > (student.dailyMasteryStart ?? 0)
-                      ? `${student.dailyMasteryStart}% -> ${student.dailyMasteryGoal}%${student.dailyTargetDate ? ` / ${student.dailyTargetDate}` : ""}`
-                      : student.riskReason}
-                  </span>
+      <div className="play-grid play-grid--admin top-space">
+        <section className="play-panel play-panel--admin">
+          <div className="play-panel__head">
+            <div>
+              <h2>Learner watchlist</h2>
+              <p>Students who are active, behind, or outside the live scope.</p>
+            </div>
+          </div>
+          {!learnerWatch.length ? <p className="support-copy">No learners are available yet.</p> : null}
+          <div className="watch-grid">
+            {learnerWatch.map((student) => (
+              <article className="watch-card" key={student.studentId}>
+                <div className="watch-card__head">
+                  <strong>{student.name}</strong>
+                  <StatusBadge risk={student.riskLabel ?? "Low"} />
                 </div>
-              ))}
+                <p>{student.classroomName || "Unassigned"} · Grade {student.gradeLevel || "-"}</p>
+                <small className="support-copy">Chapter {student.currentChapterNumber ?? "-"} · {student.currentChapterName || "Not started"}</small>
+                <div className="inline-tags">
+                  {(student.dailyMasteryGoal ?? 0) > (student.dailyMasteryStart ?? 0)
+                    ? <span className="tag">{`${student.dailyMasteryStart}% -> ${student.dailyMasteryGoal}%`}</span>
+                    : null}
+                  {student.dailyTargetDate ? <span className="tag">{student.dailyTargetDate}</span> : null}
+                  <span className="tag">{getGradeSupportMeta(student.gradeLevel).label}</span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+        <section className="play-panel play-panel--admin">
+          <div className="play-panel__head">
+            <div>
+              <h2>Unsupported grades</h2>
+              <p>Visible to admin while student experience stays in coming-soon mode.</p>
             </div>
-          </Card>
-          <Card title="Unsupported grades" subtitle="Keep these classrooms visible to admin while the learner interface stays in coming-soon mode for them.">
-            {!unsupportedClassrooms.length ? <p className="support-copy">All classrooms are currently inside the supported Class 10 launch scope.</p> : null}
-            <div className="compact-list">
-              {unsupportedClassrooms.map((classroom) => (
-                <article className="compact-list__item" key={classroom._id}>
+          </div>
+          {!unsupportedClassrooms.length ? <p className="support-copy">All classrooms are currently inside the supported Class 10 launch scope.</p> : null}
+          <div className="journey-list">
+            {unsupportedClassrooms.map((classroom) => (
+              <article className="journey-item" key={classroom._id}>
+                <div>
                   <strong>{classroom.name}</strong>
-                  <div>
-                    <p>Grade {classroom.gradeLevel}</p>
-                    <span>{teacherNameById.get(String(classroom.teacherId)) ?? "Assign a teacher"} / Coming soon workflow</span>
-                  </div>
-                </article>
-              ))}
-            </div>
-          </Card>
-        </div>
+                  <p>Grade {classroom.gradeLevel}</p>
+                </div>
+                <div className="inline-tags">
+                  <span className="tag">{teacherNameById.get(String(classroom.teacherId)) ?? "Assign a teacher"}</span>
+                  <span className="tag">Coming soon</span>
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
       </div>
     </>
   );
@@ -1485,66 +1628,101 @@ function AdminReports({ data }) {
 
   return (
     <>
-      <PortalHeader title="Reports" subtitle="Review school-wide chapter progress, milestone health, and escalation signals." />
-      <div className="metric-row">
-        {(data.metrics ?? []).map((item) => <MetricCard key={item.label} label={item.label} value={item.value} />)}
+      <StoryHero
+        tone="admin"
+        eyebrow="School reports"
+        title="Progress, milestone health, and escalation signals"
+        subtitle="A cleaner read of what is improving, what is slowing down, and where admin attention is still needed."
+      >
+        {aiStatus ? (
+          <div className="inline-tags">
+            <span className="tag">{aiStatus.configured ? "AI configured" : "API key missing"}</span>
+            <span className="tag">{aiStatus.enabled ? "Enhanced mode on" : "Enhanced mode off"}</span>
+            <span className="tag">{aiStatus.models.variant}</span>
+          </div>
+        ) : null}
+      </StoryHero>
+      <div className="accent-metrics top-space">
+        {(data.metrics ?? []).map((item, index) => (
+          <AccentMetric
+            className="accent-metric--admin"
+            key={item.label}
+            label={item.label}
+            value={item.value}
+            tone={["blue", "green", "orange", "purple"][index % 4]}
+          />
+        ))}
       </div>
       {aiStatus ? (
-        <div className="top-space">
-          <Card title="AI system status">
-            <div className="inline-tags">
-              <span className="tag">{aiStatus.configured ? "API key configured" : "API key missing"}</span>
-              <span className="tag">{aiStatus.enabled ? "Enhanced mode enabled" : "Enhanced mode disabled"}</span>
-              <span className="tag">{aiStatus.models.variant}</span>
+        <section className="play-panel play-panel--admin top-space">
+          <div className="play-panel__head">
+            <div>
+              <h2>AI system status</h2>
+              <p>Rewrites, hints, and insight generation depend on this setup.</p>
             </div>
-          </Card>
-        </div>
+          </div>
+          <div className="inline-tags">
+            <span className="tag">{aiStatus.configured ? "API key configured" : "API key missing"}</span>
+            <span className="tag">{aiStatus.enabled ? "Enhanced mode enabled" : "Enhanced mode disabled"}</span>
+            <span className="tag">{aiStatus.models.variant}</span>
+          </div>
+        </section>
       ) : null}
-      <div className="top-space">
-        <div className="split-grid">
-          <HistogramChart title="Chapter distribution" bins={chapterBins.length ? chapterBins : [{ label: "No data", value: 0 }]} />
-          <DonutChart title="Risk distribution" segments={riskSegments} totalLabel="Students" />
-        </div>
+      <div className="play-grid play-grid--admin-charts top-space">
+        <HistogramChart title="Chapter distribution" bins={chapterBins.length ? chapterBins : [{ label: "No data", value: 0 }]} className="admin-chart-card" />
+        <DonutChart title="Risk distribution" segments={riskSegments} totalLabel="Students" />
+        <DonutChart title="Daily milestone status" segments={milestoneSegments} totalLabel="Students" />
       </div>
-      <div className="top-space">
-        <div className="split-grid">
-          <DonutChart title="Daily milestone status" segments={milestoneSegments} totalLabel="Students" />
-          <Card title="Operational insight summary" subtitle="Narrative summary grounded in the current school telemetry.">
-            <p className="support-copy">{data.insightSummary || "No rollup summary available yet."}</p>
-            <div className="inline-tags top-space">
-              {(data.insightHighlights ?? []).map((item) => <span className="tag" key={item}>{item}</span>)}
+      <div className="play-grid play-grid--admin top-space">
+        <section className="play-panel play-panel--admin">
+          <div className="play-panel__head">
+            <div>
+              <h2>Operational insight summary</h2>
+              <p>Narrative summary grounded in the current school telemetry.</p>
             </div>
-          </Card>
-        </div>
-      </div>
-      <div className="top-space">
-        <Card title="Students behind target" subtitle="Learners who need school-level follow-up because they are stuck or behind the current daily goal.">
+          </div>
+          <p className="support-copy">{data.insightSummary || "No rollup summary available yet."}</p>
+          <div className="inline-tags top-space">
+            {(data.insightHighlights ?? []).map((item) => <span className="tag" key={item}>{item}</span>)}
+          </div>
+        </section>
+        <section className="play-panel play-panel--admin">
+          <div className="play-panel__head">
+            <div>
+              <h2>Students behind target</h2>
+              <p>Learners who need school-level follow-up.</p>
+            </div>
+          </div>
           {!escalations.length ? <p className="support-copy">No students currently need admin escalation.</p> : null}
-          <div className="data-table">
-            <div className="data-table__head data-table__head--admin"><span>Student</span><span>Classroom</span><span>Chapter</span><span>Risk</span><span>Reason</span></div>
+          <div className="watch-grid">
             {escalations.map((student) => (
-              <div className="data-table__row data-table__row--admin" key={student.studentId}>
-                <span>{student.name}</span>
-                <span>{student.classroomName || "Unassigned"}</span>
-                <span>Chapter {student.currentChapterNumber ?? "-"} / {student.currentChapterName || "Not started"}</span>
-                <span><StatusBadge risk={student.riskLabel ?? "Low"} /></span>
-                <span>{student.riskReason || "Needs closer review."}</span>
-              </div>
+              <article className="watch-card" key={student.studentId}>
+                <div className="watch-card__head">
+                  <strong>{student.name}</strong>
+                  <StatusBadge risk={student.riskLabel ?? "Low"} />
+                </div>
+                <p>{student.classroomName || "Unassigned"} · Chapter {student.currentChapterNumber ?? "-"} · {student.currentChapterName || "Not started"}</p>
+                <small className="support-copy">{student.riskReason || "Needs closer review."}</small>
+              </article>
             ))}
           </div>
-        </Card>
+        </section>
       </div>
     </>
   );
 }
 
 function StudentHome({ data }) {
-  const averageMastery = Math.round(data.mastery.reduce((sum, item) => sum + item.mastery, 0) / Math.max(data.mastery.length, 1));
+  const homeState = useStudentHomeData();
+  const pageData = homeState.data ?? {};
+  const masteryItems = pageData.mastery ?? [];
+  const averageMastery = Math.round(masteryItems.reduce((sum, item) => sum + item.mastery, 0) / Math.max(masteryItems.length, 1));
   const navigate = useNavigate();
-  const assignmentSummary = data.assignmentSummary ?? null;
-  const activeTask = data.todayTask ?? null;
-  const latestBatch = data.latestBatch ?? null;
-  const learningPath = data.learningPath ?? {};
+  const assignmentSummary = pageData.assignmentSummary ?? null;
+  const activeTask = pageData.todayTask ?? null;
+  const latestBatch = pageData.latestBatch ?? null;
+  const learningPath = pageData.learningPath ?? {};
+  const analytics = pageData.analytics ?? {};
   const [actionError, setActionError] = useState("");
   const [isContinuing, setIsContinuing] = useState(false);
   const ladder = learningPath.chapterLadder ?? [];
@@ -1557,9 +1735,23 @@ function StudentHome({ data }) {
   const dailyMasteryGoal = Number(learningPath.dailyMasteryGoal ?? assignmentSummary?.dailyMasteryGoal ?? 0);
   const dailyTargetDate = learningPath.dailyTargetDate ?? assignmentSummary?.dailyTargetDate ?? "";
   const nextChapterLabel = upcomingChapter ? `Chapter ${upcomingChapter.chapterNumber}` : learningPath.status === "completed" ? "Completed" : "Locked";
-  const cleanedRecentResults = (data.recentResults ?? [])
+  const cleanedRecentResults = (pageData.recentResults ?? [])
     .filter((item) => !String(item.title ?? "").toLowerCase().includes("diagnostic"))
     .slice(0, 3);
+  const recentScoreSeries = analytics.recentScoreSeries ?? [];
+  const milestoneProgress = [{
+    key: "today",
+    label: "Today",
+    start: dailyMasteryStart,
+    current: currentMastery,
+    goal: dailyMasteryGoal > dailyMasteryStart ? dailyMasteryGoal : assignmentSummary?.masteryTarget ?? 80
+  }];
+  const strongestTopic = masteryItems.length
+    ? masteryItems.reduce((best, item) => (item.mastery > best.mastery ? item : best), masteryItems[0])
+    : null;
+  const focusTopic = masteryItems.length
+    ? masteryItems.reduce((lowest, item) => (item.mastery < lowest.mastery ? item : lowest), masteryItems[0])
+    : null;
   const milestoneCompletedToday = Boolean(learningPath.milestoneCompletedToday || learningPath.dailyTargetStatus === "reached");
   const canContinuePractice = Boolean(learningPath.canContinuePractice);
   const chapterStatusCopy =
@@ -1573,6 +1765,7 @@ function StudentHome({ data }) {
     dailyMasteryGoal > dailyMasteryStart
       ? `Today's milestone: ${dailyMasteryStart}% -> ${dailyMasteryGoal}%`
       : `Today's milestone: reach ${assignmentSummary?.masteryTarget ?? 80}%`;
+  const heroCopy = pageData.studentInsight?.summary || pageData.coachNote || chapterStatusCopy;
 
   async function handleLaunch() {
     try {
@@ -1604,87 +1797,170 @@ function StudentHome({ data }) {
 
   return (
     <>
-      <PortalHeader title="Student Home" subtitle="Start your current chapter assignment, track mastery, and see what unlocks next." />
-      <div className="metric-row metric-row--three">
-        <MetricCard
-          label="Current chapter"
-          value={learningPath.status === "completed" ? "Completed" : `Chapter ${currentChapterNumber}`}
-        />
-        <MetricCard label="Current mastery" value={`${currentMastery}%`} />
-        <MetricCard label="Next unlock" value={nextChapterLabel} />
-      </div>
-      <div className="student-home-layout top-space">
-        <div className="student-home-layout__main stack-grid">
-          <Card title="Today's chapter" subtitle="A clean launch point for the current mastery cycle.">
-            <article className="info-tile info-tile--feature">
-              <div className="info-tile__header">
-                <strong>Chapter {currentChapterNumber} - {currentChapterName}</strong>
-                <AssignmentStateBadge status={assignmentSummary?.status ?? displayPathStatus} />
-              </div>
-              <p>{data.studentInsight?.summary || data.coachNote || chapterStatusCopy}</p>
-              <div className="inline-tags">
-                <span className="tag">{assignmentSummary?.itemsCount ?? activeTask?.items?.length ?? 0} items</span>
-                <span className="tag">Difficulty {assignmentSummary?.targetDifficulty ?? activeTask?.targetDifficulty ?? 1}</span>
-                {assignmentSummary?.paceBand ? <span className="tag">{assignmentSummary.paceBand}</span> : null}
-                <span className="tag">{dailyMilestoneCopy}</span>
-                {dailyTargetDate ? <span className="tag">For {dailyTargetDate}</span> : null}
-              </div>
-              <div className="info-tile__meta">
-                <span>{milestoneCompletedToday ? "Today's milestone completed" : "Target still in progress"}</span>
-                <button
-                  className="button button--primary"
-                  disabled={isContinuing}
-                  onClick={handleLaunch}
-                  type="button"
-                >
-                  {isContinuing ? "Opening..." : launchLabel}
-                </button>
-              </div>
-              {actionError ? <p className="form-error">{actionError}</p> : null}
-            </article>
-          </Card>
-          <ChapterLadderCard
-            ladder={ladder}
-            title="Chapter ladder"
-            subtitle="Only the current chapter is active. Higher chapters unlock after mastery."
-          />
+      <StoryHero
+        tone="student"
+        eyebrow="Daily math mission"
+        title={`Chapter ${currentChapterNumber} · ${currentChapterName}`}
+        subtitle={heroCopy}
+        action={
+          <button
+            className="button button--primary"
+            disabled={isContinuing}
+            onClick={handleLaunch}
+            type="button"
+          >
+            {isContinuing ? "Opening..." : launchLabel}
+          </button>
+        }
+      >
+        <div className="inline-tags">
+          <AssignmentStateBadge status={assignmentSummary?.status ?? displayPathStatus} />
+          <span className="tag">{assignmentSummary?.itemsCount ?? activeTask?.items?.length ?? 0} questions</span>
+          <span className="tag">Difficulty {assignmentSummary?.targetDifficulty ?? activeTask?.targetDifficulty ?? 1}</span>
+          <span className="tag">{dailyMilestoneCopy}</span>
+          {dailyTargetDate ? <span className="tag">For {dailyTargetDate}</span> : null}
         </div>
-        <div className="student-home-layout__side stack-grid">
-          <Card title="Path status" subtitle="Current chapter state and what unlocks next.">
-            <div className="stack-grid">
-              <article className="info-tile">
-                <div className="info-tile__header">
-                  <strong>Current: Chapter {currentChapterNumber} - {currentChapterName}</strong>
-                  <PathStatusBadge status={displayPathStatus} />
-                </div>
-                <p>{chapterStatusCopy}</p>
-                <div className="inline-tags">
-                  <span className="tag">{learningPath.completedChaptersCount ?? 0} completed</span>
-                  <span className="tag">{learningPath.totalChapters ?? ladder.length} total</span>
-                  <span className="tag">{milestoneCompletedToday ? "Today's milestone completed" : "Keep going"}</span>
-                  {dailyMasteryGoal > dailyMasteryStart ? <span className="tag">{`${dailyMasteryStart}% -> ${dailyMasteryGoal}%`}</span> : null}
-                </div>
+      </StoryHero>
+      {homeState.error ? <p className="form-error top-space">{homeState.error}</p> : null}
+      {actionError ? <p className="form-error top-space">{actionError}</p> : null}
+      {homeState.loading ? <p className="support-copy top-space">Loading student dashboard...</p> : null}
+      <div className="accent-metrics accent-metrics--three top-space">
+        <AccentMetric tone="blue" label="Current mastery" value={`${currentMastery}%`} meta={`Chapter ${currentChapterNumber}`} />
+        <AccentMetric
+          tone="green"
+          label="Today's goal"
+          value={milestoneCompletedToday ? "Done" : `${dailyMasteryGoal > dailyMasteryStart ? dailyMasteryGoal : assignmentSummary?.masteryTarget ?? 80}%`}
+          meta={milestoneCompletedToday ? "Milestone completed" : dailyMilestoneCopy}
+        />
+        <AccentMetric
+          tone="orange"
+          label="Next unlock"
+          value={upcomingChapter ? upcomingChapter.name : nextChapterLabel}
+          meta={upcomingChapter ? `Chapter ${upcomingChapter.chapterNumber}` : "Keep mastering this chapter"}
+        />
+      </div>
+      <div className="play-grid play-grid--home top-space">
+        <section className="play-panel play-panel--feature">
+          <div className="play-panel__head">
+            <div>
+              <h2>Today's mission</h2>
+              <p>One clear step at a time until the chapter unlocks.</p>
+            </div>
+            <AssignmentStateBadge status={assignmentSummary?.status ?? displayPathStatus} />
+          </div>
+          <div className="mission-card">
+            <div className="mission-card__copy">
+              <strong>Stay with {currentChapterName}</strong>
+              <p>{chapterStatusCopy}</p>
+              <div className="inline-tags">
+                <span className="tag">{milestoneCompletedToday ? "Milestone completed" : "Milestone live"}</span>
+                <span className="tag">{learningPath.completedChaptersCount ?? 0} chapters cleared</span>
+                <span className="tag">{learningPath.totalChapters ?? ladder.length} in path</span>
+              </div>
+            </div>
+            <div className="mission-card__stack">
+              <article className="spark-card spark-card--violet">
+                <span>Strongest spark</span>
+                <strong>{strongestTopic?.concept ?? "Building now"}</strong>
+                <small>{strongestTopic ? `${strongestTopic.mastery}% mastery` : "Keep practicing to light this up."}</small>
               </article>
-              <article className="info-tile">
-                <strong>{upcomingChapter ? `Upcoming: Chapter ${upcomingChapter.chapterNumber} - ${upcomingChapter.name}` : "No new chapter unlocked yet"}</strong>
-                <p>{upcomingChapter ? "This chapter unlocks automatically once the current chapter is mastered." : "Keep building mastery in the current chapter to continue."}</p>
+              <article className="spark-card spark-card--orange">
+                <span>Focus next</span>
+                <strong>{focusTopic?.concept ?? currentChapterName}</strong>
+                <small>{focusTopic ? `${focusTopic.mastery}% mastery` : "This chapter will guide the focus."}</small>
               </article>
             </div>
-          </Card>
-          <Card title="Recent activity" subtitle="Latest scored work from your current path.">
-            {!(cleanedRecentResults.length || (data.recentResults ?? []).length) ? <p className="support-copy">No recent activity yet.</p> : null}
-            <ul className="simple-list simple-list--activity">
-              {(cleanedRecentResults.length ? cleanedRecentResults : (data.recentResults ?? []).slice(0, 3)).map((item, index) => <li key={item.id ?? item.createdAt ?? `${item.title}-${index}`}>{item.title}: {item.score}</li>)}
-            </ul>
-            {!activeTask && latestBatch ? (
-              <div className="top-space">
-                <small className="support-copy">
-                  Latest batch: Chapter {latestBatch.chapterNumber} / {latestBatch.itemsCount} items / Difficulty {latestBatch.targetDifficulty}
-                </small>
-              </div>
+          </div>
+        </section>
+        <section className="play-panel">
+          <div className="play-panel__head">
+            <div>
+              <h2>Journey map</h2>
+              <p>See where you are now and what opens next.</p>
+            </div>
+            <PathStatusBadge status={displayPathStatus} />
+          </div>
+          <div className="journey-map">
+            <article className="journey-map__card journey-map__card--current">
+              <span className="journey-map__eyebrow">Current chapter</span>
+              <strong>Chapter {currentChapterNumber} · {currentChapterName}</strong>
+              <p>{milestoneCompletedToday ? "Today's milestone is locked in." : "This chapter stays active until mastery and checkpoint are both cleared."}</p>
+            </article>
+            <article className="journey-map__card">
+              <span className="journey-map__eyebrow">Next unlock</span>
+              <strong>{upcomingChapter ? `Chapter ${upcomingChapter.chapterNumber} · ${upcomingChapter.name}` : "Final unlock pending"}</strong>
+              <p>{upcomingChapter ? "It opens automatically when this chapter is mastered." : "Keep pushing the current chapter to reveal the next step."}</p>
+            </article>
+          </div>
+        </section>
+      </div>
+      <div className="play-grid play-grid--home-bottom top-space">
+        <section className="play-panel">
+          <div className="play-panel__head">
+            <div>
+              <h2>Chapter trail</h2>
+              <p>Your Class 10 path, one unlock at a time.</p>
+            </div>
+          </div>
+          <div className="journey-list journey-list--scroll">
+            {ladder.map((chapter) => (
+              <article className={`journey-item ${chapter.current ? "journey-item--current" : ""}`.trim()} key={chapter.code}>
+                <div>
+                  <strong>Chapter {chapter.chapterNumber} · {chapter.name}</strong>
+                  <p>{chapter.mastery}% mastery</p>
+                </div>
+                <div className="inline-tags">
+                  {chapter.current ? <span className="tag">Current</span> : null}
+                  {chapter.completed ? <span className="tag">Done</span> : null}
+                  {chapter.locked ? <span className="tag">Locked</span> : null}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
+        <section className="play-panel">
+          <div className="play-panel__head">
+            <div>
+              <h2>Progress pulse</h2>
+              <p>Batch scores and mastery goals stay separate here.</p>
+            </div>
+          </div>
+          <div className="play-stack">
+            <LineChart
+              title="Batch score trend"
+              points={recentScoreSeries.length ? recentScoreSeries : [{ label: "Now", value: currentMastery }]}
+              suffix="%"
+            />
+            <MilestoneChart title="Milestone progress" items={milestoneProgress} />
+            <div className="achievement-stack">
+            {(cleanedRecentResults.length ? cleanedRecentResults : (pageData.recentResults ?? []).slice(0, 3)).map((item, index) => (
+              <article className="achievement-card" key={item.id ?? item.createdAt ?? `${item.title}-${index}`}>
+                <div>
+                  <strong>{item.title}</strong>
+                  <p>{item.score}</p>
+                </div>
+                <span>{formatLastActive(item.createdAt ?? item.date ?? "")}</span>
+              </article>
+            ))}
+            {!cleanedRecentResults.length && !(pageData.recentResults ?? []).length ? (
+              <article className="achievement-card achievement-card--empty">
+                <div>
+                  <strong>Your streak starts here</strong>
+                  <p>Finish a batch to light up your first result card.</p>
+                </div>
+              </article>
             ) : null}
-          </Card>
-        </div>
+            {!activeTask && latestBatch ? (
+              <article className="achievement-card achievement-card--soft">
+                <div>
+                  <strong>Latest batch recap</strong>
+                  <p>Chapter {latestBatch.chapterNumber} · {latestBatch.itemsCount} items · Difficulty {latestBatch.targetDifficulty}</p>
+                </div>
+              </article>
+            ) : null}
+            </div>
+          </div>
+        </section>
       </div>
     </>
   );
@@ -1695,9 +1971,10 @@ function StudentPractice({ data }) {
   const location = useLocation();
   const [actionError, setActionError] = useState("");
   const [isContinuing, setIsContinuing] = useState(false);
-  const { data: todayTaskPayload, loading: taskLoading, error: taskError } = useApiData(() => fetchJson("/api/student/tasks/today"), []);
-  const todayTask = todayTaskPayload?.task ?? data.todayTask ?? null;
-  const learningPath = data.learningPath ?? {};
+  const assignmentState = useStudentAssignmentData();
+  const pageData = assignmentState.data ?? {};
+  const todayTask = pageData.task ?? null;
+  const learningPath = pageData.learningPath ?? {};
   const ladder = learningPath.chapterLadder ?? [];
   const { currentChapter, upcomingChapter } = getChapterPointers(ladder, learningPath.currentChapterNumber);
   const displayPathStatus = getDisplayPathStatus(learningPath);
@@ -1729,23 +2006,54 @@ function StudentPractice({ data }) {
 
   return (
     <>
-      <PortalHeader title="Practice" subtitle="Choose the active chapter assignment, then enter a focused work route to complete it." />
+      <StoryHero
+        tone="student"
+        eyebrow="Practice hub"
+        title={todayTask ? `Ready for Chapter ${todayTask.chapterNumber}` : milestoneCompletedToday ? "Milestone completed" : "Math practice"}
+        subtitle={
+          todayTask
+            ? todayTask.narrativeSummary || todayTask.rationale?.[0] || "Your next batch is ready to start."
+            : milestoneCompletedToday
+              ? "You've hit today's goal. You can stop here or open extra practice to boost mastery even more."
+              : "Your next batch will appear here as soon as the chapter path is ready."
+        }
+      >
+        <div className="inline-tags">
+          <span className="tag">{currentChapter ? `Current: ${currentChapter.name}` : "Current chapter pending"}</span>
+          <span className="tag">{Math.round(learningPath.currentMastery ?? 0)}% mastery</span>
+          <span className="tag">{learningPath.dailyTargetStatus === "reached" ? "Today's goal reached" : "Goal in progress"}</span>
+        </div>
+      </StoryHero>
       {flashMessage ? <p className="form-success">{flashMessage}</p> : null}
       {actionError ? <p className="form-error">{actionError}</p> : null}
-      <div className="dashboard-grid">
-        <Card title="Active assignment" subtitle="Only one chapter batch stays active at a time.">
-          {taskLoading ? <p className="support-copy">Loading today's task...</p> : null}
-          {taskError ? <p className="form-error">{taskError}</p> : null}
-          {!taskLoading && !todayTask && !canContinuePractice ? <p className="support-copy">No active assignment is ready right now.</p> : null}
-          {!taskLoading && !todayTask && canContinuePractice ? (
-            <article className="info-tile info-tile--feature">
-              <div className="info-tile__header">
+      <div className="accent-metrics accent-metrics--three top-space">
+        <AccentMetric tone="blue" label="Current chapter" value={currentChapter ? `Chapter ${currentChapter.chapterNumber}` : "Waiting"} meta={currentChapter?.name ?? "No active chapter yet"} />
+        <AccentMetric tone="green" label="Live batch" value={todayTask ? `${todayTask.items?.length ?? 0} Qs` : canContinuePractice ? "Extra set" : "None"} meta={todayTask ? `Cycle ${todayTask.cycleIndex ?? 1}` : "One batch at a time"} />
+        <AccentMetric tone="orange" label="Next unlock" value={upcomingChapter ? `Chapter ${upcomingChapter.chapterNumber}` : "Final"} meta={upcomingChapter?.name ?? "Keep going"} />
+      </div>
+      <div className="play-grid play-grid--practice top-space">
+        <section className="play-panel play-panel--feature">
+          <div className="play-panel__head">
+            <div>
+              <h2>Active batch</h2>
+              <p>Only one live batch stays open at a time.</p>
+            </div>
+            {todayTask ? <AssignmentStateBadge status={pageData.assignmentSummary?.status ?? displayPathStatus} /> : null}
+          </div>
+          {assignmentState.loading ? <p className="support-copy">Loading today's task...</p> : null}
+          {assignmentState.error ? <p className="form-error">{assignmentState.error}</p> : null}
+          {!assignmentState.loading && !todayTask && !canContinuePractice ? <p className="support-copy">No active assignment is ready right now.</p> : null}
+          {!assignmentState.loading && !todayTask && canContinuePractice ? (
+            <article className="mission-card mission-card--success">
+              <div className="mission-card__copy">
                 <strong>Today's milestone completed</strong>
-                <AssignmentStateBadge status="completed" />
+                <p>You can stop here or keep practicing to push mastery even higher before tomorrow.</p>
+                <div className="inline-tags">
+                  <span className="tag">Milestone secured</span>
+                  <span className="tag">{Math.round(learningPath.currentMastery ?? 0)}% mastery</span>
+                </div>
               </div>
-              <p>You reached today&apos;s chapter goal. You can stop here or continue practicing to raise mastery further.</p>
-              <div className="info-tile__meta">
-                <span>{milestoneCompletedToday ? "Milestone secured for today" : "Practice available"}</span>
+              <div className="mission-card__actions">
                 <button className="button button--primary" disabled={isContinuing} onClick={handleContinuePractice} type="button">
                   {isContinuing ? "Opening..." : "Continue practice"}
                 </button>
@@ -1753,47 +2061,65 @@ function StudentPractice({ data }) {
             </article>
           ) : null}
           {todayTask ? (
-            <div className="stack-grid">
-              <article className="info-tile info-tile--feature">
-                <div className="info-tile__header">
-                  <strong>Chapter {todayTask.chapterNumber} - {todayTask.concept.name}</strong>
-                  <AssignmentStateBadge status={data.assignmentSummary?.status ?? displayPathStatus} />
-                </div>
+            <article className="mission-card">
+              <div className="mission-card__copy">
+                <strong>Chapter {todayTask.chapterNumber} · {todayTask.concept.name}</strong>
                 <p>{todayTask.narrativeSummary || todayTask.rationale?.[0] || "Your next chapter batch is ready."}</p>
                 <div className="inline-tags">
                   <span className="tag">{todayTask.items?.length ?? 0} questions</span>
                   <span className="tag">Cycle {todayTask.cycleIndex ?? 1}</span>
-                  <span className="tag">Mastery target {todayTask.masteryTarget ?? 80}%</span>
-                  {todayTask.coveredTopics?.length ? <span className="tag">{todayTask.coveredTopics.length} topics covered</span> : null}
+                  <span className="tag">Target {todayTask.masteryTarget ?? 80}%</span>
+                  {todayTask.coveredTopics?.length ? <span className="tag">{todayTask.coveredTopics.length} topic threads</span> : null}
                 </div>
-                <div className="info-tile__meta">
-                  <span>{currentChapter ? `Current chapter: ${currentChapter.name}` : "Current chapter ready"}</span>
-                  <button
-                    className="button button--primary"
-                    onClick={() => navigate(`/student/practice/${todayTask.assignmentId}`)}
-                    type="button"
-                  >
-                    Open assignment
-                  </button>
-                </div>
-              </article>
-            </div>
-          ) : null}
-        </Card>
-        <Card title="Chapter path" subtitle="Your work area opens separately so this page stays clean.">
-          <div className="stack-grid">
-            <article className="info-tile">
-              <strong>{currentChapter ? `Current: Chapter ${currentChapter.chapterNumber} - ${currentChapter.name}` : "Current chapter not started"}</strong>
-              <p>{learningPath.status === "completed" ? "You have completed the full Class 10 path." : "Stay on the current chapter until mastery target and checkpoint are both cleared."}</p>
-              <div className="inline-tags">
-                <span className="tag">{Math.round(learningPath.currentMastery ?? 0)}% mastery</span>
-                <span className="tag">{learningPath.dailyTargetStatus === "reached" ? "Target reached" : "Target in progress"}</span>
-                {upcomingChapter ? <span className="tag">Next: Chapter {upcomingChapter.chapterNumber}</span> : null}
+              </div>
+              <div className="mission-card__actions">
+                <button className="button button--primary" onClick={() => navigate(`/student/practice/${todayTask.assignmentId}`)} type="button">
+                  Open assignment
+                </button>
               </div>
             </article>
-            <ChapterLadderCard ladder={ladder} title="Chapter ladder" subtitle="This stays visible here while focused work happens on a dedicated route." />
+          ) : null}
+        </section>
+        <section className="play-panel">
+          <div className="play-panel__head">
+            <div>
+              <h2>Chapter journey</h2>
+              <p>Keep the current chapter green, then the next one unlocks.</p>
+            </div>
+            <PathStatusBadge status={displayPathStatus} />
           </div>
-        </Card>
+          <div className="journey-map">
+            <article className="journey-map__card journey-map__card--current">
+              <span className="journey-map__eyebrow">Current</span>
+              <strong>{currentChapter ? `Chapter ${currentChapter.chapterNumber} · ${currentChapter.name}` : "Current chapter not started"}</strong>
+              <p>{learningPath.status === "completed" ? "You have completed the full Class 10 path." : "Stay on this chapter until mastery target and checkpoint are both cleared."}</p>
+              <div className="inline-tags">
+                <span className="tag">{Math.round(learningPath.currentMastery ?? 0)}% mastery</span>
+                <span className="tag">{learningPath.dailyTargetStatus === "reached" ? "Goal reached" : "Goal in progress"}</span>
+              </div>
+            </article>
+            <article className="journey-map__card">
+              <span className="journey-map__eyebrow">Next</span>
+              <strong>{upcomingChapter ? `Chapter ${upcomingChapter.chapterNumber} · ${upcomingChapter.name}` : "No new chapter yet"}</strong>
+              <p>{upcomingChapter ? "It unlocks automatically after mastery." : "Clear this chapter first to reveal what comes next."}</p>
+            </article>
+          </div>
+          <div className="journey-list journey-list--compact top-space">
+            {ladder.slice(0, 5).map((chapter) => (
+              <article className={`journey-item ${chapter.current ? "journey-item--current" : ""}`.trim()} key={chapter.code}>
+                <div>
+                  <strong>Chapter {chapter.chapterNumber} · {chapter.name}</strong>
+                  <p>{chapter.mastery}% mastery</p>
+                </div>
+                <div className="inline-tags">
+                  {chapter.current ? <span className="tag">Current</span> : null}
+                  {chapter.completed ? <span className="tag">Done</span> : null}
+                  {chapter.locked ? <span className="tag">Locked</span> : null}
+                </div>
+              </article>
+            ))}
+          </div>
+        </section>
       </div>
     </>
   );
@@ -1803,12 +2129,10 @@ function StudentAssignmentOverview({ data }) {
   const navigate = useNavigate();
   const { assignmentId = "" } = useParams();
   const location = useLocation();
-  const { data: todayTaskPayload, loading: taskLoading, error: taskError } = useApiData(() => fetchJson("/api/student/tasks/today"), [assignmentId]);
-  const routedTask = location.state?.nextTask ?? null;
-  const todayTask = todayTaskPayload?.task ?? data.todayTask ?? null;
-  const activeTask = [todayTask, routedTask, data.todayTask]
-    .find((task) => task && String(task.assignmentId) === String(assignmentId)) ?? null;
-  const learningPath = data.learningPath ?? {};
+  const assignmentState = useStudentAssignmentData(assignmentId);
+  const pageData = assignmentState.data ?? {};
+  const activeTask = pageData.task && String(pageData.task.assignmentId) === String(assignmentId) ? pageData.task : null;
+  const learningPath = pageData.learningPath ?? {};
   const ladder = learningPath.chapterLadder ?? [];
   const { currentChapter, upcomingChapter } = getChapterPointers(ladder, learningPath.currentChapterNumber);
   const displayPathStatus = getDisplayPathStatus(learningPath);
@@ -1816,16 +2140,17 @@ function StudentAssignmentOverview({ data }) {
   const existingSession = activeTask ? readAssignmentSession(activeTask.assignmentId) : { lastQuestionIndex: 0 };
   const resumeIndex = Math.min(existingSession.lastQuestionIndex ?? 0, Math.max((activeTask?.items?.length ?? 1) - 1, 0));
   const flashMessage = location.state?.message ?? "";
+  const previewItems = (activeTask?.items ?? []).slice(0, 3);
 
   return (
     <section className="focus-frame">
-      <div className="focus-panel">
-        <div className="focus-panel__head">
-          <div>
-            <span className="focus-eyebrow">Assignment overview</span>
-            <h1>{activeTask ? `Chapter ${activeTask.chapterNumber} - ${activeTask.concept.name}` : "Assignment unavailable"}</h1>
-            <p>{activeTask?.narrativeSummary || activeTask?.rationale?.[0] || "Review the chapter batch, then launch the focused work area."}</p>
-          </div>
+      <StoryHero
+        tone="student"
+        className="story-hero--focus"
+        eyebrow="Assignment overview"
+        title={activeTask ? `Chapter ${activeTask.chapterNumber} · ${activeTask.concept.name}` : "Assignment unavailable"}
+        subtitle={activeTask?.narrativeSummary || activeTask?.rationale?.[0] || "Review the batch, then jump in."}
+        action={
           <div className="focus-actions">
             <button className="button button--secondary" onClick={() => navigate("/student/practice")} type="button">
               Back to practice
@@ -1844,41 +2169,86 @@ function StudentAssignmentOverview({ data }) {
               </button>
             ) : null}
           </div>
-        </div>
-        {flashMessage ? <p className="form-success">{flashMessage}</p> : null}
-        {taskLoading ? <p className="support-copy">Loading assignment...</p> : null}
-        {taskError ? <p className="form-error">{taskError}</p> : null}
-        {!taskLoading && !activeTask ? <p className="support-copy">This assignment is no longer active. Return to the practice list for the latest batch.</p> : null}
+        }
+      >
         {activeTask ? (
-          <div className="focus-grid">
-            <article className="focus-card">
-              <div className="info-tile__header">
-                <strong>Batch summary</strong>
-                <AssignmentStateBadge status={data.assignmentSummary?.status ?? "assigned"} />
-              </div>
-              <div className="inline-tags">
-                <span className="tag">{activeTask.items?.length ?? 0} questions</span>
-                <span className="tag">Cycle {activeTask.cycleIndex ?? 1}</span>
-                <span className="tag">Mastery target {activeTask.masteryTarget ?? 80}%</span>
-                <span className="tag">Difficulty {activeTask.targetDifficulty}</span>
-              </div>
-              {activeTask.lesson?.body ? <p>{activeTask.lesson.body}</p> : <p>This batch goes straight into practice questions.</p>}
-            </article>
-            <article className="focus-card">
-              <div className="info-tile__header">
-                <strong>Chapter path context</strong>
-                <PathStatusBadge status={displayPathStatus} />
-              </div>
-              <p>Current chapter: {currentChapterName}</p>
-              <div className="inline-tags">
-                <span className="tag">{Math.round(learningPath.currentMastery ?? 0)}% mastery</span>
-                <span className="tag">{learningPath.dailyTargetStatus === "reached" ? "Target reached" : "Target in progress"}</span>
-                {upcomingChapter ? <span className="tag">Upcoming: Chapter {upcomingChapter.chapterNumber}</span> : null}
-              </div>
-            </article>
+          <div className="inline-tags">
+            <AssignmentStateBadge status={pageData.assignmentSummary?.status ?? "assigned"} />
+            <span className="tag">{activeTask.items?.length ?? 0} questions</span>
+            <span className="tag">Cycle {activeTask.cycleIndex ?? 1}</span>
+            <span className="tag">Difficulty {activeTask.targetDifficulty}</span>
           </div>
         ) : null}
-      </div>
+      </StoryHero>
+      {flashMessage ? <p className="form-success">{flashMessage}</p> : null}
+      {assignmentState.loading ? <p className="support-copy">Loading assignment...</p> : null}
+      {assignmentState.error ? <p className="form-error">{assignmentState.error}</p> : null}
+      {!assignmentState.loading && !activeTask ? (
+        <section className="play-panel top-space">
+          <div className="play-panel__head">
+            <div>
+              <h2>Assignment unavailable</h2>
+              <p>This batch is no longer active. Head back to practice for the newest chapter set.</p>
+            </div>
+          </div>
+        </section>
+      ) : null}
+      {activeTask ? (
+        <>
+          <div className="accent-metrics accent-metrics--three top-space">
+            <AccentMetric tone="blue" label="Batch size" value={String(activeTask.items?.length ?? 0)} meta="Questions in this round" />
+            <AccentMetric tone="green" label="Mastery target" value={`${activeTask.masteryTarget ?? 80}%`} meta={`${Math.round(learningPath.currentMastery ?? 0)}% current mastery`} />
+            <AccentMetric tone="orange" label="Next unlock" value={upcomingChapter ? `Chapter ${upcomingChapter.chapterNumber}` : "Final"} meta={upcomingChapter?.name ?? "Keep mastering this chapter"} />
+          </div>
+          <div className="play-grid play-grid--focus-overview top-space">
+            <section className="play-panel play-panel--feature">
+              <div className="play-panel__head">
+                <div>
+                  <h2>What you'll work on</h2>
+                  <p>This batch is tuned to your current chapter rhythm.</p>
+                </div>
+                <AssignmentStateBadge status={pageData.assignmentSummary?.status ?? "assigned"} />
+              </div>
+              <div className="preview-stack">
+                {previewItems.map((item) => (
+                  <article className="preview-card" key={`${assignmentId}-${item.order}`}>
+                    <div className="inline-tags">
+                      <span className="tag">{item.stage}</span>
+                      <span className="tag">Level {item.difficultyLevel}</span>
+                    </div>
+                    <strong>{item.prompt}</strong>
+                  </article>
+                ))}
+              </div>
+              <div className="focus-note-card">
+                <strong>Lesson cue</strong>
+                <p>{activeTask.lesson?.body || "Jump straight into questions and let the system adapt from your answers."}</p>
+              </div>
+            </section>
+            <section className="play-panel">
+              <div className="play-panel__head">
+                <div>
+                  <h2>Chapter path context</h2>
+                  <p>Where this batch sits in your larger journey.</p>
+                </div>
+                <PathStatusBadge status={displayPathStatus} />
+              </div>
+              <div className="journey-map">
+                <article className="journey-map__card journey-map__card--current">
+                  <span className="journey-map__eyebrow">Current chapter</span>
+                  <strong>{currentChapterName}</strong>
+                  <p>{learningPath.dailyTargetStatus === "reached" ? "Today's goal is already secured." : "This batch helps push today's mastery milestone forward."}</p>
+                </article>
+                <article className="journey-map__card">
+                  <span className="journey-map__eyebrow">What unlocks next</span>
+                  <strong>{upcomingChapter ? `Chapter ${upcomingChapter.chapterNumber} · ${upcomingChapter.name}` : "Keep mastering this chapter"}</strong>
+                  <p>{upcomingChapter ? "Unlock happens automatically after mastery plus checkpoint." : "No later chapter can open until this one is cleared."}</p>
+                </article>
+              </div>
+            </section>
+          </div>
+        </>
+      ) : null}
     </section>
   );
 }
@@ -1887,11 +2257,9 @@ function StudentQuestionWorkspace({ data }) {
   const navigate = useNavigate();
   const { assignmentId = "", questionIndex = "0" } = useParams();
   const location = useLocation();
-  const { data: todayTaskPayload, loading: taskLoading, error: taskError } = useApiData(() => fetchJson("/api/student/tasks/today"), [assignmentId]);
-  const routedTask = location.state?.nextTask ?? null;
-  const todayTask = todayTaskPayload?.task ?? data.todayTask ?? null;
-  const activeTask = [todayTask, routedTask, data.todayTask]
-    .find((task) => task && String(task.assignmentId) === String(assignmentId)) ?? null;
+  const assignmentState = useStudentAssignmentData(assignmentId);
+  const pageData = assignmentState.data ?? {};
+  const activeTask = pageData.task && String(pageData.task.assignmentId) === String(assignmentId) ? pageData.task : null;
   const taskItems = activeTask?.items ?? [];
   const safeIndex = Math.min(Math.max(Number.parseInt(questionIndex, 10) || 0, 0), Math.max(taskItems.length - 1, 0));
   const currentQuestion = taskItems[safeIndex] ?? null;
@@ -1900,11 +2268,13 @@ function StudentQuestionWorkspace({ data }) {
   const [message, setMessage] = useState("");
   const [isSubmitting, setIsSubmitting] = useState(false);
   const questionStartedAtRef = useRef(0);
-  const learningPath = data.learningPath ?? {};
+  const learningPath = pageData.learningPath ?? {};
   const ladder = learningPath.chapterLadder ?? [];
   const { currentChapter, upcomingChapter } = getChapterPointers(ladder, learningPath.currentChapterNumber);
   const displayPathStatus = getDisplayPathStatus(learningPath);
   const currentChapterName = currentChapter?.name ?? activeTask?.concept?.name ?? learningPath.currentChapterName ?? `Chapter ${activeTask?.chapterNumber ?? "-"}`;
+  const answeredCount = Object.values(sessionState.answers ?? {}).filter((value) => String(value ?? "").trim()).length;
+  const progressPercent = Math.round(((safeIndex + 1) / Math.max(taskItems.length, 1)) * 100);
 
   useEffect(() => {
     setSessionState(readAssignmentSession(assignmentId));
@@ -2000,119 +2370,151 @@ function StudentQuestionWorkspace({ data }) {
     }
   }
 
-  if (taskLoading) {
+  if (assignmentState.loading) {
     return <section className="focus-frame"><p className="state-banner">Loading assignment workspace...</p></section>;
   }
 
-  if (taskError) {
-    return <section className="focus-frame"><p className="state-banner state-banner--error">{taskError}</p></section>;
+  if (assignmentState.error) {
+    return <section className="focus-frame"><p className="state-banner state-banner--error">{assignmentState.error}</p></section>;
   }
 
   if (!activeTask || !currentQuestion) {
     return (
       <section className="focus-frame">
-        <div className="focus-panel">
-          <div className="focus-panel__head">
+        <section className="play-panel">
+          <div className="play-panel__head">
             <div>
-              <span className="focus-eyebrow">Focused workspace</span>
-              <h1>Assignment unavailable</h1>
+              <h2>Assignment unavailable</h2>
               <p>This assignment is no longer the active batch. Return to the practice list for the current chapter batch.</p>
             </div>
             <button className="button button--secondary" onClick={() => navigate("/student/practice")} type="button">
               Back to practice
             </button>
           </div>
-        </div>
+        </section>
       </section>
     );
   }
 
   return (
     <section className="focus-frame">
-      <div className="focus-panel focus-panel--workspace">
-        <div className="focus-panel__head">
-          <div>
-            <span className="focus-eyebrow">Focused workspace</span>
-            <h1>Chapter {activeTask.chapterNumber} / Question {safeIndex + 1}</h1>
-            <p>{currentQuestion.stage === "checkpoint" ? "Checkpoint answer decides whether the next chapter unlocks." : "Answer this question, then move to the next one."}</p>
-          </div>
-          <div className="focus-actions">
-            <button className="button button--secondary" onClick={() => navigate(`/student/practice/${assignmentId}`)} type="button">
-              Exit assignment
-            </button>
-          </div>
+      <StoryHero
+        tone="student"
+        className="story-hero--focus"
+        eyebrow="Focused workspace"
+        title={`Chapter ${activeTask.chapterNumber} · Question ${safeIndex + 1}`}
+        subtitle={currentQuestion.stage === "checkpoint" ? "This checkpoint helps decide the next chapter unlock." : "Solve this one, save it, and move forward."}
+        action={
+          <button className="button button--secondary" onClick={() => navigate(`/student/practice/${assignmentId}`)} type="button">
+            Exit assignment
+          </button>
+        }
+      >
+        <div className="inline-tags">
+          <span className="tag">{currentQuestion.stage}</span>
+          <span className="tag">Difficulty {currentQuestion.difficultyLevel}</span>
+          {currentQuestion.expectedTimeSec ? <span className="tag">Expected {currentQuestion.expectedTimeSec}s</span> : null}
         </div>
-        <div className="focus-workspace">
-          <aside className="focus-rail">
-            <article className="focus-card">
-              <strong>Progress</strong>
-              <p>Question {safeIndex + 1} of {taskItems.length}</p>
-              <div className="progress-bar"><div className="progress-bar__fill" style={{ width: `${((safeIndex + 1) / Math.max(taskItems.length, 1)) * 100}%` }} /></div>
-            </article>
-            <article className="focus-card">
-              <strong>Chapter context</strong>
-              <p>Current: {currentChapterName}</p>
-              <div className="inline-tags">
-                <span className="tag">{displayPathStatus.replaceAll("_", " ")}</span>
-                <span className="tag">{Math.round(learningPath.currentMastery ?? 0)}% mastery</span>
-                {upcomingChapter ? <span className="tag">Next: Chapter {upcomingChapter.chapterNumber}</span> : null}
+      </StoryHero>
+      <div className="accent-metrics accent-metrics--three top-space">
+        <AccentMetric tone="blue" label="Progress" value={`${progressPercent}%`} meta={`Question ${safeIndex + 1} of ${taskItems.length}`} />
+        <AccentMetric tone="green" label="Answered" value={String(answeredCount)} meta="Saved inside this batch" />
+        <AccentMetric tone="orange" label="Current mastery" value={`${Math.round(learningPath.currentMastery ?? 0)}%`} meta={upcomingChapter ? `Next: Chapter ${upcomingChapter.chapterNumber}` : "Stay on this chapter"} />
+      </div>
+      <div className="workspace-stage top-space">
+        <aside className="workspace-stage__rail">
+          <section className="play-panel">
+            <div className="play-panel__head">
+              <div>
+                <h2>Chapter context</h2>
+                <p>Keep the chapter goal in view while you answer.</p>
               </div>
-            </article>
-          </aside>
-          <article className="focus-question-card">
-            <div className="focus-question-card__meta">
-              <div className="inline-tags">
-                <span className="tag">{currentQuestion.stage}</span>
-                <span className="tag">Difficulty {currentQuestion.difficultyLevel}</span>
-                {currentQuestion.expectedTimeSec ? <span className="tag">Expected {currentQuestion.expectedTimeSec}s</span> : null}
-              </div>
+              <PathStatusBadge status={displayPathStatus} />
             </div>
-            <h2>{currentQuestion.prompt}</h2>
-            <div className="field">
+            <div className="journey-map">
+              <article className="journey-map__card journey-map__card--current">
+                <span className="journey-map__eyebrow">Current</span>
+                <strong>{currentChapterName}</strong>
+                <p>{Math.round(learningPath.currentMastery ?? 0)}% mastery right now.</p>
+              </article>
+              <article className="journey-map__card">
+                <span className="journey-map__eyebrow">Next</span>
+                <strong>{upcomingChapter ? `Chapter ${upcomingChapter.chapterNumber}` : "Keep going here"}</strong>
+                <p>{upcomingChapter ? upcomingChapter.name : "Master this chapter to unlock the next one."}</p>
+              </article>
+            </div>
+          </section>
+          {currentQuestion.hint ? (
+            <section className="play-panel play-panel--hint">
+              <div className="play-panel__head">
+                <div>
+                  <h2>Hint</h2>
+                  <p>A small nudge, not the full answer.</p>
+                </div>
+              </div>
+              <p>{currentQuestion.hint}</p>
+            </section>
+          ) : null}
+        </aside>
+        <article className="question-stage-card">
+          <div className="question-stage-card__head">
+            <div>
+              <span className="question-stage-card__eyebrow">Solve this step</span>
+              <h2>{currentQuestion.prompt}</h2>
+            </div>
+          </div>
+          {currentQuestion.options?.length ? (
+            <div className="option-grid">
+              {currentQuestion.options.map((option, optionIndex) => (
+                <button
+                  className={`option-button ${sessionState.answers?.[currentQuestionId] === option ? "is-selected" : ""}`.trim()}
+                  key={`${option}-${optionIndex}`}
+                  onClick={() => updateAnswer(option)}
+                  type="button"
+                >
+                  <span className="option-button__index">{String.fromCharCode(65 + optionIndex)}</span>
+                  <span>{option}</span>
+                </button>
+              ))}
+            </div>
+          ) : (
+            <label className="field field--focus">
               <span>Your answer</span>
-              {currentQuestion.options?.length ? (
-                <select value={sessionState.answers?.[currentQuestionId] ?? ""} onChange={(event) => updateAnswer(event.target.value)}>
-                  <option value="">Select answer</option>
-                  {currentQuestion.options.map((option) => <option key={option} value={option}>{option}</option>)}
-                </select>
-              ) : (
-                <input
-                  value={sessionState.answers?.[currentQuestionId] ?? ""}
-                  onChange={(event) => updateAnswer(event.target.value)}
-                  placeholder="Type your answer"
-                />
-              )}
-              <small className="support-copy">
-                Your answer and response time are both saved for performance analysis.
-              </small>
-              {currentQuestion.hint ? <small className="support-copy">Hint: {currentQuestion.hint}</small> : null}
-            </div>
-            {message ? <p className="form-error">{message}</p> : null}
-            <div className="focus-question-card__actions">
-              <button className="button button--ghost" disabled={safeIndex === 0 || isSubmitting} onClick={() => goToQuestion(safeIndex - 1)} type="button">
-                Previous
+              <input
+                value={sessionState.answers?.[currentQuestionId] ?? ""}
+                onChange={(event) => updateAnswer(event.target.value)}
+                placeholder="Type your answer"
+              />
+            </label>
+          )}
+          {message ? <p className="form-error">{message}</p> : null}
+          <div className="focus-question-card__actions">
+            <button className="button button--ghost" disabled={safeIndex === 0 || isSubmitting} onClick={() => goToQuestion(safeIndex - 1)} type="button">
+              Previous
+            </button>
+            {safeIndex < taskItems.length - 1 ? (
+              <button className="button button--primary" disabled={isSubmitting} onClick={() => goToQuestion(safeIndex + 1)} type="button">
+                Save and next
               </button>
-              {safeIndex < taskItems.length - 1 ? (
-                <button className="button button--primary" disabled={isSubmitting} onClick={() => goToQuestion(safeIndex + 1)} type="button">
-                  Save and next
-                </button>
-              ) : (
-                <button className="button button--primary" disabled={isSubmitting} onClick={handleSubmitBatch} type="button">
-                  {isSubmitting ? "Submitting..." : "Submit batch"}
-                </button>
-              )}
-            </div>
-          </article>
-        </div>
+            ) : (
+              <button className="button button--primary" disabled={isSubmitting} onClick={handleSubmitBatch} type="button">
+                {isSubmitting ? "Submitting..." : "Submit batch"}
+              </button>
+            )}
+          </div>
+        </article>
       </div>
     </section>
   );
 }
 
 function StudentProgress({ data }) {
-  const learningPath = data.learningPath ?? {};
-  const latestBatch = data.latestBatch ?? data.assignmentHistory?.[0] ?? null;
-  const olderBatches = (data.assignmentHistory ?? []).filter((item) => String(item.id) !== String(latestBatch?.id)).slice(0, 3);
+  const progressState = useStudentProgressData();
+  const pageData = progressState.data ?? {};
+  const learningPath = pageData.learningPath ?? {};
+  const analytics = pageData.analytics ?? {};
+  const latestBatch = pageData.latestBatch ?? pageData.assignmentHistory?.[0] ?? null;
+  const olderBatches = (pageData.assignmentHistory ?? []).filter((item) => String(item.id) !== String(latestBatch?.id)).slice(0, 3);
   const ladder = learningPath.chapterLadder ?? [];
   const { currentChapter, upcomingChapter } = getChapterPointers(ladder, learningPath.currentChapterNumber);
   const displayPathStatus = getDisplayPathStatus(learningPath);
@@ -2132,108 +2534,145 @@ function StudentProgress({ data }) {
     Number(learningPath.dailyMasteryGoal ?? 0) > Number(learningPath.dailyMasteryStart ?? 0)
       ? `${learningPath.dailyMasteryStart}% -> ${learningPath.dailyMasteryGoal}%`
       : "";
+  const recentScoreItems = analytics.recentScoreSeries ?? (pageData.recentResults ?? []).slice(0, 4).map((item, index) => ({
+    key: item.id ?? `${item.title}-${index}`,
+    label: item.title,
+    value: Number.parseInt(String(item.score), 10) || 0
+  }));
+  const milestoneProgress = analytics.milestoneProgress ?? [{
+    key: "today",
+    label: "Today",
+    start: Number(learningPath.dailyMasteryStart ?? 0),
+    current: Math.round(Number(learningPath.currentMastery ?? 0)),
+    goal: Number(learningPath.dailyMasteryGoal ?? 0)
+  }];
 
   return (
     <>
-      <PortalHeader title="Progress" subtitle="Track chapter mastery, current position, and assignment history across the Class 10 path." />
-      <div className="metric-row">
-        <MetricCard label="Current chapter" value={displayCurrentChapterValue} />
-        <MetricCard label="Current mastery" value={`${Math.round(learningPath.currentMastery ?? 0)}%`} />
-        <MetricCard label="Completed chapters" value={String(learningPath.completedChaptersCount ?? 0)} />
-        <MetricCard label="Upcoming chapter" value={upcomingChapter ? `Chapter ${upcomingChapter.chapterNumber}` : "Final"} />
+      <StoryHero
+        tone="student"
+        eyebrow="Progress story"
+        title={`Your journey through ${displayCurrentChapterValue}`}
+        subtitle="See your chapter path, latest batch, and the small wins pushing mastery forward."
+      >
+        <div className="inline-tags">
+          <PathStatusBadge status={displayPathStatus} />
+          {dailyProgressMilestone ? <span className="tag">{dailyProgressMilestone}</span> : null}
+          {learningPath.dailyTargetDate ? <span className="tag">For {learningPath.dailyTargetDate}</span> : null}
+        </div>
+      </StoryHero>
+      {progressState.error ? <p className="form-error top-space">{progressState.error}</p> : null}
+      {progressState.loading ? <p className="support-copy top-space">Loading progress...</p> : null}
+      <div className="accent-metrics top-space">
+        <AccentMetric tone="blue" label="Current chapter" value={displayCurrentChapterValue} meta={displayCurrentChapterTitle} />
+        <AccentMetric tone="green" label="Current mastery" value={`${Math.round(learningPath.currentMastery ?? 0)}%`} meta={learningPath.dailyTargetStatus === "reached" ? "Today's goal reached" : "Today's goal in progress"} />
+        <AccentMetric tone="purple" label="Completed chapters" value={String(learningPath.completedChaptersCount ?? 0)} meta={`${learningPath.totalChapters ?? ladder.length} in the full path`} />
+        <AccentMetric tone="orange" label="Upcoming chapter" value={upcomingChapter ? `Chapter ${upcomingChapter.chapterNumber}` : "Final"} meta={upcomingChapter?.name ?? "Keep going"} />
       </div>
-      <div className="top-space">
-        <div className="student-progress-layout">
-          <ChapterLadderCard
-            ladder={ladder}
-            title="Chapter ladder"
-            subtitle="Complete the current chapter first, then the next chapter unlocks."
-          />
-          <div className="student-progress-layout__side stack-grid">
-            <Card title="Current path status" className="student-progress-card student-progress-card--status">
-              <article className="info-tile">
-                <div className="info-tile__header">
-                  <strong>{displayCurrentChapterTitle}</strong>
-                  <PathStatusBadge status={displayPathStatus} />
+      <div className="play-grid play-grid--progress top-space">
+        <section className="play-panel">
+          <div className="play-panel__head">
+            <div>
+              <h2>Chapter trail</h2>
+              <p>Every chapter stays locked until the current one is mastered.</p>
+            </div>
+          </div>
+          <div className="journey-list journey-list--scroll">
+            {ladder.map((chapter) => (
+              <article className={`journey-item ${chapter.current ? "journey-item--current" : ""}`.trim()} key={chapter.code}>
+                <div>
+                  <strong>Chapter {chapter.chapterNumber} · {chapter.name}</strong>
+                  <p>{chapter.mastery}% mastery</p>
                 </div>
-                <p>
-                  {displayPathStatus === "completed"
-                    ? "You have completed the full Class 10 chapter path."
-                    : `Daily target: ${learningPath.dailyTargetStatus === "reached" ? "Reached" : "Still in progress"}.`}
-                </p>
                 <div className="inline-tags">
-                  {upcomingChapter ? <span className="tag">Next unlock: Chapter {upcomingChapter.chapterNumber}</span> : null}
-                  <span className="tag">{learningPath.totalChapters ?? ladder.length} chapters in path</span>
-                  {dailyProgressMilestone ? <span className="tag">{dailyProgressMilestone}</span> : null}
-                  {learningPath.dailyTargetDate ? <span className="tag">For {learningPath.dailyTargetDate}</span> : null}
+                  {chapter.current ? <span className="tag">Current</span> : null}
+                  {chapter.completed ? <span className="tag">Done</span> : null}
+                  {chapter.locked ? <span className="tag">Locked</span> : null}
                 </div>
               </article>
-            </Card>
-            <BarChart
-              title="Recent scores"
-              items={(data.recentResults ?? []).slice(0, 4).map((item, index) => {
-                const numeric = Number.parseInt(String(item.score), 10) || 0;
-                return {
-                  key: item.id ?? `${item.title}-${index}`,
-                  label: item.title,
-                  value: numeric,
-                  color: numeric >= 80 ? "#16a34a" : numeric >= 60 ? "#2563eb" : "#f59e0b"
-                };
-              })}
-              suffix="%"
-              className="student-progress-card student-progress-card--scores"
-            />
+            ))}
           </div>
+        </section>
+        <div className="play-stack">
+          <section className="play-panel play-panel--feature">
+            <div className="play-panel__head">
+              <div>
+                <h2>Current path status</h2>
+                <p>Your live chapter state and today's target.</p>
+              </div>
+              <PathStatusBadge status={displayPathStatus} />
+            </div>
+            <div className="journey-map">
+              <article className="journey-map__card journey-map__card--current">
+                <span className="journey-map__eyebrow">Now</span>
+                <strong>{displayCurrentChapterTitle}</strong>
+                <p>{displayPathStatus === "completed" ? "You have completed the full Class 10 chapter path." : `Daily target is ${learningPath.dailyTargetStatus === "reached" ? "reached" : "still in progress"}.`}</p>
+              </article>
+              <article className="journey-map__card">
+                <span className="journey-map__eyebrow">Next unlock</span>
+                <strong>{upcomingChapter ? `Chapter ${upcomingChapter.chapterNumber} · ${upcomingChapter.name}` : "No later chapter yet"}</strong>
+                <p>{upcomingChapter ? "It opens once mastery and checkpoint are both cleared." : "Keep working through the current chapter to continue."}</p>
+              </article>
+            </div>
+          </section>
+          <section className="play-panel">
+            <div className="play-panel__head">
+              <div>
+                <h2>Score trend</h2>
+                <p>Batch score and mastery target are tracked separately.</p>
+              </div>
+            </div>
+            <div className="play-stack">
+              <LineChart title="Batch score trend" points={recentScoreItems.length ? recentScoreItems : [{ label: "Now", value: Math.round(Number(learningPath.currentMastery ?? 0)) }]} suffix="%" />
+              <MilestoneChart title="Milestone progress" items={milestoneProgress} />
+            </div>
+          </section>
         </div>
       </div>
-      <div className="top-space">
-        <Card
-          title="Latest batch"
-          subtitle="Keep the current chapter loop focused on one active or recently completed batch."
-          className="student-progress-card student-progress-card--latest"
-        >
+      <div className="play-grid play-grid--progress-bottom top-space">
+        <section className="play-panel play-panel--feature">
+          <div className="play-panel__head">
+            <div>
+              <h2>Latest batch</h2>
+              <p>Your current or most recent chapter batch.</p>
+            </div>
+          </div>
           {!latestBatch ? <p className="support-copy">No chapter batch has been generated yet.</p> : null}
           {latestBatch ? (
-            <div className="stack-grid student-progress-history">
-              <article className="info-tile">
-                <div className="info-tile__header">
+            <div className="achievement-stack">
+              <article className="achievement-card achievement-card--soft">
+                <div>
                   <strong>{latestBatch.concept}</strong>
-                  <AssignmentStateBadge status={latestBatch.status} />
+                  <p>{latestBatch.assignedForDate ? `Assigned for ${latestBatch.assignedForDate}` : "No assigned date"}</p>
                 </div>
                 <div className="inline-tags">
+                  <AssignmentStateBadge status={latestBatch.status} />
                   <span className="tag">{latestBatch.itemsCount} items</span>
-                  <span className="tag">Difficulty {latestBatch.targetDifficulty}</span>
                   <span className="tag">Cycle {latestBatch.cycleIndex}</span>
+                  <span className="tag">Diff {latestBatch.targetDifficulty}</span>
                 </div>
-                <p>{latestBatch.assignedForDate ? `Assigned for ${latestBatch.assignedForDate}` : "No assigned date"}</p>
               </article>
-              {olderBatches.length ? (
-                <div className="compact-list">
-                  {olderBatches.map((item) => (
-                    <article className="compact-list__item compact-list__item--history" key={item.id}>
-                      <strong>{item.concept}</strong>
-                      <div className="inline-tags top-space--tight">
-                        <AssignmentStateBadge status={item.status} />
-                        <span className="tag">{item.itemsCount} items</span>
-                        <span className="tag">Cycle {item.cycleIndex}</span>
-                      </div>
-                    </article>
-                  ))}
-                </div>
-              ) : null}
+              {olderBatches.map((item) => (
+                <article className="achievement-card" key={item.id}>
+                  <div>
+                    <strong>{item.concept}</strong>
+                    <p>{item.itemsCount} items · Cycle {item.cycleIndex}</p>
+                  </div>
+                  <AssignmentStateBadge status={item.status} />
+                </article>
+              ))}
             </div>
           ) : null}
-        </Card>
-      </div>
-      <div className="top-space">
+        </section>
         <HistogramChart
-          title="Mastery distribution"
+          title="Mastery spread"
           bins={[
-            { label: "0-39", value: data.mastery.filter((item) => item.mastery < 40).length },
-            { label: "40-59", value: data.mastery.filter((item) => item.mastery >= 40 && item.mastery < 60).length },
-            { label: "60-79", value: data.mastery.filter((item) => item.mastery >= 60 && item.mastery < 80).length },
-            { label: "80+", value: data.mastery.filter((item) => item.mastery >= 80).length }
+            { label: "0-39", value: (pageData.mastery ?? []).filter((item) => item.mastery < 40).length },
+            { label: "40-59", value: (pageData.mastery ?? []).filter((item) => item.mastery >= 40 && item.mastery < 60).length },
+            { label: "60-79", value: (pageData.mastery ?? []).filter((item) => item.mastery >= 60 && item.mastery < 80).length },
+            { label: "80+", value: (pageData.mastery ?? []).filter((item) => item.mastery >= 80).length }
           ]}
+          className="student-progress-chart"
         />
       </div>
     </>
@@ -2272,6 +2711,11 @@ function useApiData(loader, deps = []) {
   const [data, setData] = useState(null);
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(true);
+  const [refreshKey, setRefreshKey] = useState(0);
+
+  function refresh() {
+    setRefreshKey((current) => current + 1);
+  }
 
   useEffect(() => {
     let active = true;
@@ -2299,9 +2743,55 @@ function useApiData(loader, deps = []) {
     return () => {
       active = false;
     };
-  }, deps);
+  }, [...deps, refreshKey]);
 
-  return { data, error, loading, setData };
+  return { data, error, loading, setData, refresh };
+}
+
+function useStudentHomeData() {
+  return useApiData(() => fetchJson("/api/student/home"), []);
+}
+
+function useStudentProgressData() {
+  return useApiData(() => fetchJson("/api/student/progress"), []);
+}
+
+function useStudentAssignmentData(taskAssignmentId = "") {
+  return useApiData(
+    () => fetchJson(taskAssignmentId ? `/api/student/assignment/${encodeURIComponent(taskAssignmentId)}` : "/api/student/assignment/current"),
+    [taskAssignmentId]
+  );
+}
+
+function useTeacherDashboardData(classroomId = "") {
+  return useApiData(
+    () => fetchJson(classroomId ? `/api/teacher/dashboard?classroomId=${encodeURIComponent(classroomId)}` : "/api/teacher/dashboard"),
+    [classroomId]
+  );
+}
+
+function useTeacherAssignmentsData(classroomId = "") {
+  return useApiData(
+    () => (classroomId ? fetchJson(`/api/teacher/assignments?classroomId=${encodeURIComponent(classroomId)}`) : Promise.resolve({ classrooms: [], summaryCards: [], students: [] })),
+    [classroomId]
+  );
+}
+
+function useTeacherAssignmentWorkspaceData(classroomId = "", studentId = "") {
+  return useApiData(
+    () =>
+      classroomId && studentId
+        ? fetchJson(`/api/teacher/assignments/${encodeURIComponent(classroomId)}/${encodeURIComponent(studentId)}`)
+        : Promise.resolve({ classrooms: [], student: null, latestPlan: null, insight: null, summaryCards: [] }),
+    [classroomId, studentId]
+  );
+}
+
+function useTeacherReportsData(classroomId = "") {
+  return useApiData(
+    () => fetchJson(classroomId ? `/api/teacher/reports?classroomId=${encodeURIComponent(classroomId)}` : "/api/teacher/reports"),
+    [classroomId]
+  );
 }
 
 function AdminTeacherManager() {
@@ -2330,8 +2820,8 @@ function AdminTeacherManager() {
   }
 
   return (
-    <div className="split-grid">
-      <Card title="Add teacher" subtitle="Create teacher portal access for this school.">
+    <div className="split-grid ops-manager-grid">
+      <Card title="Add teacher" subtitle="Create teacher portal access for this school." className="ops-card ops-card--form">
         <form className="form-grid" onSubmit={handleSubmit}>
           <label className="field"><span>Full name</span><input value={form.fullName} onChange={(event) => setForm({ ...form, fullName: event.target.value })} /></label>
           <label className="field"><span>Email</span><input type="email" value={form.email} onChange={(event) => setForm({ ...form, email: event.target.value })} /></label>
@@ -2340,7 +2830,7 @@ function AdminTeacherManager() {
           <button className="button button--primary" type="submit">Create teacher</button>
         </form>
       </Card>
-      <Card title="Teacher access" subtitle="Teacher accounts already connected to this school.">
+      <Card title="Teacher access" subtitle="Teacher accounts already connected to this school." className="ops-card">
         {error ? <p className="form-error">{error}</p> : null}
         <div className="data-table">
           <div className="data-table__head data-table__head--admin"><span>Name</span><span>Email</span><span>Classrooms</span><span>Portal</span></div>
@@ -2380,8 +2870,8 @@ function AdminClassroomManager() {
   }
 
   return (
-    <div className="split-grid">
-      <Card title="Create classroom" subtitle="Assign new classrooms to teachers from the admin portal.">
+    <div className="split-grid ops-manager-grid">
+      <Card title="Create classroom" subtitle="Assign new classrooms to teachers from the admin portal." className="ops-card ops-card--form">
         <form className="form-grid" onSubmit={handleSubmit}>
           <label className="field"><span>Classroom name</span><input value={form.name} onChange={(event) => setForm({ ...form, name: event.target.value })} /></label>
           <label className="field">
@@ -2408,7 +2898,7 @@ function AdminClassroomManager() {
           <button className="button button--primary" type="submit">Create classroom</button>
         </form>
       </Card>
-      <Card title="Classroom access" subtitle="Live classrooms and their assigned teacher owner.">
+      <Card title="Classroom access" subtitle="Live classrooms and their assigned teacher owner." className="ops-card">
         <div className="data-table">
           <div className="data-table__head data-table__head--admin"><span>Classroom</span><span>Grade</span><span>Teacher</span><span>Support</span></div>
           {classrooms.map((classroom) => {
@@ -3251,11 +3741,7 @@ function TeacherReviewAssignments({ data }) {
   const location = useLocation();
   const { availableClasses, selectedClass, setSelectedClass, classroomError } = useTeacherClassrooms(data);
   const [message, setMessage] = useState("");
-  const [refreshKey, setRefreshKey] = useState(0);
-  const { data: pathPayload, loading: pathLoading, error: pathError } = useApiData(
-    () => (selectedClass ? fetchJson(`/api/teacher/path-status?classroomId=${encodeURIComponent(selectedClass)}`) : Promise.resolve({ students: [], metrics: [] })),
-    [selectedClass, refreshKey]
-  );
+  const assignmentsState = useTeacherAssignmentsData(selectedClass);
   const preferredClassroomId = new URLSearchParams(location.search).get("classroomId") ?? "";
 
   useEffect(() => {
@@ -3268,17 +3754,8 @@ function TeacherReviewAssignments({ data }) {
     }
   }, [availableClasses, preferredClassroomId, selectedClass, setSelectedClass]);
 
-  const pathStudents =
-    pathPayload?.students ??
-    (data.pathStatuses ?? []).filter((student) => !selectedClass || String(student.classroomId) === String(selectedClass));
-  const summaryCards =
-    pathPayload?.metrics ??
-    [
-      { label: "Active paths", value: String(pathStudents.filter((student) => student.status === "working").length) },
-      { label: "Stuck", value: String(pathStudents.filter((student) => student.status === "stuck").length) },
-      { label: "Ready to unlock", value: String(pathStudents.filter((student) => student.status === "ready_to_unlock").length) },
-      { label: "Completed", value: String(pathStudents.filter((student) => student.status === "completed").length) }
-    ];
+  const pathStudents = assignmentsState.data?.students ?? [];
+  const summaryCards = assignmentsState.data?.summaryCards ?? [];
   const selectedClassLabel = availableClasses.find((item) => item.id === selectedClass)?.label ?? "Selected class";
 
   async function handleAssign(studentIds, successMessage) {
@@ -3291,7 +3768,7 @@ function TeacherReviewAssignments({ data }) {
         studentIds
       });
       setMessage(successMessage);
-      setRefreshKey((current) => current + 1);
+      assignmentsState.refresh();
     } catch (submitError) {
       setMessage(submitError.message);
     }
@@ -3324,14 +3801,14 @@ function TeacherReviewAssignments({ data }) {
         {summaryCards.map((item) => <MetricCard key={item.label} label={item.label} value={item.value} />)}
       </div>
       {classroomError ? <p className="form-error">{classroomError}</p> : null}
-      {pathError ? <p className="form-error">{pathError}</p> : null}
+      {assignmentsState.error ? <p className="form-error">{assignmentsState.error}</p> : null}
       {message ? <p className={/assigned|successfully|resumed/i.test(message) ? "form-success" : "form-error"}>{message}</p> : null}
       <Card
         title={`Students in ${selectedClassLabel}`}
         subtitle="Use one class-wise list. Open a learner only when you want to inspect the latest generated batch."
       >
-        {pathLoading ? <p className="support-copy">Loading class path status...</p> : null}
-        {!pathLoading && pathStudents.length === 0 ? (
+        {assignmentsState.loading ? <p className="support-copy">Loading class path status...</p> : null}
+        {!assignmentsState.loading && pathStudents.length === 0 ? (
           <p className="support-copy">No students are available in this class yet. Add students, then assign the class path.</p>
         ) : null}
         <div className="data-table">
@@ -3402,38 +3879,22 @@ function TeacherReviewAssignments({ data }) {
 function TeacherAssignmentWorkspace({ data }) {
   const navigate = useNavigate();
   const { classroomId = "", studentId = "" } = useParams();
-  const { items: loadedClassrooms, error: classroomError } = useResource("/api/classrooms");
   const [message, setMessage] = useState("");
-  const [refreshKey, setRefreshKey] = useState(0);
-  const { data: pathPayload, loading: pathLoading, error: pathError } = useApiData(
-    () => (classroomId ? fetchJson(`/api/teacher/path-status?classroomId=${encodeURIComponent(classroomId)}`) : Promise.resolve({ students: [] })),
-    [classroomId, refreshKey]
-  );
-  const { recommendationsState, insightsState } = useTeacherSignals(classroomId, refreshKey);
-
+  const workspaceState = useTeacherAssignmentWorkspaceData(classroomId, studentId);
   const availableClasses = useMemo(
     () =>
-      (loadedClassrooms.length ? loadedClassrooms : data.classrooms ?? [])
+      ((workspaceState.data?.classrooms ?? data.classrooms ?? []))
         .map((item) => ({
           id: String(item._id ?? item.id ?? ""),
           label: `${item.name} (${item.gradeLevel})`
         }))
         .filter((item) => item.id),
-    [data.classrooms, loadedClassrooms]
+    [data.classrooms, workspaceState.data]
   );
   const selectedClassLabel = availableClasses.find((item) => item.id === classroomId)?.label ?? "Selected class";
-  const previewPlans = recommendationsState.data?.plans ?? [];
-  const insightStudents = insightsState.data?.students ?? [];
-  const pathStudents = pathPayload?.students ?? [];
-  const studentNameMap = new Map([
-    ...(data.roster ?? []).map((student) => [String(student.studentId ?? student.id ?? student._id ?? student.name), student.name]),
-    ...(data.flaggedStudents ?? []).map((student) => [String(student.studentId), student.name]),
-    ...insightStudents.map((student) => [String(student.studentId), student.name]),
-    ...pathStudents.map((student) => [String(student.studentId), student.name])
-  ]);
-  const selectedStudent = pathStudents.find((student) => String(student.studentId) === String(studentId)) ?? null;
-  const activePlan = previewPlans.find((plan) => String(plan.studentId) === String(studentId)) ?? null;
-  const activeInsight = insightStudents.find((student) => String(student.studentId) === String(studentId)) ?? null;
+  const selectedStudent = workspaceState.data?.student ?? null;
+  const activePlan = workspaceState.data?.latestPlan ?? null;
+  const activeInsight = workspaceState.data?.insight ?? null;
   const assignLabel =
     selectedStudent?.status === "completed" ? "Completed" : selectedStudent?.status === "not_started" ? "Assign path" : "Resume path";
   const assignDisabled = selectedStudent?.status === "completed";
@@ -3447,7 +3908,7 @@ function TeacherAssignmentWorkspace({ data }) {
         studentIds: [studentId]
       });
       setMessage("Today's task was assigned successfully.");
-      setRefreshKey((current) => current + 1);
+      workspaceState.refresh();
     } catch (submitError) {
       setMessage(submitError.message);
     }
@@ -3471,11 +3932,9 @@ function TeacherAssignmentWorkspace({ data }) {
           </div>
         }
       />
-      {classroomError ? <p className="form-error">{classroomError}</p> : null}
-      {pathError ? <p className="form-error">{pathError}</p> : null}
-      {recommendationsState.error ? <p className="form-error">Could not load this student&apos;s assignment batch.</p> : null}
-      {insightsState.error ? <p className="form-error">Could not load this student&apos;s insight summary.</p> : null}
+      {workspaceState.error ? <p className="form-error">{workspaceState.error}</p> : null}
       {message ? <p className={message.includes("successfully") ? "form-success" : "form-error"}>{message}</p> : null}
+      {workspaceState.loading ? <p className="support-copy">Loading workspace...</p> : null}
       {!activePlan ? (
         <Card title="No current batch found" subtitle="Start or resume the student path and the system will prepare the next batch automatically.">
           <div className="button-group">
@@ -3500,7 +3959,7 @@ function TeacherAssignmentWorkspace({ data }) {
         <section className="workspace-shell">
           <div className="workspace-shell__header">
             <div className="workspace-shell__copy">
-              <h2>{studentNameMap.get(String(studentId)) ?? "Student"} / Chapter {activePlan.chapterNumber} - {activePlan.conceptName}</h2>
+              <h2>{selectedStudent?.name ?? "Student"} / Chapter {activePlan.chapterNumber} - {activePlan.conceptName}</h2>
               <p>{activeInsight?.summary ?? activePlan.narrativeSummary ?? activePlan.rationale?.[0] ?? "Adaptive sequence generated from current chapter signals."}</p>
             </div>
             <div className="workspace-shell__actions">
@@ -3579,7 +4038,7 @@ function TeacherAssignmentWorkspace({ data }) {
 function TeacherAnalysis({ data }) {
   const { availableClasses, selectedClass, setSelectedClass, classroomError } = useTeacherClassrooms(data);
   const { recommendationsState, insightsState } = useTeacherSignals(selectedClass, 0);
-  const { data: reportPayload, loading: reportLoading, error: reportError } = useApiData(() => fetchJson("/api/teacher/reports"), []);
+  const { data: reportPayload, loading: reportLoading, error: reportError } = useTeacherReportsData(selectedClass);
   const [selectedStudentId, setSelectedStudentId] = useState("");
 
   const students = insightsState.data?.students ?? [];
@@ -3596,7 +4055,7 @@ function TeacherAnalysis({ data }) {
   const selectedStudent = students.find((student) => String(student.studentId) === String(selectedStudentId)) ?? null;
   const studentGrowth = (reportPayload?.studentGrowth ?? []).find((item) => item.name === selectedStudent?.name) ?? null;
   const classMetrics = insightsState.data?.metrics ?? [];
-  const classConcepts = reportPayload?.interventionBreakdown ?? data.classConcepts ?? [];
+  const classConcepts = reportPayload?.interventionBreakdown ?? [];
   const plansReady = recommendationsState.data?.plans?.length ?? 0;
 
   return (

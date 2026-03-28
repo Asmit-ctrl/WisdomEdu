@@ -7,7 +7,9 @@
     "dev": "node src/index.js",
     "dev:watch": "node --watch src/index.js",
     "start": "node src/index.js",
-    "seed:class10": "node src/importClass10Library.js"
+    "seed:class10": "node src/importClass10Library.js",
+    "seed:presentation": "node src/seedPresentationDemoFast.js",
+    "seed:presentation:engine": "node src/seedPresentationDemo.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",

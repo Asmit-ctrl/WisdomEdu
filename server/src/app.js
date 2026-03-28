@@ -155,6 +155,24 @@ async function getValidatedClassroomStudents({ schoolId, classroomId, studentIds
   return User.find(query).select("_id fullName classroomId").lean();
 }
 
+async function validateTeacherClassroomAccess({ schoolId, teacherId, classroomId }) {
+  if (!classroomId) {
+    return null;
+  }
+
+  const classroom = await Classroom.findOne({
+    _id: classroomId,
+    schoolId,
+    teacherId
+  }).lean();
+
+  if (!classroom) {
+    throw createHttpError(404, "Classroom not found.");
+  }
+
+  return classroom;
+}
+
 function serializeQuestion(question) {
   return {
     _id: question._id,
@@ -259,16 +277,213 @@ function serializeTaskPlan(plan) {
   };
 }
 
+async function buildStudentPortalPayload({ schoolId, studentId, taskAssignmentId = null }) {
+  const pathView = await getStudentPathView({ schoolId, studentId });
+  const currentTask = await getStudentTodayTask({ schoolId, studentId });
+  const activeTask =
+    taskAssignmentId && currentTask && String(currentTask.assignmentId) === String(taskAssignmentId)
+      ? currentTask
+      : !taskAssignmentId
+        ? currentTask
+        : null;
+  const latestBatch = pathView.latestBatch ?? null;
+
+  return {
+    currentMastery: pathView.currentMastery,
+    dailyMasteryStart: pathView.dailyMasteryStart,
+    dailyMasteryGoal: pathView.dailyMasteryGoal,
+    dailyTargetDate: pathView.dailyTargetDate,
+    dailyTargetStatus: pathView.dailyTargetStatus,
+    latestAssignmentStatus: pathView.latestAssignmentStatus,
+    latestBatch,
+    recentScoreSeries: pathView.analytics?.recentScoreSeries ?? [],
+    chapterMasterySeries: pathView.analytics?.chapterMasterySeries ?? [],
+    milestoneProgress: pathView.analytics?.milestoneProgress ?? [],
+    analytics: pathView.analytics ?? {},
+    studentInsight: {
+      summary: pathView.summary,
+      highlights: pathView.highlights
+    },
+    coachNote:
+      pathView.status === "completed"
+        ? "You have completed the Class 10 chapter path."
+        : `You stay on Chapter ${pathView.currentChapterNumber ?? "-"} until mastery reaches 80% and checkpoint is passed.`,
+    learningPath: {
+      status: pathView.status,
+      currentChapterNumber: pathView.currentChapterNumber,
+      currentChapterName: pathView.currentChapterName,
+      currentMastery: pathView.currentMastery,
+      completedChaptersCount: pathView.completedChaptersCount,
+      totalChapters: pathView.totalChapters,
+      dailyTargetStatus: pathView.dailyTargetStatus,
+      dailyMasteryStart: pathView.dailyMasteryStart,
+      dailyMasteryGoal: pathView.dailyMasteryGoal,
+      dailyTargetDate: pathView.dailyTargetDate,
+      dailyGoalReachedAt: pathView.dailyGoalReachedAt,
+      milestoneCompletedToday: pathView.milestoneCompletedToday,
+      canContinuePractice: pathView.canContinuePractice,
+      chapterLadder: pathView.chapterLadder
+    },
+    assignmentSummary: currentTask
+      ? {
+          status: currentTask.assignmentStatus ?? pathView.latestAssignmentStatus,
+          assignedForDate: currentTask.assignedForDate,
+          concept: `Chapter ${currentTask.chapterNumber} - ${currentTask.concept.name}`,
+          itemsCount: currentTask.items.length,
+          targetDifficulty: currentTask.targetDifficulty,
+          paceBand: currentTask.paceBand,
+          chapterNumber: currentTask.chapterNumber,
+          currentMastery: pathView.currentMastery,
+          masteryTarget: 80,
+          todayTargetStatus: pathView.dailyTargetStatus,
+          dailyMasteryStart: pathView.dailyMasteryStart,
+          dailyMasteryGoal: pathView.dailyMasteryGoal,
+          dailyTargetDate: pathView.dailyTargetDate,
+          coveredTopics: currentTask.coveredTopics ?? [],
+          coverageScore: currentTask.coverageScore ?? 0
+        }
+      : latestBatch
+        ? {
+            status: latestBatch.status,
+            assignedForDate: latestBatch.assignedForDate,
+            concept: `Chapter ${latestBatch.chapterNumber} - ${latestBatch.concept}`,
+            itemsCount: latestBatch.itemsCount,
+            targetDifficulty: latestBatch.targetDifficulty,
+            chapterNumber: latestBatch.chapterNumber,
+            currentMastery: pathView.currentMastery,
+            masteryTarget: 80,
+            todayTargetStatus: pathView.dailyTargetStatus,
+            dailyMasteryStart: pathView.dailyMasteryStart,
+            dailyMasteryGoal: pathView.dailyMasteryGoal,
+            dailyTargetDate: pathView.dailyTargetDate
+          }
+        : null,
+    assignmentHistory: pathView.assignmentHistory,
+    latestBatch,
+    recentResults: pathView.recentResults.map((item) => ({
+      id: item.id,
+      title: item.title,
+      score: item.score,
+      createdAt: item.createdAt
+    })),
+    mastery: pathView.chapterLadder.map((item) => ({
+      concept: `Chapter ${item.chapterNumber} - ${item.name}`,
+      mastery: item.mastery
+    })),
+    todayTask: currentTask,
+    activeTask,
+    task: activeTask,
+    currentTask
+  };
+}
+
+async function getTeacherRecommendationPlans({ schoolId, teacherId, classroomId }) {
+  if (!classroomId) {
+    return [];
+  }
+
+  const students = await User.find({ schoolId, role: "student", classroomId }).select("_id").lean();
+  const plans = [];
+
+  for (const student of students) {
+    const latestAssignment = await TaskAssignment.findOne({
+      schoolId,
+      classroomId,
+      studentId: student._id,
+      status: { $ne: "superseded" }
+    })
+      .sort({ assignedAt: -1 })
+      .populate({
+        path: "taskPlanId",
+        populate: { path: "practiceItems.variantId" }
+      });
+
+    if (latestAssignment?.taskPlanId) {
+      plans.push(latestAssignment.taskPlanId);
+    }
+  }
+
+  return plans.map((plan) => serializeTaskPlan(plan));
+}
+
+async function buildTeacherDashboardPayload({ schoolId, teacherId, classroomId = null }) {
+  const [classrooms, pathStatus] = await Promise.all([
+    Classroom.find({ schoolId, teacherId }).lean(),
+    getTeacherPathStatuses({ schoolId, teacherId, classroomId })
+  ]);
+
+  return {
+    classrooms: classrooms.map((item) => ({
+      id: item._id,
+      name: item.name,
+      gradeLevel: item.gradeLevel
+    })),
+    summaryCards: pathStatus.metrics,
+    pathStatuses: pathStatus.students,
+    chapterDistribution: pathStatus.chapterDistribution ?? [],
+    riskDistribution: pathStatus.riskDistribution ?? [],
+    milestoneDistribution: pathStatus.milestoneDistribution ?? [],
+    masteryHistogram: pathStatus.masteryHistogram ?? [],
+    chapterMasteryAverages: pathStatus.chapterMasteryAverages ?? [],
+    milestoneRanges: pathStatus.milestoneRanges ?? []
+  };
+}
+
+async function buildTeacherAssignmentsPayload({ schoolId, teacherId, classroomId = null }) {
+  const [dashboardPayload, insights, plans] = await Promise.all([
+    buildTeacherDashboardPayload({ schoolId, teacherId, classroomId }),
+    buildTeacherStudentInsights({ schoolId, teacherId, classroomId }),
+    classroomId ? getTeacherRecommendationPlans({ schoolId, teacherId, classroomId }) : Promise.resolve([])
+  ]);
+
+  return {
+    classrooms: dashboardPayload.classrooms,
+    summaryCards: dashboardPayload.summaryCards,
+    students: dashboardPayload.pathStatuses.map((student) => {
+      const insight = insights.students.find((item) => String(item.studentId) === String(student.studentId)) ?? null;
+      const latestPlan = plans.find((plan) => String(plan.studentId) === String(student.studentId)) ?? null;
+      return {
+        ...student,
+        summary: insight?.summary ?? latestPlan?.narrativeSummary ?? "",
+        latestPlan,
+        latestAssignmentStatus: insight?.latestAssignmentStatus ?? student.latestAssignmentStatus ?? "none"
+      };
+    })
+  };
+}
+
+async function buildTeacherAssignmentWorkspacePayload({ schoolId, teacherId, classroomId, studentId }) {
+  const [assignmentsPayload, insights, plans] = await Promise.all([
+    buildTeacherAssignmentsPayload({ schoolId, teacherId, classroomId }),
+    buildTeacherStudentInsights({ schoolId, teacherId, classroomId }),
+    getTeacherRecommendationPlans({ schoolId, teacherId, classroomId })
+  ]);
+
+  const student = assignmentsPayload.students.find((item) => String(item.studentId) === String(studentId)) ?? null;
+  const latestPlan = plans.find((plan) => String(plan.studentId) === String(studentId)) ?? null;
+  const insight = insights.students.find((item) => String(item.studentId) === String(studentId)) ?? null;
+
+  return {
+    classrooms: assignmentsPayload.classrooms,
+    student,
+    latestPlan,
+    insight,
+    summaryCards: assignmentsPayload.summaryCards
+  };
+}
+
 async function buildDashboard(role, auth) {
   if (role === "teacher") {
-    const classrooms = await Classroom.find({ schoolId: auth.schoolId, teacherId: auth.sub }).lean();
-    const pathStatus = await getTeacherPathStatuses({ schoolId: auth.schoolId, teacherId: auth.sub });
+    const teacherDashboardPayload = await buildTeacherDashboardPayload({
+      schoolId: auth.schoolId,
+      teacherId: auth.sub
+    });
     const upcomingAssignments = await TaskAssignment.find({ schoolId: auth.schoolId, teacherId: auth.sub })
       .sort({ assignedAt: -1 })
       .limit(12)
       .lean();
     const chapterConcepts = Array.from(
-      pathStatus.students.reduce((map, student) => {
+      teacherDashboardPayload.pathStatuses.reduce((map, student) => {
         const key = `${student.currentChapterNumber ?? 0}:${student.currentChapterName}`;
         if (!map.has(key)) {
           map.set(key, {
@@ -284,14 +499,16 @@ async function buildDashboard(role, auth) {
     );
 
     return {
-      classrooms: classrooms.map((item) => ({
-        id: item._id,
-        name: item.name,
-        gradeLevel: item.gradeLevel
-      })),
-      summaryCards: pathStatus.metrics,
-      pathStatuses: pathStatus.students,
-      flaggedStudents: pathStatus.students.map((student) => ({
+      classrooms: teacherDashboardPayload.classrooms,
+      summaryCards: teacherDashboardPayload.summaryCards,
+      pathStatuses: teacherDashboardPayload.pathStatuses,
+      chapterDistribution: teacherDashboardPayload.chapterDistribution,
+      riskDistribution: teacherDashboardPayload.riskDistribution,
+      milestoneDistribution: teacherDashboardPayload.milestoneDistribution,
+      masteryHistogram: teacherDashboardPayload.masteryHistogram,
+      chapterMasteryAverages: teacherDashboardPayload.chapterMasteryAverages,
+      milestoneRanges: teacherDashboardPayload.milestoneRanges,
+      flaggedStudents: teacherDashboardPayload.pathStatuses.map((student) => ({
         studentId: student.studentId,
         classroomId: student.classroomId,
         name: student.name,
@@ -306,14 +523,14 @@ async function buildDashboard(role, auth) {
       })),
       classConcepts: chapterConcepts,
       skillHeatmap: [],
-      skillAlerts: pathStatus.students
+      skillAlerts: teacherDashboardPayload.pathStatuses
         .filter((student) => student.status === "stuck")
         .map((student) => ({
           studentId: student.studentId,
           skillId: `Chapter ${student.currentChapterNumber ?? "-"}`,
           message: `${student.name} is still below ${Math.round(80)}% mastery in ${student.currentChapterName}.`
         })),
-      roster: pathStatus.students.map((student) => ({
+      roster: teacherDashboardPayload.pathStatuses.map((student) => ({
         studentId: student.studentId,
         classroomId: student.classroomId,
         name: student.name,
@@ -347,103 +564,7 @@ async function buildDashboard(role, auth) {
   }
 
   if (role === "student") {
-    const pathView = await getStudentPathView({ schoolId: auth.schoolId, studentId: auth.sub });
-    const todayTask = pathView.openTask ?? (await getStudentTodayTask({ schoolId: auth.schoolId, studentId: auth.sub }));
-    const latestBatch = pathView.latestBatch ?? null;
-    return {
-      recommendations: [],
-      practiceQueue: todayTask
-        ? [
-            {
-              concept: todayTask.concept.name,
-              title: `Chapter ${todayTask.chapterNumber} mastery batch`,
-              description: todayTask.narrativeSummary || todayTask.rationale?.[0] || "Keep working until this chapter reaches mastery.",
-              questions: todayTask.items.length,
-              difficulty: `Difficulty ${todayTask.targetDifficulty}`
-            }
-          ]
-        : [],
-      checkpoints: pathView.currentChapterNumber
-        ? [
-            {
-              when: "Current",
-              title: `Chapter ${pathView.currentChapterNumber} checkpoint`,
-              goal: "Reach 80% mastery and pass checkpoint to unlock the next chapter."
-            }
-          ]
-        : [],
-      mastery: pathView.chapterLadder.map((item) => ({
-        concept: `Chapter ${item.chapterNumber} - ${item.name}`,
-        mastery: item.mastery
-      })),
-      recentResults: pathView.recentResults.map((item) => ({
-        id: item.id,
-        title: item.title,
-        score: item.score,
-        createdAt: item.createdAt
-      })),
-      assignmentSummary: todayTask
-        ? {
-            status: todayTask.assignmentStatus ?? pathView.latestAssignmentStatus,
-            assignedForDate: todayTask.assignedForDate,
-            concept: `Chapter ${todayTask.chapterNumber} - ${todayTask.concept.name}`,
-            itemsCount: todayTask.items.length,
-            targetDifficulty: todayTask.targetDifficulty,
-            paceBand: todayTask.paceBand,
-            chapterNumber: todayTask.chapterNumber,
-            currentMastery: pathView.currentMastery,
-            masteryTarget: 80,
-            todayTargetStatus: pathView.dailyTargetStatus,
-            dailyMasteryStart: pathView.dailyMasteryStart,
-            dailyMasteryGoal: pathView.dailyMasteryGoal,
-            dailyTargetDate: pathView.dailyTargetDate,
-            coveredTopics: todayTask.coveredTopics ?? [],
-            coverageScore: todayTask.coverageScore ?? 0
-          }
-        : latestBatch
-          ? {
-              status: latestBatch.status,
-              assignedForDate: latestBatch.assignedForDate,
-              concept: `Chapter ${latestBatch.chapterNumber} - ${latestBatch.concept}`,
-              itemsCount: latestBatch.itemsCount,
-              targetDifficulty: latestBatch.targetDifficulty,
-              chapterNumber: latestBatch.chapterNumber,
-              currentMastery: pathView.currentMastery,
-              masteryTarget: 80,
-              todayTargetStatus: pathView.dailyTargetStatus,
-              dailyMasteryStart: pathView.dailyMasteryStart,
-              dailyMasteryGoal: pathView.dailyMasteryGoal,
-              dailyTargetDate: pathView.dailyTargetDate
-            }
-        : null,
-      assignmentHistory: pathView.assignmentHistory,
-      latestBatch,
-      studentInsight: {
-        summary: pathView.summary,
-        highlights: pathView.highlights
-      },
-      coachNote:
-        pathView.status === "completed"
-          ? "You have completed the Class 10 chapter path."
-          : `You stay on Chapter ${pathView.currentChapterNumber ?? "-"} until mastery reaches 80% and checkpoint is passed.`,
-      learningPath: {
-        status: pathView.status,
-        currentChapterNumber: pathView.currentChapterNumber,
-        currentChapterName: pathView.currentChapterName,
-        currentMastery: pathView.currentMastery,
-        completedChaptersCount: pathView.completedChaptersCount,
-        totalChapters: pathView.totalChapters,
-        dailyTargetStatus: pathView.dailyTargetStatus,
-        dailyMasteryStart: pathView.dailyMasteryStart,
-        dailyMasteryGoal: pathView.dailyMasteryGoal,
-        dailyTargetDate: pathView.dailyTargetDate,
-        dailyGoalReachedAt: pathView.dailyGoalReachedAt,
-        milestoneCompletedToday: pathView.milestoneCompletedToday,
-        canContinuePractice: pathView.canContinuePractice,
-        chapterLadder: pathView.chapterLadder
-      },
-      todayTask
-    };
+    return buildStudentPortalPayload({ schoolId: auth.schoolId, studentId: auth.sub });
   }
 
   if (role === "parent") {
@@ -1441,6 +1562,15 @@ app.post("/api/assessments/:assessmentId/submit", requireAuth("student"), async 
 });
 
 app.get("/api/teacher/dashboard", requireAuth("teacher"), async (request, response) => {
+  const classroomId = request.query.classroomId ? String(request.query.classroomId) : null;
+  if (classroomId) {
+    await validateTeacherClassroomAccess({
+      schoolId: request.auth.schoolId,
+      teacherId: request.auth.sub,
+      classroomId
+    });
+  }
+
   await logActivityEvent({
     schoolId: request.auth.schoolId,
     userId: request.auth.sub,
@@ -1449,10 +1579,51 @@ app.get("/api/teacher/dashboard", requireAuth("teacher"), async (request, respon
     sessionId: getSessionId(request)
   });
 
-  const payload = await buildTeacherDashboardData({
+  const payload = await buildTeacherDashboardPayload({
     schoolId: request.auth.schoolId,
-    teacherId: request.auth.sub
+    teacherId: request.auth.sub,
+    classroomId
   });
+  response.json(payload);
+});
+
+app.get("/api/teacher/assignments", requireAuth("teacher"), async (request, response) => {
+  const classroomId = request.query.classroomId ? String(request.query.classroomId) : null;
+  if (classroomId) {
+    await validateTeacherClassroomAccess({
+      schoolId: request.auth.schoolId,
+      teacherId: request.auth.sub,
+      classroomId
+    });
+  }
+
+  const payload = await buildTeacherAssignmentsPayload({
+    schoolId: request.auth.schoolId,
+    teacherId: request.auth.sub,
+    classroomId
+  });
+  response.json(payload);
+});
+
+app.get("/api/teacher/assignments/:classroomId/:studentId", requireAuth("teacher"), async (request, response) => {
+  await validateTeacherClassroomAccess({
+    schoolId: request.auth.schoolId,
+    teacherId: request.auth.sub,
+    classroomId: request.params.classroomId
+  });
+
+  const payload = await buildTeacherAssignmentWorkspacePayload({
+    schoolId: request.auth.schoolId,
+    teacherId: request.auth.sub,
+    classroomId: request.params.classroomId,
+    studentId: request.params.studentId
+  });
+
+  if (!payload.student) {
+    response.status(404).json({ message: "Student not found in this classroom." });
+    return;
+  }
+
   response.json(payload);
 });
 
@@ -1480,6 +1651,39 @@ app.get("/api/student/tasks/today", requireAuth("student"), async (request, resp
   });
 
   response.json({ task });
+});
+
+app.get("/api/student/home", requireAuth("student"), async (request, response) => {
+  const payload = await buildStudentPortalPayload({
+    schoolId: request.auth.schoolId,
+    studentId: request.auth.sub
+  });
+  response.json(payload);
+});
+
+app.get("/api/student/progress", requireAuth("student"), async (request, response) => {
+  const payload = await buildStudentPortalPayload({
+    schoolId: request.auth.schoolId,
+    studentId: request.auth.sub
+  });
+  response.json(payload);
+});
+
+app.get("/api/student/assignment/current", requireAuth("student"), async (request, response) => {
+  const payload = await buildStudentPortalPayload({
+    schoolId: request.auth.schoolId,
+    studentId: request.auth.sub
+  });
+  response.json(payload);
+});
+
+app.get("/api/student/assignment/:taskAssignmentId", requireAuth("student"), async (request, response) => {
+  const payload = await buildStudentPortalPayload({
+    schoolId: request.auth.schoolId,
+    studentId: request.auth.sub,
+    taskAssignmentId: request.params.taskAssignmentId
+  });
+  response.json(payload);
 });
 
 app.post("/api/student/tasks/continue", requireAuth("student"), async (request, response) => {
@@ -1732,6 +1936,15 @@ app.get("/api/admin/path-rollup", requireAuth("admin"), async (request, response
 });
 
 app.get("/api/teacher/reports", requireAuth("teacher"), async (request, response) => {
+  const classroomId = request.query.classroomId ? String(request.query.classroomId) : null;
+  if (classroomId) {
+    await validateTeacherClassroomAccess({
+      schoolId: request.auth.schoolId,
+      teacherId: request.auth.sub,
+      classroomId
+    });
+  }
+
   await logActivityEvent({
     schoolId: request.auth.schoolId,
     userId: request.auth.sub,
@@ -1742,7 +1955,8 @@ app.get("/api/teacher/reports", requireAuth("teacher"), async (request, response
 
   const report = await buildTeacherReportData({
     schoolId: request.auth.schoolId,
-    teacherId: request.auth.sub
+    teacherId: request.auth.sub,
+    classroomId
   });
   response.json(report);
 });
